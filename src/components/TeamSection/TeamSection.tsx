@@ -27,7 +27,7 @@ const teamData: TeamMember[] = [
   {
     name: "Chandra",
     role: "Machine Learning",
-    imageUrl: "",
+    imageUrl: "/Tim/chandra.png",
     bgColor: "#CDDC39",
   },
   {
