@@ -39,7 +39,7 @@ const teamData: TeamMember[] = [
   {
     name: "Raden",
     role: "Machine Learning",
-    imageUrl: "",
+    imageUrl: "/Tim/raden.png",
     bgColor: "#FFEB3B",
   },
   {
