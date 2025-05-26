@@ -1,0 +1,91 @@
+.teamSection {
+  padding: 100px 0;
+  background-color: #fff;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+/* Bagian yang diubah untuk menghilangkan blur */
+.horizontalScrollWrapper {
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.horizontalScrollContent {
+  display: flex;
+  gap: 24px;
+  width: calc((250px + 24px) * 12);
+  animation: scroll 40s linear infinite;
+}
+
+.horizontalScrollContent:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.teamCard {
+  flex: 0 0 250px;
+  height: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: flex-end;
+}
+
+.teamCard::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 2;
+}
+
+.teamPhoto {
+  object-fit: cover;
+  z-index: 1;
+}
+
+.teamInfoOverlay {
+  position: relative;
+  z-index: 3;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.teamInfoOverlay h4 {
+  margin: 0 0 4px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.teamInfoOverlay p {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}

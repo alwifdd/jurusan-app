@@ -1,0 +1,57 @@
+.section {
+  padding: 100px 0;
+  background-color: #fff;
+}
+.sectionTitle {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 50px;
+  color: var(--text-dark);
+}
+.stepsContainer {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.stepCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 320px;
+}
+.stepNumber {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #bee3db;
+  color: #008b6f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.stepText h4 {
+  margin: 0 0 8px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.stepText p {
+  margin: 0;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+.sectionButton {
+  background-color: var(--primary-yellow);
+  color: var(--text-dark);
+  padding: 16px 40px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: inline-block;
+  box-shadow: 0 4px 14px 0 rgba(251, 191, 36, 0.3);
+}

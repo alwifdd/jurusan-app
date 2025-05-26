@@ -1,0 +1,79 @@
+/* File: src/components/styles/HeroSection.module.css */
+
+.heroWrapper {
+  text-align: center;
+  padding: 40px 20px 60px; /* Padding atas, kiri-kanan, bawah */
+}
+
+.userCount {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #fff;
+  padding: 8px 16px;
+  border-radius: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.avatarStack {
+  display: flex;
+}
+
+.avatarImage {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  margin-left: -12px;
+  object-fit: cover;
+}
+
+.avatarStack .avatarImage:first-child {
+  margin-left: 0;
+}
+
+.heroTitle {
+  font-size: 4.2rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text-dark);
+  margin: 0 auto 24px; /* Tambahkan margin bawah untuk jarak ke subtitle */
+  max-width: 850px;
+
+  /* --- INI PENAMBAHAN PENTING UNTUK STABILITAS LAYOUT --- */
+  min-height: 10rem; /* Perkiraan untuk 2 baris teks (4.2rem * 1.15 * 2 baris = ~9.66rem). Sesuaikan jika perlu! */
+  /* ------------------------------------------------------ */
+
+  /* Optional: Jika ingin teks selalu di tengah vertikal dalam area min-height, 
+     dan jika TypeAnimation dibungkus div terpisah. Untuk sekarang, min-height saja cukup.
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  */
+}
+
+.heroSubtitle {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  max-width: 600px;
+  /* margin atas disesuaikan karena .heroTitle sudah punya margin-bottom */
+  margin: 0 auto 40px;
+}
+
+.heroButton {
+  background-color: var(--primary-yellow);
+  color: var(--text-dark);
+  padding: 16px 40px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: inline-block;
+  box-shadow: 0 4px 14px 0 rgba(251, 191, 36, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.heroButton:hover {
+  transform: translateY(-3px);
+}

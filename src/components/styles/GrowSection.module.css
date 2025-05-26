@@ -1,0 +1,120 @@
+.growSection {
+  padding: 100px 0;
+  background-color: var(--light-blue);
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px; /* Tambah jarak ke slider */
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.sectionTitle {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.navButton {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.navButton:hover {
+  background-color: var(--text-dark);
+  color: #fff;
+}
+.navButton:active {
+  transform: scale(0.9);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+.counter {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.sliderViewport {
+  overflow: hidden;
+  border-radius: 30px; /* Sudut viewport slider */
+}
+
+.sliderContainer {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  flex: 0 0 100%; /* Setiap slide lebarnya 100% dari viewport */
+  box-sizing: border-box;
+}
+
+.growCard {
+  width: 100%;
+  min-height: 580px; /* Dibuat lebih tinggi */
+  padding: 40px;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column; /* GAMBAR DI ATAS, TEKS DI BAWAH */
+  align-items: center; /* Konten di tengah secara horizontal */
+  text-align: center; /* Teks di tengah */
+  box-sizing: border-box;
+}
+.cardBlue {
+  background-color: #0052ff;
+}
+.cardPink {
+  background-color: #e75a85;
+}
+.cardGreen {
+  background-color: #008b6f;
+}
+
+.imageContainer {
+  width: 100%; /* Gambar bisa lebih lebar */
+  max-width: 450px; /* Batas lebar gambar */
+  height: 250px;
+  position: relative;
+  margin-bottom: 30px; /* Jarak antara gambar dan teks */
+}
+
+.textContainer {
+  max-width: 550px; /* Batasi lebar blok teks */
+}
+.textContainer h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.textContainer p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 30px; /* Jarak ke tombol */
+  line-height: 1.6;
+}
+.cardButton {
+  background-color: #fff;
+  color: var(--text-dark);
+  padding: 12px 30px; /* Tombol sedikit lebih besar */
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  display: inline-block;
+}

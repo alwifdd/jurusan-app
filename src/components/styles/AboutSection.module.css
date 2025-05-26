@@ -1,0 +1,28 @@
+.section {
+  padding: 100px 0;
+  background-color: var(--light-blue);
+}
+.aboutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+.textContainer {
+  max-width: 550px;
+}
+.sectionTitle {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: var(--text-dark);
+}
+.textContainer p {
+  color: var(--text-light);
+  line-height: 1.8;
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+}
+.imageContainer {
+  flex-shrink: 0;
+}
