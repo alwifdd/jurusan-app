@@ -1,14 +1,14 @@
-/* File: src/components/styles/HeroSection.module.css */
+/* src/components/styles/HeroSection.module.css */
 
 .heroWrapper {
   text-align: center;
-  padding: 40px 20px 60px; /* Padding atas, kiri-kanan, bawah */
+  padding: 40px 20px 60px;
 }
 
 .userCount {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background-color: #fff;
   padding: 8px 16px;
   border-radius: 30px;
@@ -27,38 +27,46 @@
   border: 2px solid #fff;
   margin-left: -12px;
   object-fit: cover;
+  width: 32px;
+  height: 32px;
 }
 
 .avatarStack .avatarImage:first-child {
   margin-left: 0;
 }
 
+/* --- DESKTOP STYLES --- */
 .heroTitle {
   font-size: 4.2rem;
   font-weight: 800;
   line-height: 1.15;
   color: var(--text-dark);
-  margin: 0 auto 24px; /* Tambahkan margin bawah untuk jarak ke subtitle */
   max-width: 850px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  margin: 0 auto 12px; /* Jarak ke subtitle. SESUAIKAN (misal 10px - 16px) */
+  /* min-height untuk ~2 baris (font 4.2rem, line-height 1.15) */
+  /* 1.15 (line-height) * 2 (baris) = 2.3. Satuan 'em' relatif thd font-size elemen ini. */
+  min-height: calc(1.15em * 2.1); /* Cukup untuk ~2.1 baris. SESUAIKAN! */
+}
 
-  /* --- INI PENAMBAHAN PENTING UNTUK STABILITAS LAYOUT --- */
-  min-height: 10rem; /* Perkiraan untuk 2 baris teks (4.2rem * 1.15 * 2 baris = ~9.66rem). Sesuaikan jika perlu! */
-  /* ------------------------------------------------------ */
-
-  /* Optional: Jika ingin teks selalu di tengah vertikal dalam area min-height, 
-     dan jika TypeAnimation dibungkus div terpisah. Untuk sekarang, min-height saja cukup.
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
-  */
+.typeAnimationWrapper {
+  display: inline-block; /* Agar bisa flow setelah teks statis */
+  text-align: left; /* Teks animasi rata kiri di dalam wrappernya */
+  vertical-align: bottom; /* Coba 'middle' atau 'top' jika perlu */
+  /* Beri lebar cukup untuk teks animasi terpanjang di desktop */
+  min-width: 500px; /* SESUAIKAN dengan teks terpanjang Anda */
+  max-width: 100%;
+  /* min-height untuk 1 baris teks animasi (atau 2 jika animasi Anda panjang) */
+  min-height: calc(1.15em * 1.1); /* Cukup untuk ~1.1 baris. SESUAIKAN! */
 }
 
 .heroSubtitle {
   font-size: 1.1rem;
   color: var(--text-light);
   max-width: 600px;
-  /* margin atas disesuaikan karena .heroTitle sudah punya margin-bottom */
   margin: 0 auto 40px;
+  line-height: 1.6;
 }
 
 .heroButton {
@@ -76,4 +84,90 @@
 
 .heroButton:hover {
   transform: translateY(-3px);
+}
+
+/* --- Media Query untuk Tablet (max-width: 768px) --- */
+@media (max-width: 768px) {
+  .userCount {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    margin-bottom: 20px;
+  }
+
+  .heroTitle {
+    font-size: 2.6rem;
+    line-height: 1.2;
+    margin-bottom: 10px; /* Jarak untuk tablet. SESUAIKAN! */
+    /* min-height untuk total 2 baris (statis + animasi) */
+    min-height: calc(1.2em * 2.1); /* Cukup untuk ~2.1 baris. SESUAIKAN! */
+  }
+
+  .typeAnimationWrapper {
+    display: block; /* Paksa jadi blok baru di bawah teks statis */
+    width: 100%; /* Ambil lebar penuh dari parent (h1) */
+    text-align: center; /* Teks animasi terpusat */
+    min-width: auto; /* Tidak perlu min-width absolut di sini */
+    /* min-height untuk 1 baris teks animasi (atau 2 jika perlu) */
+    min-height: calc(1.2em * 1.1); /* Cukup untuk ~1.1 baris. SESUAIKAN! */
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+    max-width: 90%;
+    margin-top: 8px; /* Sedikit jarak dari title yang sekarang 2 baris */
+    margin-bottom: 36px;
+  }
+  .heroButton {
+    padding: 14px 30px;
+    font-size: 1rem;
+  }
+}
+
+/* --- Media Query untuk Mobile (max-width: 480px) --- */
+@media (max-width: 480px) {
+  .heroWrapper {
+    padding: 30px 15px 40px;
+  }
+  .userCount {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .avatarImage {
+    width: 28px;
+    height: 28px;
+    margin-left: -10px;
+  }
+
+  .heroTitle {
+    font-size: 1.7rem; /* PERKECIL FONT agar animasi muat 1 baris. SESUAIKAN! */
+    line-height: 1.3;
+    margin-bottom: 8px; /* Jarak untuk mobile. SESUAIKAN! */
+    /* min-height untuk total 2 baris (statis + animasi) */
+    min-height: calc(1.3em * 2.3);
+  }
+
+  .typeAnimationWrapper {
+    display: block; /* Paksa jadi blok baru di bawah teks statis */
+    width: 100%; /* Ambil lebar penuh dari parent (h1) */
+    text-align: center; /* Teks animasi terpusat */
+    min-width: auto;
+    /* min-height untuk 1 baris teks animasi. */
+    min-height: calc(1.3em * 1.3); /* Cukup untuk ~1.1 baris. SESUAIKAN! */
+  }
+
+  .heroSubtitle {
+    font-size: 0.85rem;
+    max-width: 95%;
+    margin-top: 6px; /* Sedikit jarak dari title */
+    margin-bottom: 30px;
+  }
+  .heroButton {
+    width: 80%;
+    max-width: 280px;
+    padding: 15px;
+    font-size: 0.95rem;
+  }
 }

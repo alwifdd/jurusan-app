@@ -48,30 +48,11 @@ const GrowSection = () => {
 
   return (
     <section className={styles.growSection}>
-      <div className="container">
+      <div className={`container ${styles.sliderAreaWrapper}`}>
         {" "}
-        {/* Container untuk header dan viewport slider */}
+        {/* .sliderAreaWrapper punya position: relative */}
         <div className={styles.header}>
           <h2 className={styles.sectionTitle}>Grow with your type</h2>
-          <div className={styles.controls}>
-            <button
-              onClick={() => handleNavClick("prev")}
-              className={styles.navButton}
-            >
-              {" "}
-              &lt;{" "}
-            </button>
-            <span className={styles.counter}>
-              {currentIndex + 1} / {totalSlides}
-            </span>
-            <button
-              onClick={() => handleNavClick("next")}
-              className={styles.navButton}
-            >
-              {" "}
-              &gt;{" "}
-            </button>
-          </div>
         </div>
         <div className={styles.sliderViewport}>
           <div
@@ -81,13 +62,12 @@ const GrowSection = () => {
             {growData.map((card, index) => (
               <div key={index} className={styles.slide}>
                 <div className={`${styles.growCard} ${card.cardClass}`}>
-                  {/* Struktur internal kartu: gambar di atas, teks di bawah */}
                   <div className={styles.imageContainer}>
                     <Image
                       src={card.imageSrc}
                       alt={card.title}
-                      width={400}
-                      height={250}
+                      width={400} // Akan disesuaikan oleh CSS di mobile
+                      height={250} // Akan disesuaikan oleh CSS di mobile
                       style={{ objectFit: "contain" }}
                     />
                   </div>
@@ -102,6 +82,26 @@ const GrowSection = () => {
               </div>
             ))}
           </div>
+        </div>
+        {/* Tombol navigasi sekarang di sini, sebagai anak langsung dari .sliderAreaWrapper */}
+        <div className={styles.controls}>
+          <button
+            onClick={() => handleNavClick("prev")}
+            className={styles.navButton}
+          >
+            {" "}
+            &lt;{" "}
+          </button>
+          <span className={styles.counter}>
+            {currentIndex + 1} / {totalSlides}
+          </span>
+          <button
+            onClick={() => handleNavClick("next")}
+            className={styles.navButton}
+          >
+            {" "}
+            &gt;{" "}
+          </button>
         </div>
       </div>
     </section>

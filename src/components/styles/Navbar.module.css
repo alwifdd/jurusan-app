@@ -11,6 +11,7 @@
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 50px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  position: relative; /* Tambahkan ini agar menu mobile bisa diposisikan absolut terhadap navbar */
 }
 
 .navLogo {
@@ -22,10 +23,12 @@
   padding: 4px 12px;
   border-radius: 20px;
 }
+
 .logoMbti {
   font-weight: 700;
   color: var(--text-dark);
 }
+
 .logoText {
   font-size: 0.6rem;
   font-weight: 600;
@@ -33,10 +36,18 @@
   letter-spacing: 0.5px;
 }
 
+/* Wrapper untuk link dan tombol, default untuk desktop */
+.navLinksWrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Jarak antara .navLinks dan .navButton di desktop */
+}
+
 .navLinks {
   display: flex;
   gap: 30px;
 }
+
 .navLinks a {
   text-decoration: none;
   color: var(--text-dark);
@@ -52,4 +63,97 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+/* Tombol Hamburger - Defaultnya disembunyikan */
+.hamburgerButton {
+  display: none; /* Sembunyikan di desktop */
+  background: none;
+  border: none;
+  font-size: 2rem; /* Ukuran ikon hamburger */
+  color: var(--text-dark);
+  cursor: pointer;
+  z-index: 1001; /* Pastikan di atas konten lain saat menu mobile terbuka */
+}
+
+/* --- Media Query untuk Mobile (misalnya, di bawah 768px) --- */
+@media (max-width: 768px) {
+  .hamburgerButton {
+    display: block; /* Tampilkan tombol hamburger di mobile */
+  }
+
+  .navLinksWrapper {
+    /* Style untuk menu mobile yang terbuka */
+    display: none; /* Sembunyikan wrapper link secara default di mobile */
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 100%; /* Mulai dari bawah navbar */
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95); /* Background untuk menu mobile */
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 1000;
+    gap: 0; /* Reset gap dari desktop */
+  }
+
+  .navLinksWrapper.mobileMenuOpen {
+    display: flex; /* Tampilkan ketika menu mobile terbuka */
+  }
+
+  .navLinks {
+    flex-direction: column; /* Susun link secara vertikal */
+    align-items: center;
+    width: 100%;
+    gap: 0; /* Reset gap */
+  }
+
+  .navLinks a {
+    padding: 15px 0; /* Beri padding agar mudah diklik */
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color); /* Garis pemisah antar link */
+  }
+
+  .navLinks a:last-child {
+    border-bottom: none; /* Hapus border untuk link terakhir */
+  }
+
+  .navButton {
+    /* Style ulang tombol Sign In untuk mobile menu jika perlu */
+    margin-top: 20px; /* Beri jarak dari link terakhir */
+    width: calc(100% - 40px); /* Lebar tombol di mobile */
+    box-sizing: border-box;
+  }
+
+  .navButtonMobile {
+    /* Ini adalah kelas tambahan yang kita buat di JSX */
+    /* Jika Anda ingin style khusus untuk tombol ini saat di menu mobile,
+       misalnya agar tidak terlalu menonjol seperti di desktop,
+       Anda bisa tambahkan di sini. Atau biarkan sama dengan .navButton.
+       Contoh:
+       background-color: transparent;
+       color: var(--primary-blue);
+       border: 1px solid var(--primary-blue); 
+    */
+  }
+}
+
+/* Optional: Jika logo teks terlalu panjang di mobile kecil */
+@media (max-width: 480px) {
+  .logoText {
+    display: none; /* Sembunyikan teks tambahan di logo pada layar sangat kecil */
+  }
+
+  .navLogo {
+    padding: 6px 10px; /* Sesuaikan padding logo */
+  }
+
+  .hamburgerButton {
+    font-size: 1.8rem; /* Kecilkan sedikit ikon hamburger */
+  }
 }

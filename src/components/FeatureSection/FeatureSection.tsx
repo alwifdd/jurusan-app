@@ -31,11 +31,13 @@ const FeatureSection = () => {
           <motion.div
             key={index}
             className={styles.featureCard}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 50 }} // State awal (tersembunyi, sedikit di bawah)
+            whileInView={{ opacity: 1, y: 0 }} // State ketika elemen terlihat di viewport
             transition={{ duration: 0.5, delay: index * 0.2 }}
-            // --- DIUBAH DI SINI: `once: true` sudah dihapus ---
-            viewport={{ amount: 0.3 }}
+            viewport={{
+              amount: 0.5, // Elemen dianggap 'in view' jika 50% terlihat. Sesuaikan jika perlu.
+              // once: true, // <--- BARIS INI DIHAPUS atau dijadikan false
+            }}
           >
             <div className={styles.imageContainer}>
               <Image

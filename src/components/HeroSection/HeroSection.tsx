@@ -2,30 +2,27 @@
 import React from "react";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
-import { motion } from "framer-motion"; // <-- IMPORT MOTION
+import { motion } from "framer-motion";
 import styles from "@/components/styles/HeroSection.module.css";
 
-// --- VARIAN ANIMASI BARU ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2, // Memberi jeda antar animasi anak-anaknya
+      staggerChildren: 0.2,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { y: 20, opacity: 0 }, // Mulai dari 20px di bawah dan transparan
-  visible: { y: 0, opacity: 1 }, // Kembali ke posisi asli dan terlihat
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
 };
-// ----------------------------
 
 const HeroSection = () => {
   return (
     <div className="container">
-      {/* Bungkus dengan motion.div dan terapkan varian animasi */}
       <motion.div
         className={styles.heroWrapper}
         variants={containerVariants}
@@ -61,20 +58,25 @@ const HeroSection = () => {
 
         <motion.h1 variants={itemVariants} className={styles.heroTitle}>
           Bingung nentuin arah{" "}
-          <TypeAnimation
-            sequence={[
-              "minat dan potensimu?",
-              2000,
-              "karir masa depanmu?",
-              2000,
-              "jurusan kuliahmu?",
-              2000,
-            ]}
-            wrapper="span"
-            speed={50}
-            repeat={Infinity}
-            cursor={true}
-          />
+          <span className={styles.typeAnimationWrapper}>
+            {" "}
+            {/* Wrapper baru */}
+            <TypeAnimation
+              sequence={[
+                "minat dan potensimu?",
+                2000,
+                "karir masa depanmu?",
+                2000,
+                "jurusan kuliahmu?",
+                2000,
+              ]}
+              wrapper="span" // Ini penting, TypeAnimation akan dirender sebagai span
+              speed={50}
+              repeat={Infinity}
+              cursor={true}
+              className={styles.actualTypeAnimation} // Kelas untuk TypeAnimation itu sendiri
+            />
+          </span>
         </motion.h1>
 
         <motion.p variants={itemVariants} className={styles.heroSubtitle}>

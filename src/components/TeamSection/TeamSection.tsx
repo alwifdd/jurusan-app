@@ -15,37 +15,37 @@ const teamData: TeamMember[] = [
   {
     name: "Naufal",
     role: "Machine Learning",
-    imageUrl: "/Tim/naufal.png",
+    imageUrl: "/tim/naufal.png",
     bgColor: "#4CAF50",
   },
   {
     name: "Alwi",
     role: "Fullstack Dev",
-    imageUrl: "/Tim/alwi.png",
+    imageUrl: "/tim/alwi.png",
     bgColor: "#FF9800",
   },
   {
     name: "Chandra",
     role: "Machine Learning",
-    imageUrl: "/Tim/chandra.png",
+    imageUrl: "/tim/chandra.png",
     bgColor: "#CDDC39",
   },
   {
     name: "Elang",
     role: "Fullstack Dev",
-    imageUrl: "/Tim/Elang.png",
+    imageUrl: "/tim/elang.png",
     bgColor: "#607D8B",
   },
   {
     name: "Raden",
     role: "Machine Learning",
-    imageUrl: "/Tim/raden.png",
+    imageUrl: "/tim/raden.png",
     bgColor: "#FFEB3B",
   },
   {
     name: "Rafa",
     role: "Fullstack Dev",
-    imageUrl: "/Tim/rafa.png",
+    imageUrl: "/tim/rafa.png",
     bgColor: "#E91E63",
   },
 ];
