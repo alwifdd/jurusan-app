@@ -66,8 +66,8 @@ const GrowSection = () => {
                     <Image
                       src={card.imageSrc}
                       alt={card.title}
-                      width={400} // Akan disesuaikan oleh CSS di mobile
-                      height={250} // Akan disesuaikan oleh CSS di mobile
+                      width={400}
+                      height={250}
                       style={{ objectFit: "contain" }}
                     />
                   </div>

@@ -11,7 +11,7 @@
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 50px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-  position: relative; /* Tambahkan ini agar menu mobile bisa diposisikan absolut terhadap navbar */
+  position: relative;
 }
 
 .navLogo {
@@ -73,13 +73,13 @@
   font-size: 2rem; /* Ukuran ikon hamburger */
   color: var(--text-dark);
   cursor: pointer;
-  z-index: 1001; /* Pastikan di atas konten lain saat menu mobile terbuka */
+  z-index: 1001;
 }
 
 /* --- Media Query untuk Mobile (misalnya, di bawah 768px) --- */
 @media (max-width: 768px) {
   .hamburgerButton {
-    display: block; /* Tampilkan tombol hamburger di mobile */
+    display: block;
   }
 
   .navLinksWrapper {
@@ -113,10 +113,10 @@
   }
 
   .navLinks a {
-    padding: 15px 0; /* Beri padding agar mudah diklik */
+    padding: 15px 0; /* padding agar mudah diklik */
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid var(--border-color); /* Garis pemisah antar link */
+    border-bottom: 1px solid var(--border-color);
   }
 
   .navLinks a:last-child {
@@ -131,29 +131,19 @@
   }
 
   .navButtonMobile {
-    /* Ini adalah kelas tambahan yang kita buat di JSX */
-    /* Jika Anda ingin style khusus untuk tombol ini saat di menu mobile,
-       misalnya agar tidak terlalu menonjol seperti di desktop,
-       Anda bisa tambahkan di sini. Atau biarkan sama dengan .navButton.
-       Contoh:
-       background-color: transparent;
-       color: var(--primary-blue);
-       border: 1px solid var(--primary-blue); 
-    */
   }
 }
 
-/* Optional: Jika logo teks terlalu panjang di mobile kecil */
 @media (max-width: 480px) {
   .logoText {
-    display: none; /* Sembunyikan teks tambahan di logo pada layar sangat kecil */
+    display: none;
   }
 
   .navLogo {
-    padding: 6px 10px; /* Sesuaikan padding logo */
+    padding: 6px 10px;
   }
 
   .hamburgerButton {
-    font-size: 1.8rem; /* Kecilkan sedikit ikon hamburger */
+    font-size: 1.8rem;
   }
 }
