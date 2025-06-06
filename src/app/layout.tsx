@@ -1,6 +1,8 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import AuthSessionProvider from "./components/AuthSessionProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -19,7 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <AuthSessionProvider>
+          {" "}
+          {/* <--- BUNGKUS DENGAN INI */}
+          {children}
+        </AuthSessionProvider>
+      </body>
     </html>
   );
 }

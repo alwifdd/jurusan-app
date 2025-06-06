@@ -202,3 +202,173 @@
   object-fit: contain;
   margin-top: -5rem;
 }
+
+/* src/app/register/register.module.css */
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Ambil tinggi viewport */
+  padding: 20px;
+  background-color: #f9f9f9; /* Contoh warna latar */
+}
+
+.formWrapper {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px; /* Batasi lebar form */
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Jarak antar form group */
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-dark);
+}
+
+.input {
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.submitButton {
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover {
+  background-color: #2563eb; /* Warna hover sedikit lebih gelap */
+}
+
+.submitButton:disabled {
+  background-color: #93c5fd; /* Warna saat disabled */
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  color: red;
+  background-color: #ffebee;
+  border: 1px solid red;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.successMessage {
+  color: green;
+  background-color: #e8f5e9;
+  border: 1px solid green;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.bottomText {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.link {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+/* register.module.css atau globals.css jika ingin global */
+
+.passwordInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordInputContainer .input {
+  /* Atau .input saja jika sudah global */
+  padding-right: 40px; /* Sesuaikan dengan lebar tombol */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.togglePasswordButton {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: #888;
+  font-size: 1.2rem; /* Sesuaikan ukuran ikon/emoji */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.togglePasswordButton:hover {
+  color: #333;
+}
+
+.togglePasswordButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Pastikan juga ada style untuk .errorMessage, .successMessage, dll. */
+.errorMessage {
+  /* ... */
+}
+.successMessage {
+  /* ... */
+}
