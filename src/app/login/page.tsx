@@ -1,20 +1,25 @@
-// src/app/login/page.tsx
+// File: src/app/login/page.tsx
+
 "use client";
 
 import React, { useState, FormEvent } from "react";
-import { signIn } from "next-auth/react"; // signIn sudah diimport
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation"; // <-- 1. IMPORT useSearchParams
 import Link from "next/link";
 import styles from "./login.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams(); // <-- 2. GUNAKAN useSearchParams
+  const callbackUrl = searchParams.get("callbackUrl") || "/"; // <-- 3. AMBIL callbackUrl, JIKA TIDAK ADA, DEFAULT KE HOME ('/')
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // --- Logika untuk login dengan email/password ---
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
@@ -25,7 +30,9 @@ export default function LoginPage() {
         email,
         password,
       });
+
       setIsLoading(false);
+
       if (result?.error) {
         setError(
           result.error === "CredentialsSignin"
@@ -33,47 +40,31 @@ export default function LoginPage() {
             : result.error
         );
       } else if (result?.ok) {
-        router.push("/");
-      } else {
-        setError("Login gagal. Silakan coba lagi.");
+        // --- 4. PERUBAHAN DI SINI ---
+        router.push(callbackUrl); // Arahkan ke callbackUrl, bukan ke "/"
+        // -------------------------
       }
     } catch (err) {
       setIsLoading(false);
-      console.error("Login catch error:", err);
       setError("Terjadi kesalahan. Silakan coba lagi.");
     }
+  };
+
+  // --- Logika untuk login dengan Google ---
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    setError(null);
+    // --- 5. PERUBAHAN DI SINI ---
+    // Gunakan callbackUrl yang sudah kita ambil dari URL
+    signIn("google", { callbackUrl: callbackUrl });
+    // -------------------------
   };
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    setError(null);
-    // Panggil signIn dengan provider 'google'
-    // NextAuth.js akan menangani redirect ke Google dan callback-nya
-    try {
-      const result = await signIn("google", { callbackUrl: "/" }); // Redirect ke home setelah sukses
-      // Jika ada error saat proses signIn (misalnya user cancel atau popup diblock), result.error akan terisi
-      // Untuk OAuth, jika redirect berhasil, halaman akan berganti, jadi setIsLoading(false) mungkin tidak tereksekusi di sini
-      // jika redirect terjadi. Error biasanya ditangani di halaman error NextAuth atau callbackUrl.
-      if (result?.error) {
-        setError("Gagal login dengan Google: " + result.error);
-        setIsLoading(false); // Set false jika ada error dan tidak redirect
-      } else if (result?.ok && !result.url) {
-        // Jika ok tapi tidak ada url (artinya tidak redirect, mungkin jarang terjadi untuk Google OAuth flow standar)
-        setIsLoading(false);
-      }
-      // Jika result.ok dan ada result.url, redirect akan terjadi otomatis oleh signIn
-      // Jika tidak, dan result.ok, maka sudah berhasil dan setIsLoading(false) di atas sudah cukup
-    } catch (err) {
-      setIsLoading(false);
-      console.error("Google Sign-In catch error:", err);
-      setError("Terjadi kesalahan saat mencoba login dengan Google.");
-    }
-  };
-
+  // --- Bagian JSX tidak ada perubahan, hanya menyalin ulang ---
   return (
     <div className={styles.pageContainer}>
       <div className={styles.content}>
@@ -144,13 +135,11 @@ export default function LoginPage() {
               className={styles.primaryButton}
               disabled={isLoading}
             >
-              {isLoading && email && password ? "Memproses..." : "Login"}{" "}
-              {/* Sedikit penyesuaian teks loading */}
+              {isLoading ? "Memproses..." : "Login"}
             </button>
             <div className={styles.separator}>
               <span>or</span>
             </div>
-
             <button
               type="button"
               className={styles.googleButton}
@@ -161,7 +150,6 @@ export default function LoginPage() {
               <span>Sign in with Google</span>
             </button>
           </form>
-
           <p className={styles.bottomText}>
             Don&apos;t have an account?{" "}
             <Link href="/register" className={styles.link}>

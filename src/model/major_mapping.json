@@ -1,0 +1,274 @@
+{
+  "INTJ": {
+    "majors": [
+      "Teknik Informatika",
+      "Matematika",
+      "Arsitektur"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe INTJ",
+      "Dipilih oleh 218/218 responden dengan tipe INTJ",
+      "Dipilih oleh 218/218 responden dengan tipe INTJ"
+    ]
+  },
+  "INTP": {
+    "majors": [
+      "Teknik Informatika",
+      "Fisika",
+      "Matematika"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe INTP",
+      "Dipilih oleh 218/218 responden dengan tipe INTP",
+      "Dipilih oleh 218/218 responden dengan tipe INTP"
+    ]
+  },
+  "ENTJ": {
+    "majors": [
+      "Manajemen",
+      "Hukum",
+      "Teknik Industri"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ENTJ",
+      "Dipilih oleh 218/218 responden dengan tipe ENTJ",
+      "Dipilih oleh 218/218 responden dengan tipe ENTJ"
+    ]
+  },
+  "ENTP": {
+    "majors": [
+      "Teknik Informatika",
+      "Marketing",
+      "Psikologi"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ENTP",
+      "Dipilih oleh 218/218 responden dengan tipe ENTP",
+      "Dipilih oleh 218/218 responden dengan tipe ENTP"
+    ]
+  },
+  "INFJ": {
+    "majors": [
+      "Psikologi",
+      "Konseling",
+      "Pendidikan"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe INFJ",
+      "Dipilih oleh 218/218 responden dengan tipe INFJ",
+      "Dipilih oleh 218/218 responden dengan tipe INFJ"
+    ]
+  },
+  "INFP": {
+    "majors": [
+      "Psikologi",
+      "Sastra",
+      "Seni Rupa"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe INFP",
+      "Dipilih oleh 218/218 responden dengan tipe INFP",
+      "Dipilih oleh 218/218 responden dengan tipe INFP"
+    ]
+  },
+  "ENFJ": {
+    "majors": [
+      "Pendidikan",
+      "Psikologi",
+      "Komunikasi"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ENFJ",
+      "Dipilih oleh 218/218 responden dengan tipe ENFJ",
+      "Dipilih oleh 218/218 responden dengan tipe ENFJ"
+    ]
+  },
+  "ENFP": {
+    "majors": [
+      "Komunikasi",
+      "Marketing",
+      "Psikologi"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ENFP",
+      "Dipilih oleh 218/218 responden dengan tipe ENFP",
+      "Dipilih oleh 218/218 responden dengan tipe ENFP"
+    ]
+  },
+  "ISTJ": {
+    "majors": [
+      "Akuntansi",
+      "Hukum",
+      "Administrasi"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ISTJ",
+      "Dipilih oleh 218/218 responden dengan tipe ISTJ",
+      "Dipilih oleh 218/218 responden dengan tipe ISTJ"
+    ]
+  },
+  "ISFJ": {
+    "majors": [
+      "Keperawatan",
+      "Pendidikan",
+      "Psikologi"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ISFJ",
+      "Dipilih oleh 218/218 responden dengan tipe ISFJ",
+      "Dipilih oleh 218/218 responden dengan tipe ISFJ"
+    ]
+  },
+  "ESTJ": {
+    "majors": [
+      "Manajemen",
+      "Akuntansi",
+      "Hukum"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ESTJ",
+      "Dipilih oleh 218/218 responden dengan tipe ESTJ",
+      "Dipilih oleh 218/218 responden dengan tipe ESTJ"
+    ]
+  },
+  "ESFJ": {
+    "majors": [
+      "Pendidikan",
+      "Keperawatan",
+      "Komunikasi"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ESFJ",
+      "Dipilih oleh 218/218 responden dengan tipe ESFJ",
+      "Dipilih oleh 218/218 responden dengan tipe ESFJ"
+    ]
+  },
+  "ISTP": {
+    "majors": [
+      "Teknik Mesin",
+      "Teknik Informatika",
+      "Teknik Elektro"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ISTP",
+      "Dipilih oleh 218/218 responden dengan tipe ISTP",
+      "Dipilih oleh 218/218 responden dengan tipe ISTP"
+    ]
+  },
+  "ISFP": {
+    "majors": [
+      "Seni Rupa",
+      "Desain Interior",
+      "Musik"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ISFP",
+      "Dipilih oleh 218/218 responden dengan tipe ISFP",
+      "Dipilih oleh 218/218 responden dengan tipe ISFP"
+    ]
+  },
+  "ESTP": {
+    "majors": [
+      "Marketing",
+      "Olahraga",
+      "Bisnis"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ESTP",
+      "Dipilih oleh 218/218 responden dengan tipe ESTP",
+      "Dipilih oleh 218/218 responden dengan tipe ESTP"
+    ]
+  },
+  "ESFP": {
+    "majors": [
+      "Komunikasi",
+      "Seni Rupa",
+      "Marketing"
+    ],
+    "confidences": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reasoning": [
+      "Dipilih oleh 218/218 responden dengan tipe ESFP",
+      "Dipilih oleh 218/218 responden dengan tipe ESFP",
+      "Dipilih oleh 218/218 responden dengan tipe ESFP"
+    ]
+  }
+}

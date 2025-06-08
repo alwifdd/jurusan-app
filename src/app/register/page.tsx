@@ -4,7 +4,7 @@
 import React, { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import styles from "./register.module.css"; // Pastikan file CSS ini ada dan sesuai
+import styles from "./register.module.css";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -12,9 +12,11 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State untuk toggle password utama
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State untuk toggle konfirmasi password
-  // const [agree, setAgree] = useState(false); // Jika Anda ingin validasi checkbox
+
+  // State untuk visibilitas password
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,15 +32,9 @@ export default function RegisterPage() {
       setIsLoading(false);
       return;
     }
-    // TODO: Tambahkan validasi untuk checkbox 'agree' jika diperlukan
-    // if (!agree) {
-    //   setError("Anda harus menyetujui syarat dan kebijakan.");
-    //   setIsLoading(false);
-    //   return;
-    // }
 
     try {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch("/api/account/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,11 +50,6 @@ export default function RegisterPage() {
         setSuccess(
           "Registrasi berhasil! Anda akan diarahkan ke halaman login."
         );
-        setName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-        // setAgree(false);
         setTimeout(() => {
           router.push("/login");
         }, 2000);
@@ -71,45 +62,32 @@ export default function RegisterPage() {
     }
   };
 
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    alert("Fitur Sign in with Google akan segera hadir!");
-    setIsLoading(false);
-  };
+  // Tidak ada perubahan logika, hanya penambahan JSX di bawah
 
   return (
     <div className={styles.pageContainer}>
       <div className={styles.formWrapper}>
-        {" "}
-        {/* Menggunakan .formWrapper dari CSS Anda */}
-        <h1 className={styles.title}>Get Started Now</h1>{" "}
-        {/* Menggunakan .title dari CSS Anda */}
-        {/* Anda bisa menambahkan subtitle di sini jika mau */}
-        {/* <p className={styles.subtitle}>Daftarkan diri Anda...</p> */}
+        <h1 className={styles.title}>Buat Akun Baru</h1>
+        <p className={styles.subtitle}>
+          Daftarkan diri Anda untuk memulai perjalanan menemukan jurusan.
+        </p>
+
         <form onSubmit={handleSubmit} className={styles.form}>
           {success && <p className={styles.successMessage}>{success}</p>}
           {error && <p className={styles.errorMessage}>{error}</p>}
 
+          {/* ... (Input untuk Nama Lengkap dan Email tidak berubah) ... */}
           <div className={styles.formGroup}>
             <label htmlFor="name" className={styles.label}>
-              Name
+              Nama Lengkap
             </label>
             <input
               type="text"
               id="name"
-              name="name"
-              placeholder="Enter your name"
-              className={styles.input}
               value={name}
               onChange={(e) => setName(e.target.value)}
+              placeholder="Masukkan nama lengkap Anda"
+              className={styles.input}
               required
               disabled={isLoading}
             />
@@ -117,49 +95,42 @@ export default function RegisterPage() {
 
           <div className={styles.formGroup}>
             <label htmlFor="email" className={styles.label}>
-              Email address
+              Alamat Email
             </label>
             <input
               type="email"
               id="email"
-              name="email"
-              placeholder="Enter your email"
-              className={styles.input}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="contoh@email.com"
+              className={styles.input}
               required
               disabled={isLoading}
             />
           </div>
 
-          {/* Password */}
+          {/* ===== PERUBAHAN PADA INPUT PASSWORD ===== */}
           <div className={styles.formGroup}>
             <label htmlFor="password" className={styles.label}>
               Password
             </label>
             <div className={styles.passwordInputContainer}>
-              {" "}
-              {/* Wrapper untuk input dan tombol mata */}
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                name="password"
-                placeholder="Password"
-                className={styles.input}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="Minimal 6 karakter"
+                className={styles.input}
                 required
                 disabled={isLoading}
               />
-              {password.length > 0 && ( // Tombol mata muncul jika ada isi
+              {/* Tombol mata hanya muncul jika ada isi di kolom password */}
+              {password && (
                 <button
                   type="button"
-                  onClick={toggleShowPassword}
                   className={styles.togglePasswordButton}
-                  aria-label={
-                    showPassword ? "Sembunyikan password" : "Tampilkan password"
-                  }
-                  disabled={isLoading}
+                  onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? "🙈" : "👁️"}
                 </button>
@@ -167,36 +138,28 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* Konfirmasi Password */}
+          {/* ===== PERUBAHAN PADA INPUT KONFIRMASI PASSWORD ===== */}
           <div className={styles.formGroup}>
             <label htmlFor="confirmPassword" className={styles.label}>
-              Confirm Password
+              Konfirmasi Password
             </label>
             <div className={styles.passwordInputContainer}>
-              {" "}
-              {/* Wrapper untuk input dan tombol mata */}
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Confirm your password"
-                className={styles.input}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Ulangi password Anda"
+                className={styles.input}
                 required
                 disabled={isLoading}
               />
-              {confirmPassword.length > 0 && ( // Tombol mata muncul jika ada isi
+              {/* Tombol mata hanya muncul jika ada isi di kolom konfirmasi password */}
+              {confirmPassword && (
                 <button
                   type="button"
-                  onClick={toggleShowConfirmPassword}
                   className={styles.togglePasswordButton}
-                  aria-label={
-                    showConfirmPassword
-                      ? "Sembunyikan konfirmasi password"
-                      : "Tampilkan konfirmasi password"
-                  }
-                  disabled={isLoading}
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? "🙈" : "👁️"}
                 </button>
@@ -204,49 +167,19 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* Checkbox Terms & Policy */}
-          <div className={styles.checkboxGroup}>
-            <input
-              type="checkbox"
-              id="agree"
-              name="agree"
-              className={styles.checkbox}
-              // checked={agree} // Jika menggunakan state untuk 'agree'
-              // onChange={(e) => setAgree(e.target.checked)} // Jika menggunakan state
-              required
-              disabled={isLoading}
-            />
-            <label htmlFor="agree" className={styles.checkboxLabel}>
-              I agree to the terms &amp; policy
-            </label>
-          </div>
-
           <button
             type="submit"
-            className={styles.primaryButton}
+            className={styles.submitButton}
             disabled={isLoading}
           >
-            {isLoading ? "Signing up..." : "Signup"}
-          </button>
-
-          <div className={styles.separator}>
-            <span>or</span>
-          </div>
-
-          <button
-            type="button"
-            className={styles.googleButton}
-            onClick={handleGoogleSignIn}
-            disabled={isLoading}
-          >
-            <span className={styles.googleIcon}>G</span>
-            <span>Sign in with Google</span>
+            {isLoading ? "Mendaftar..." : "Daftar Sekarang"}
           </button>
         </form>
+
         <p className={styles.bottomText}>
-          Have an account?{" "}
+          Sudah punya akun?{" "}
           <Link href="/login" className={styles.link}>
-            Sign in
+            Login di sini
           </Link>
         </p>
       </div>

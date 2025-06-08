@@ -1,0 +1,57 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL") // <-- TAMBAHKAN BARIS INI
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  name          String?
+  email         String   @unique
+  password_hash String?
+  provider      String   @default("credentials")
+  provider_id   String?  @unique
+  image         String?  // <-- @db.Text sudah dihapus
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  answers       UserAnswer[]
+  results       QuizResult[]
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  text      String   // <-- @db.Text sudah dihapus
+  dimension String
+
+  answers   UserAnswer[]
+}
+
+model UserAnswer {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  questionId  Int
+  answerValue Int
+  createdAt   DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+}
+
+model QuizResult {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  mbtiType        String
+  recommendations Json
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

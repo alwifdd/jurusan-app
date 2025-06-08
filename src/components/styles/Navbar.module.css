@@ -145,7 +145,7 @@
 .profileDropdown {
   position: absolute;
   top: calc(100% + 12px);
-  right: 0; /* Default untuk desktop */
+  right: 0;
   width: 280px;
   background-color: #ffffff;
   border-radius: 12px;

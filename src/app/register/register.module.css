@@ -1,246 +1,49 @@
 /* src/app/register/register.module.css */
 
-/* ===== PAGE CONTAINER ===== */
+/* ===== 1. WADAH UTAMA HALAMAN ===== */
 .pageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100vh; /* Gunakan 100vh agar form selalu di tengah layar vertikal */
   padding: 2rem;
   background-color: #f9f9f9;
 }
 
-/* ===== CONTENT WRAPPER ===== */
-.content {
-  display: flex;
-  max-width: 1200px;
-  width: 100%;
-  background-color: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-/* ===== LEFT (FORM) ===== */
-.left {
-  flex: 1;
-  padding: 3rem 2rem;
-}
-
-/* Judul Halaman */
-.title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: #222222;
-}
-
-/* FORM WRAPPER */
-.form {
-  width: 100%;
-}
-
-/* Setiap Grup Form (label + input) */
-.formGroup {
-  margin-bottom: 1.5rem;
-}
-
-/* Label */
-.label {
-  display: block;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: #333333;
-}
-
-/* Input Text/Email/Password */
-.input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.input:focus {
-  border-color: #2563eb; /* biru muda ketika fokus */
-}
-
-/* Checkbox Group (checkbox + label) */
-.checkboxGroup {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.checkbox {
-  width: 1rem;
-  height: 1rem;
-  accent-color: #2563eb; /* warna checkbox */
-}
-
-.checkboxLabel {
-  margin-left: 0.5rem;
-  font-size: 0.94rem;
-  color: #4b5563;
-}
-
-/* Tombol Primary (Signup) */
-.primaryButton {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background-color: #fbcc04; /* kuning mirip desain */
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.primaryButton:hover {
-  background-color: #e6b003;
-}
-
-/* Separator “or” */
-.separator {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 1.75rem 0;
-  color: #9ca3af;
-  font-size: 0.9rem;
-}
-
-.separator::before,
-.separator::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background-color: #e5e7eb;
-}
-
-/* Jarak di antara garis dan teks “or” */
-.separator span {
-  padding: 0 0.75rem;
-}
-
-/* Tombol Google Sign-in */
-.googleButton {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #1f2937;
-  transition: background-color 0.2s, border-color 0.2s;
-}
-
-.googleButton:hover {
-  background-color: #f3f4f6;
-  border-color: #cbd5e1;
-}
-
-/* Placeholder untuk ikon Google */
-.googleIcon {
-  display: inline-block;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: 0.5rem;
-  background-color: #4285f4;
-  color: #ffffff;
-  border-radius: 50%;
-  font-size: 0.9rem;
-  font-weight: bold;
-  line-height: 1.25rem;
-  text-align: center;
-}
-
-/* Teks “Have an account? Sign in” */
-.bottomText {
-  margin-top: 1.5rem;
-  font-size: 0.94rem;
-  color: #6b7280;
-}
-
-.bottomText .link {
-  color: #2563eb;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.bottomText .link:hover {
-  color: #1e40af;
-}
-
-/* ===== RIGHT (ILUSTRASI) ===== */
-.right {
-  flex: 1;
-  background-color: #fffffffb;
-  display: flex;
-  align-items: center; /* ubah dari flex-end ke center */
-  justify-content: center; /* tetap center */
-  overflow: hidden;
-  padding: 1rem; /* jarak di sekeliling */
-}
-
-.illustration {
-  max-width: 80%; /* skala 80% dari wadah */
-  height: auto;
-  object-fit: contain;
-  margin-top: -5rem;
-}
-
-/* src/app/register/register.module.css */
-.pageContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh; /* Ambil tinggi viewport */
-  padding: 20px;
-  background-color: #f9f9f9; /* Contoh warna latar */
-}
-
+/* ===== 2. KOTAK FORMULIR UTAMA ===== */
 .formWrapper {
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 30px 40px;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 450px; /* Batasi lebar form */
+  max-width: 450px; /* Membatasi lebar form agar tidak terlalu besar di layar desktop */
 }
 
+/* ===== 3. JUDUL DAN SUBJUDUL ===== */
 .title {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--text-dark);
+  color: var(
+    --text-dark,
+    #1e293b
+  ); /* Menggunakan variabel dari globals.css dengan fallback */
   text-align: center;
   margin-bottom: 10px;
 }
 
 .subtitle {
   font-size: 0.95rem;
-  color: var(--text-light);
+  color: var(--text-light, #64748b);
   text-align: center;
   margin-bottom: 30px;
 }
 
+/* ===== 4. FORM DAN GRUP-GRUPNYA ===== */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Jarak antar form group */
+  gap: 20px; /* Memberi jarak antar setiap form group */
 }
 
 .formGroup {
@@ -248,29 +51,66 @@
   flex-direction: column;
 }
 
+/* ===== 5. LABEL DAN INPUT ===== */
 .label {
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 6px;
-  color: var(--text-dark);
+  color: var(--text-dark, #1e293b);
 }
 
 .input {
+  width: 100%;
   padding: 12px 15px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color, #e2e8f0);
   border-radius: 6px;
   font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  border-color: var(--primary-blue, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
+/* ===== 6. WADAH INPUT PASSWORD & IKON MATA (BARU) ===== */
+.passwordInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordInputContainer .input {
+  /* Memberi ruang di dalam input agar teks tidak tertutup ikon */
+  padding-right: 45px;
+  box-sizing: border-box;
+}
+
+.togglePasswordButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: #888;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.togglePasswordButton:hover {
+  color: #333;
+}
+
+/* ===== 7. TOMBOL SUBMIT (DAFTAR SEKARANG) - PERUBAHAN WARNA ===== */
 .submitButton {
-  background-color: var(--primary-blue);
-  color: white;
+  background-color: #fbcc04; /* Warna kuning sesuai permintaan */
+  color: #333; /* Warna teks gelap agar kontras */
   padding: 12px 15px;
   border: none;
   border-radius: 6px;
@@ -281,94 +121,50 @@
 }
 
 .submitButton:hover {
-  background-color: #2563eb; /* Warna hover sedikit lebih gelap */
+  background-color: #e6b003; /* Warna kuning lebih gelap saat hover */
 }
 
 .submitButton:disabled {
-  background-color: #93c5fd; /* Warna saat disabled */
+  background-color: #fde68a; /* Warna kuning pucat saat disabled */
+  color: #a1a1aa;
   cursor: not-allowed;
 }
 
+/* ===== 8. PESAN FEEDBACK (ERROR & SUKSES) ===== */
 .errorMessage {
-  color: red;
-  background-color: #ffebee;
-  border: 1px solid red;
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: 6px;
   text-align: center;
   font-size: 0.9rem;
 }
 
 .successMessage {
-  color: green;
-  background-color: #e8f5e9;
-  border: 1px solid green;
+  color: #166534;
+  background-color: #dcfce7;
+  border: 1px solid #86efac;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: 6px;
   text-align: center;
   font-size: 0.9rem;
 }
 
+/* ===== 9. TEKS BAWAH & LINK LOGIN ===== */
 .bottomText {
   text-align: center;
   margin-top: 25px;
   font-size: 0.9rem;
-  color: var(--text-light);
+  color: var(--text-light, #64748b);
 }
 
 .link {
-  color: var(--primary-blue);
+  color: var(--primary-blue, #3b82f6);
   text-decoration: none;
   font-weight: 600;
 }
 
 .link:hover {
   text-decoration: underline;
-}
-/* register.module.css atau globals.css jika ingin global */
-
-.passwordInputContainer {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.passwordInputContainer .input {
-  /* Atau .input saja jika sudah global */
-  padding-right: 40px; /* Sesuaikan dengan lebar tombol */
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.togglePasswordButton {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-  color: #888;
-  font-size: 1.2rem; /* Sesuaikan ukuran ikon/emoji */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.togglePasswordButton:hover {
-  color: #333;
-}
-
-.togglePasswordButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-/* Pastikan juga ada style untuk .errorMessage, .successMessage, dll. */
-.errorMessage {
-  /* ... */
-}
-.successMessage {
-  /* ... */
 }
