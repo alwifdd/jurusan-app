@@ -1,8 +1,10 @@
+// src/app/components/HeroSection/HeroSection.tsx
 "use client";
 import React from "react";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
+import Link from "next/link"; // Pastikan Link diimpor
 import styles from "@/components/styles/HeroSection.module.css";
 
 const containerVariants = {
@@ -59,8 +61,6 @@ const HeroSection = () => {
         <motion.h1 variants={itemVariants} className={styles.heroTitle}>
           Bingung nentuin arah{" "}
           <span className={styles.typeAnimationWrapper}>
-            {" "}
-            {/* Wrapper baru */}
             <TypeAnimation
               sequence={[
                 "minat dan potensimu?",
@@ -70,11 +70,11 @@ const HeroSection = () => {
                 "jurusan kuliahmu?",
                 2000,
               ]}
-              wrapper="span" // Ini penting, TypeAnimation akan dirender sebagai span
+              wrapper="span"
               speed={50}
               repeat={Infinity}
               cursor={true}
-              className={styles.actualTypeAnimation} // Kelas untuk TypeAnimation itu sendiri
+              className={styles.actualTypeAnimation}
             />
           </span>
         </motion.h1>
@@ -85,9 +85,11 @@ const HeroSection = () => {
         </motion.p>
 
         <motion.div variants={itemVariants}>
-          <a href="#" className={styles.heroButton}>
+          {/* --- PERUBAHAN DI SINI --- */}
+          {/* Mengganti <a> dengan <Link> untuk mengarah ke halaman kuis */}
+          <Link href="/quiz" className={styles.heroButton}>
             Tes Sekarang!
-          </a>
+          </Link>
         </motion.div>
       </motion.div>
     </div>

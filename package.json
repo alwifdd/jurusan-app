@@ -6,11 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:migrate": "dotenv -e .env.local -- npx prisma migrate dev",
+    "db:seed": "dotenv -e .env.local -- ts-node --project prisma/tsconfig.seed.json prisma/seed.ts"
   },
   "dependencies": {
+    "@prisma/client": "^6.9.0",
+    "@tensorflow/tfjs": "^4.22.0",
+    "bcryptjs": "^3.0.2",
     "framer-motion": "^12.12.2",
     "next": "15.1.8",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-type-animation": "^3.2.0"
@@ -20,8 +26,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.8",
+    "prisma": "^6.9.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

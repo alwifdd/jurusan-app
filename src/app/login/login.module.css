@@ -243,3 +243,78 @@
   object-fit: contain;
   margin-top: -5rem;
 }
+
+/* login.module.css (tambahan/penyesuaian contoh) */
+.errorMessage {
+  color: red;
+  margin-bottom: 1rem;
+  text-align: center; /* atau left, sesuai desain */
+}
+
+.input:disabled,
+.primaryButton:disabled,
+.googleButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+/* login.module.css (tambahan) */
+
+/* ... (style Anda yang sudah ada untuk .formGroup, .input, dll.) ... */
+
+.passwordInputContainer {
+  position: relative; /* Agar tombol bisa diposisikan absolut di dalamnya */
+  display: flex; /* Bisa juga pakai flex jika ingin tombol di samping input */
+  align-items: center; /* Untuk alignment vertikal tombol jika di samping */
+}
+
+/* Sesuaikan style .input jika sekarang ada tombol di sampingnya */
+.passwordInputContainer .input {
+  /* Jika tombol ada di dalam, mungkin perlu padding-right agar teks tidak tertutup tombol */
+  padding-right: 40px; /* Sesuaikan dengan lebar tombol Anda */
+  width: 100%; /* Pastikan input tetap mengambil lebar penuh */
+  box-sizing: border-box; /* Agar padding tidak menambah lebar total */
+}
+
+.togglePasswordButton {
+  position: absolute; /* Posisikan tombol di dalam input field */
+  right: 10px; /* Jarak dari kanan */
+  top: 50%;
+  transform: translateY(-50%); /* Memusatkan tombol secara vertikal */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px; /* Area klik tombol */
+  color: #888; /* Warna ikon/teks tombol */
+  font-size: 1.2rem; /* Ukuran ikon mata jika pakai emoji/font-icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.togglePasswordButton:hover {
+  color: #333;
+}
+
+.togglePasswordButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Pastikan errorMessage dan successMessage punya style yang sesuai */
+.errorMessage {
+  color: red;
+  margin-bottom: 1rem;
+  text-align: center;
+  background-color: #ffebee;
+  border: 1px solid red;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.input:disabled,
+.primaryButton:disabled,
+.googleButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
