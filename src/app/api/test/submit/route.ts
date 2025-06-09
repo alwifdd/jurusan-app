@@ -1,4 +1,5 @@
-// File: src/app/api/test/submit/route.ts
+// File: src/app/api/test/submit/route.ts (SUDAH DIPERBAIKI)
+
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
@@ -15,7 +16,6 @@ interface Scaler {
 interface LabelEncoder {
   classes: string[];
 }
-// Definisikan tipe yang lebih detail untuk major_mapping.json
 interface MajorMapping {
   [key: string]: {
     majors: string[];
@@ -23,15 +23,20 @@ interface MajorMapping {
   };
 }
 
-// --- FUNGSI loadModel (TIDAK BERUBAH) ---
-// (Fungsi ini sudah benar dari perbaikan kita sebelumnya)
-declare global {
-  var JurusanAppModel: tf.LayersModel | null;
-}
+// =================================================================
+// ===== PERBAIKAN 1: MENGATASI ERROR 'no-var' (MODEL CACHING) =====
+// =================================================================
+
+// Hapus blok 'declare global' dan ganti dengan ini:
+const globalForModel = globalThis as typeof globalThis & {
+  JurusanAppModel?: tf.LayersModel;
+};
+
 async function loadModel() {
-  if (globalThis.JurusanAppModel) {
+  // Gunakan 'globalForModel' yang sudah kita definisikan
+  if (globalForModel.JurusanAppModel) {
     console.log("Model ditemukan di global cache. Menggunakan yang sudah ada.");
-    return globalThis.JurusanAppModel;
+    return globalForModel.JurusanAppModel;
   }
   try {
     const modelJsonPath = path.join(
@@ -54,17 +59,19 @@ async function loadModel() {
       }),
     };
     console.log("Memuat model TFJS untuk pertama kali ke global cache...");
-    globalThis.JurusanAppModel = await tf.loadLayersModel(customIOHandler);
+    // Simpan model ke 'globalForModel'
+    globalForModel.JurusanAppModel = await tf.loadLayersModel(customIOHandler);
     console.log("Model TFJS berhasil dimuat dan disimpan di global cache.");
-    return globalThis.JurusanAppModel;
+    return globalForModel.JurusanAppModel;
   } catch (e) {
     console.error("Gagal memuat model TFJS:", e);
     throw new Error("Gagal memuat model machine learning.");
   }
 }
 
-// --- TAMBAHKAN DATA DESKRIPSI MBTI DI SINI ---
+// --- DATA DESKRIPSI MBTI (TIDAK BERUBAH) ---
 const mbtiDescriptions: { [key: string]: string } = {
+  // ...isi deskripsi tidak berubah...
   ESTJ: "The Executive - Pemimpin yang praktis dan tegas. Anda suka mengorganisir orang dan proyek, sangat bertanggung jawab, dan berorientasi pada hasil yang nyata.",
   ESTP: "The Entrepreneur - Spontan dan energik. Anda suka beraksi langsung, fleksibel dalam menghadapi situasi, dan pandai beradaptasi dengan perubahan.",
   ESFJ: "The Consul - Hangat dan peduli terhadap orang lain. Anda sangat memperhatikan kebutuhan orang lain dan suka menciptakan harmoni dalam kelompok.",
@@ -83,10 +90,11 @@ const mbtiDescriptions: { [key: string]: string } = {
   INFP: "The Mediator - Idealis dan adaptable. Anda memiliki nilai-nilai yang mendalam, sangat kreatif, dan selalu mencari makna dalam segala yang Anda lakukan.",
 };
 
-// --- Handler POST dengan Perubahan pada Respons ---
+// --- HANDLER POST (DENGAN PERBAIKAN) ---
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user) {
+  // Pastikan session.user ada dan memiliki id (berdasarkan file types/next-auth.d.ts)
+  if (!session?.user?.id) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
@@ -96,7 +104,6 @@ export async function POST(request: Request) {
 
     const { answers } = await request.json();
 
-    // Membaca file-file pendukung (tidak berubah)
     const scalerPath = path.join(process.cwd(), "src/model/scaler.json");
     const labelEncoderPath = path.join(
       process.cwd(),
@@ -117,7 +124,6 @@ export async function POST(request: Request) {
       await fs.readFile(majorMappingPath, "utf-8")
     );
 
-    // Proses jawaban (tidak berubah)
     const allQuestions = await prisma.question.findMany({
       orderBy: { id: "asc" },
     });
@@ -133,21 +139,16 @@ export async function POST(request: Request) {
       (ans, i) => (ans - scalerData.mean[i]) / scalerData.scale[i]
     );
 
-    // Prediksi (tidak berubah)
     const inputTensor = tf.tensor2d([scaledAnswers]);
     const prediction = loadedModel.predict(inputTensor) as tf.Tensor;
     const predictionData = await prediction.data();
     const predictedIndex = tf.argMax(predictionData).dataSync()[0];
     const mbtiType = labelEncoderData.classes[predictedIndex];
 
-    // --- PERUBAHAN UTAMA PADA DATA YANG DIKEMBALIKAN ---
-
-    // 1. Ambil deskripsi MBTI
     const description =
       mbtiDescriptions[mbtiType] ||
       "Tipe kepribadian yang unik dengan karakteristik menarik.";
 
-    // 2. Siapkan data rekomendasi yang lebih terstruktur
     const recommendationData = majorMappingData[mbtiType];
     const recommendations = recommendationData
       ? recommendationData.majors.map((major, index) => ({
@@ -158,16 +159,19 @@ export async function POST(request: Request) {
         }))
       : [];
 
-    // 3. Simpan data yang terstruktur ke database
+    // =================================================================
+    // ===== PERBAIKAN 2: MENGATASI ERROR 'no-explicit-any' =====
+    // =================================================================
     await prisma.quizResult.create({
       data: {
-        userId: Number((session.user as any).id),
+        // 'session.user.id' sekarang aman digunakan tanpa 'as any'
+        // berkat file `types/next-auth.d.ts` yang kita buat.
+        userId: Number(session.user.id),
         mbtiType: mbtiType,
-        recommendations: JSON.stringify(recommendations), // Simpan array objek
+        recommendations: JSON.stringify(recommendations),
       },
     });
 
-    // 4. Kembalikan data yang lebih kaya ke frontend
     return NextResponse.json({
       mbtiType,
       description,

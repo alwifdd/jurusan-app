@@ -1,5 +1,6 @@
-// src/app/api/auth/[...nextauth]/route.ts
-import NextAuth, { NextAuthOptions, Profile, Account, User } from "next-auth";
+// File: src/app/api/auth/[...nextauth]/route.ts (SUDAH DIPERBAIKI)
+
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
@@ -53,30 +54,33 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-      if (account?.provider === "google" && profile?.email) {
+      if (account?.provider === "google") {
+        if (!profile?.email) {
+          throw new Error("Tidak ada profil email dari provider.");
+        }
         try {
           const userFromDb = await prisma.user.findUnique({
             where: { email: profile.email },
           });
 
+          const googleProfile = profile as { picture?: string };
+
           if (userFromDb) {
-            // Jika user ada, update data jika perlu (misal gambar profil berubah)
             await prisma.user.update({
               where: { email: profile.email },
               data: {
                 name: profile.name,
-                image: (profile as any).picture,
+                image: googleProfile.picture, // Tidak perlu 'as any'
                 provider: "google",
                 provider_id: user.id,
               },
             });
           } else {
-            // Jika user belum ada, buat user baru
             await prisma.user.create({
               data: {
                 email: profile.email,
                 name: profile.name,
-                image: (profile as any).picture,
+                image: googleProfile.picture, // Tidak perlu 'as any'
                 provider: "google",
                 provider_id: user.id,
               },
@@ -93,23 +97,16 @@ export const authOptions: NextAuthOptions = {
 
     async jwt({ token, user }) {
       if (user) {
-        // Saat login, user object dari authorize atau signIn callback tersedia.
-        // Langsung teruskan informasinya ke token.
-        token.id = user.id;
-        token.name = user.name;
-        token.email = user.email;
-        token.picture = user.image;
+        token.id = user.id; // user.id sudah bertipe string dari authorize
       }
       return token;
     },
 
     async session({ session, token }) {
       if (session.user && token.id) {
-        (session.user as any).id = token.id as string;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture as string | null | undefined;
+        session.user.id = token.id; // Tidak perlu 'as any'
       }
+      // Kita hapus pembaruan properti lain karena NextAuth sudah menanganinya
       return session;
     },
   },
