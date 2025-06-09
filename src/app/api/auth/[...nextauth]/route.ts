@@ -1,4 +1,4 @@
-// File: src/app/api/auth/[...nextauth]/route.ts (SUDAH DIPERBAIKI)
+// File: src/app/api/auth/[...nextauth]/route.ts (PERBAIKAN FINAL)
 
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -6,7 +6,8 @@ import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 
-export const authOptions: NextAuthOptions = {
+// HAPUS 'export' DARI BARIS DI BAWAH INI
+const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
@@ -70,7 +71,7 @@ export const authOptions: NextAuthOptions = {
               where: { email: profile.email },
               data: {
                 name: profile.name,
-                image: googleProfile.picture, // Tidak perlu 'as any'
+                image: googleProfile.picture,
                 provider: "google",
                 provider_id: user.id,
               },
@@ -80,7 +81,7 @@ export const authOptions: NextAuthOptions = {
               data: {
                 email: profile.email,
                 name: profile.name,
-                image: googleProfile.picture, // Tidak perlu 'as any'
+                image: googleProfile.picture,
                 provider: "google",
                 provider_id: user.id,
               },
@@ -97,16 +98,15 @@ export const authOptions: NextAuthOptions = {
 
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id; // user.id sudah bertipe string dari authorize
+        token.id = user.id;
       }
       return token;
     },
 
     async session({ session, token }) {
       if (session.user && token.id) {
-        session.user.id = token.id; // Tidak perlu 'as any'
+        session.user.id = token.id;
       }
-      // Kita hapus pembaruan properti lain karena NextAuth sudah menanganinya
       return session;
     },
   },
@@ -120,4 +120,5 @@ export const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 
+// Hanya ekspor 'handler' sebagai GET dan POST
 export { handler as GET, handler as POST };
