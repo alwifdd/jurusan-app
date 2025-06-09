@@ -1,17 +1,18 @@
-// File: src/app/login/page.tsx
+// File: src/app/login/page.tsx (SUDAH DIPERBAIKI)
 
 "use client";
 
 import React, { useState, FormEvent } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation"; // <-- 1. IMPORT useSearchParams
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image"; // 1. Tambahkan impor Image
 import styles from "./login.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams(); // <-- 2. GUNAKAN useSearchParams
-  const callbackUrl = searchParams.get("callbackUrl") || "/"; // <-- 3. AMBIL callbackUrl, JIKA TIDAK ADA, DEFAULT KE HOME ('/')
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +20,6 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // --- Logika untuk login dengan email/password ---
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
@@ -40,31 +40,25 @@ export default function LoginPage() {
             : result.error
         );
       } else if (result?.ok) {
-        // --- 4. PERUBAHAN DI SINI ---
-        router.push(callbackUrl); // Arahkan ke callbackUrl, bukan ke "/"
-        // -------------------------
+        router.push(callbackUrl);
       }
-    } catch (err) {
+    } catch (_err) {
+      // 2. Ganti 'err' menjadi '_err'
       setIsLoading(false);
       setError("Terjadi kesalahan. Silakan coba lagi.");
     }
   };
 
-  // --- Logika untuk login dengan Google ---
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     setError(null);
-    // --- 5. PERUBAHAN DI SINI ---
-    // Gunakan callbackUrl yang sudah kita ambil dari URL
     signIn("google", { callbackUrl: callbackUrl });
-    // -------------------------
   };
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  // --- Bagian JSX tidak ada perubahan, hanya menyalin ulang ---
   return (
     <div className={styles.pageContainer}>
       <div className={styles.content}>
@@ -75,6 +69,7 @@ export default function LoginPage() {
           </p>
 
           <form onSubmit={handleSubmit} className={styles.form}>
+            {/* ... form fields ... */}
             <div className={styles.formGroup}>
               <label htmlFor="email" className={styles.label}>
                 Email address
@@ -158,10 +153,14 @@ export default function LoginPage() {
           </p>
         </div>
         <div className={styles.right}>
-          <img
+          {/* 3. Ganti <img> dengan <Image> */}
+          <Image
             src="/illustration.png"
             alt="Illustration"
             className={styles.illustration}
+            width={500}
+            height={500}
+            priority
           />
         </div>
       </div>
