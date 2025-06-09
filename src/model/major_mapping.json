@@ -1,274 +1,130 @@
 {
   "INTJ": {
-    "majors": [
-      "Teknik Informatika",
-      "Matematika",
-      "Arsitektur"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Teknik Informatika", "Matematika", "Arsitektur"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe INTJ",
-      "Dipilih oleh 218/218 responden dengan tipe INTJ",
-      "Dipilih oleh 218/218 responden dengan tipe INTJ"
+      "Cocok untuk Anda yang suka problem solving dan teknologi.",
+      "Ideal bagi Anda yang memiliki kemampuan analitis tinggi.",
+      "Sempurna untuk Anda yang kreatif dan ingin menciptakan ruang bermakna."
     ]
   },
   "INTP": {
-    "majors": [
-      "Teknik Informatika",
-      "Fisika",
-      "Matematika"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Teknik Informatika", "Fisika", "Matematika"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe INTP",
-      "Dipilih oleh 218/218 responden dengan tipe INTP",
-      "Dipilih oleh 218/218 responden dengan tipe INTP"
+      "Tertarik dengan teknologi dan solusi logis.",
+      "Penasaran dengan cara kerja alam semesta.",
+      "Menyukai tantangan logika dan pemecahan masalah abstrak."
     ]
   },
   "ENTJ": {
-    "majors": [
-      "Manajemen",
-      "Hukum",
-      "Teknik Industri"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Manajemen", "Hukum", "Teknik Industri"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ENTJ",
-      "Dipilih oleh 218/218 responden dengan tipe ENTJ",
-      "Dipilih oleh 218/218 responden dengan tipe ENTJ"
+      "Memiliki jiwa leadership dan ingin memimpin organisasi.",
+      "Memiliki jiwa keadilan dan argumen yang kuat.",
+      "Suka mengoptimalkan sistem dan meningkatkan efisiensi."
     ]
   },
   "ENTP": {
-    "majors": [
-      "Teknik Informatika",
-      "Marketing",
-      "Psikologi"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Teknik Informatika", "Marketing", "Psikologi"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ENTP",
-      "Dipilih oleh 218/218 responden dengan tipe ENTP",
-      "Dipilih oleh 218/218 responden dengan tipe ENTP"
+      "Inovatif dan penuh ide untuk teknologi.",
+      "Kreatif, komunikatif, dan memahami konsumen.",
+      "Tertarik memahami pemikiran orang lain dari berbagai sudut pandang."
     ]
   },
   "INFJ": {
-    "majors": [
-      "Psikologi",
-      "Konseling",
-      "Pendidikan"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Psikologi", "Konseling", "Pendidikan"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe INFJ",
-      "Dipilih oleh 218/218 responden dengan tipe INFJ",
-      "Dipilih oleh 218/218 responden dengan tipe INFJ"
+      "Empatis dan ingin membantu orang lain bertumbuh.",
+      "Memiliki kemampuan mendengarkan dan memberi panduan.",
+      "Inspiratif dan ingin mencerdaskan generasi masa depan."
     ]
   },
   "INFP": {
-    "majors": [
-      "Psikologi",
-      "Sastra",
-      "Seni Rupa"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Psikologi", "Sastra", "Seni Rupa"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe INFP",
-      "Dipilih oleh 218/218 responden dengan tipe INFP",
-      "Dipilih oleh 218/218 responden dengan tipe INFP"
+      "Sangat peduli pada pemahaman diri dan orang lain.",
+      "Memiliki jiwa artistik dan passion pada bahasa.",
+      "Kreatif dan ingin mengekspresikan ide melalui karya visual."
     ]
   },
   "ENFJ": {
-    "majors": [
-      "Pendidikan",
-      "Psikologi",
-      "Komunikasi"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Pendidikan", "Psikologi", "Komunikasi"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ENFJ",
-      "Dipilih oleh 218/218 responden dengan tipe ENFJ",
-      "Dipilih oleh 218/218 responden dengan tipe ENFJ"
+      "Sabar, inspiratif, dan suka membimbing orang lain.",
+      "Hangat dan peduli terhadap perkembangan orang lain.",
+      "Pandai berbicara dan ingin berkarir di media atau PR."
     ]
   },
   "ENFP": {
-    "majors": [
-      "Komunikasi",
-      "Marketing",
-      "Psikologi"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Komunikasi", "Marketing", "Psikologi"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ENFP",
-      "Dipilih oleh 218/218 responden dengan tipe ENFP",
-      "Dipilih oleh 218/218 responden dengan tipe ENFP"
+      "Antusias dan pandai menyampaikan ide kepada banyak orang.",
+      "Imajinatif dan mampu menarik perhatian pasar.",
+      "Penuh energi dan suka memahami motivasi orang lain."
     ]
   },
   "ISTJ": {
-    "majors": [
-      "Akuntansi",
-      "Hukum",
-      "Administrasi"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Akuntansi", "Hukum", "Administrasi"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ISTJ",
-      "Dipilih oleh 218/218 responden dengan tipe ISTJ",
-      "Dipilih oleh 218/218 responden dengan tipe ISTJ"
+      "Teliti, terorganisir, dan tertarik dengan dunia keuangan.",
+      "Menghargai aturan dan memiliki integritas tinggi.",
+      "Detail-oriented dan suka mengatur sistem kerja yang efisien."
     ]
   },
   "ISFJ": {
-    "majors": [
-      "Keperawatan",
-      "Pendidikan",
-      "Psikologi"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Keperawatan", "Pendidikan", "Psikologi"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ISFJ",
-      "Dipilih oleh 218/218 responden dengan tipe ISFJ",
-      "Dipilih oleh 218/218 responden dengan tipe ISFJ"
+      "Peduli, tahan banting, dan ingin membantu kesembuhan pasien.",
+      "Sabar dan suportif dalam membimbing siswa.",
+      "Hangat, peduli, dan suka membantu orang terdekat."
     ]
   },
   "ESTJ": {
-    "majors": [
-      "Manajemen",
-      "Akuntansi",
-      "Hukum"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Manajemen", "Akuntansi", "Hukum"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ESTJ",
-      "Dipilih oleh 218/218 responden dengan tipe ESTJ",
-      "Dipilih oleh 218/218 responden dengan tipe ESTJ"
+      "Pemimpin alami yang suka mengorganisir sumber daya.",
+      "Praktis, teliti, dan menyukai data keuangan yang jelas.",
+      "Tegas dan suka menegakkan aturan dan prosedur."
     ]
   },
   "ESFJ": {
-    "majors": [
-      "Pendidikan",
-      "Keperawatan",
-      "Komunikasi"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Pendidikan", "Keperawatan", "Komunikasi"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ESFJ",
-      "Dipilih oleh 218/218 responden dengan tipe ESFJ",
-      "Dipilih oleh 218/218 responden dengan tipe ESFJ"
+      "Sangat perhatian dan suka menciptakan harmoni dalam belajar.",
+      "Sangat peduli pada kebutuhan fisik dan emosional orang lain.",
+      "Hangat dan suka membangun hubungan baik dengan publik."
     ]
   },
   "ISTP": {
-    "majors": [
-      "Teknik Mesin",
-      "Teknik Informatika",
-      "Teknik Elektro"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Teknik Mesin", "Teknik Informatika", "Teknik Elektro"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ISTP",
-      "Dipilih oleh 218/218 responden dengan tipe ISTP",
-      "Dipilih oleh 218/218 responden dengan tipe ISTP"
+      "Suka bekerja dengan tangan dan memecahkan masalah mekanis.",
+      "Praktis dalam menerapkan teknologi untuk solusi nyata.",
+      "Tertarik pada cara kerja sirkuit dan sistem kelistrikan."
     ]
   },
   "ISFP": {
-    "majors": [
-      "Seni Rupa",
-      "Desain Interior",
-      "Musik"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Seni Rupa", "Desain Interior", "Musik"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ISFP",
-      "Dipilih oleh 218/218 responden dengan tipe ISFP",
-      "Dipilih oleh 218/218 responden dengan tipe ISFP"
+      "Memiliki nilai artistik dan ingin berkarya secara visual.",
+      "Estetis dan ingin menciptakan ruang yang nyaman dan indah.",
+      "Berbakat dan ingin mengembangkan kemampuan bermusik."
     ]
   },
   "ESTP": {
-    "majors": [
-      "Marketing",
-      "Olahraga",
-      "Bisnis"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Marketing", "Olahraga", "Bisnis"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ESTP",
-      "Dipilih oleh 218/218 responden dengan tipe ESTP",
-      "Dipilih oleh 218/218 responden dengan tipe ESTP"
+      "Enerjik, persuasif, dan suka berinteraksi dengan pasar.",
+      "Aktif, disiplin, dan ingin menjaga kesehatan tubuh.",
+      "Memiliki jiwa entrepreneur dan suka mengambil risiko."
     ]
   },
   "ESFP": {
-    "majors": [
-      "Komunikasi",
-      "Seni Rupa",
-      "Marketing"
-    ],
-    "confidences": [
-      1.0,
-      1.0,
-      1.0
-    ],
+    "majors": ["Komunikasi", "Seni Rupa", "Marketing"],
     "reasoning": [
-      "Dipilih oleh 218/218 responden dengan tipe ESFP",
-      "Dipilih oleh 218/218 responden dengan tipe ESFP",
-      "Dipilih oleh 218/218 responden dengan tipe ESFP"
+      "Spontan dan pandai menghibur serta berkomunikasi dengan audiens.",
+      "Suka mengekspresikan diri melalui medium visual yang menarik.",
+      "Pandai bersosialisasi dan membangun jaringan untuk pemasaran."
     ]
   }
 }

@@ -1,4 +1,4 @@
-// File: src/components/QuizSection/QuizSection.tsx
+// File: src/components/QuizSection/QuizSection.tsx (Versi Final dengan Perbaikan useRef)
 
 "use client";
 
@@ -16,7 +16,11 @@ interface Question {
 }
 interface QuizResult {
   mbtiType: string;
-  recommendations: string;
+  description: string;
+  recommendations: {
+    major: string;
+    reasoning: string;
+  }[];
 }
 interface ProgressAnswers {
   [questionId: number]: string;
@@ -26,7 +30,6 @@ const QuizSection: React.FC = () => {
   const { status } = useSession();
   const router = useRouter();
 
-  // State
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<ProgressAnswers>({});
@@ -37,10 +40,9 @@ const QuizSection: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
 
-  // Ref untuk menandai apakah ini pemuatan data awal
-  const isInitialMount = useRef(true);
+  // --- PERBAIKAN FINAL DI SINI ---
+  const prevAnswersRef = useRef<ProgressAnswers | undefined>(undefined);
 
-  // Efek untuk memuat data awal
   useEffect(() => {
     if (status === "authenticated") {
       const loadInitialData = async () => {
@@ -51,7 +53,6 @@ const QuizSection: React.FC = () => {
             fetch("/api/test/questions"),
             fetch("/api/test/get-progress"),
           ]);
-
           if (!questionsRes.ok) throw new Error("Gagal memuat pertanyaan.");
           const questionsData = await questionsRes.json();
           const loadedQuestions = questionsData.questions || [];
@@ -61,13 +62,13 @@ const QuizSection: React.FC = () => {
             const progressData = await progressRes.json();
             const savedAnswers = progressData.answers || {};
             setAnswers(savedAnswers);
+            prevAnswersRef.current = savedAnswers;
 
             if (loadedQuestions.length > 0) {
               const answeredCount = Object.keys(savedAnswers).length;
-              setCurrentQuestionIndex(
-                Math.min(answeredCount, loadedQuestions.length)
-              );
-              if (answeredCount === loadedQuestions.length) {
+              if (answeredCount < loadedQuestions.length) {
+                setCurrentQuestionIndex(answeredCount);
+              } else if (answeredCount === loadedQuestions.length) {
                 setIsQuizComplete(true);
               }
             }
@@ -80,63 +81,66 @@ const QuizSection: React.FC = () => {
       };
       loadInitialData();
     }
+    if (status === "unauthenticated") {
+      setIsLoading(false);
+    }
   }, [status]);
 
-  // Efek untuk menangani logika SETELAH jawaban berubah
   useEffect(() => {
-    // Abaikan saat pemuatan awal
-    if (isLoading) return;
-    // Abaikan jika tidak ada jawaban sama sekali (misal: setelah di-reset)
-    if (Object.keys(answers).length === 0 && !isInitialMount.current) return;
-
-    // Tandai pemuatan awal sudah selesai
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
+    if (
+      isLoading ||
+      status !== "authenticated" ||
+      answers === prevAnswersRef.current
+    ) {
       return;
     }
 
-    // Logika untuk menyimpan dan pindah pertanyaan
-    const answeredCount = Object.keys(answers).length;
+    const prevKeys = Object.keys(prevAnswersRef.current || {});
+    const currentKeys = Object.keys(answers);
+    const newKey = currentKeys.find(
+      (key) =>
+        !prevKeys.includes(key) ||
+        prevAnswersRef.current?.[parseInt(key)] !== answers[parseInt(key)]
+    );
 
-    // Pindah ke pertanyaan berikutnya jika belum selesai
-    if (answeredCount < questions.length) {
-      setTimeout(() => {
-        setCurrentQuestionIndex(answeredCount);
-      }, 300);
-    } else if (answeredCount === questions.length) {
-      // Tandai kuis selesai jika semua sudah dijawab
-      setIsQuizComplete(true);
-    }
+    if (newKey) {
+      const questionId = Number(newKey);
+      const answerValue = answers[questionId];
 
-    // Ambil ID pertanyaan terakhir yang dijawab untuk disimpan
-    const lastAnsweredQuestionId = questions[answeredCount - 1]?.id;
-    if (lastAnsweredQuestionId) {
-      const answerValue = answers[lastAnsweredQuestionId];
       fetch("/api/test/save-progress", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          questionId: lastAnsweredQuestionId,
-          answerValue,
-        }),
+        body: JSON.stringify({ questionId, answerValue }),
       }).catch((error) =>
         console.error("Gagal menyimpan progres ke DB:", error)
       );
     }
-  }, [answers, questions.length, isLoading]);
 
-  // Fungsi handleAnswer sekarang hanya memperbarui state
+    prevAnswersRef.current = answers;
+  }, [answers, status, isLoading]);
+
   const handleAnswer = (questionId: number, value: string) => {
-    if (isQuizComplete) return; // Jangan lakukan apa-apa jika kuis sudah selesai
-    setAnswers((prev) => ({ ...prev, [questionId]: value }));
+    if (isQuizComplete) return;
+    setAnswers((prev) => {
+      const newAnswers = { ...prev, [questionId]: value };
+      const newAnsweredCount = Object.keys(newAnswers).length;
+      if (newAnsweredCount === questions.length && questions.length > 0) {
+        setIsQuizComplete(true);
+      } else {
+        setCurrentQuestionIndex(newAnsweredCount);
+      }
+      return newAnswers;
+    });
   };
 
   const handleExitConfirm = async () => {
     setIsExitModalOpen(false);
-    try {
-      await fetch("/api/test/clear-progress", { method: "POST" });
-    } catch (error) {
-      console.error("Gagal menghapus progres:", error);
+    if (status === "authenticated") {
+      try {
+        await fetch("/api/test/clear-progress", { method: "POST" });
+      } catch (error) {
+        console.error("Gagal menghapus progres:", error);
+      }
     }
     router.push("/");
   };
@@ -163,7 +167,6 @@ const QuizSection: React.FC = () => {
     }
   };
 
-  // --- Logika Tampilan (Render) ---
   if (status === "loading") {
     return (
       <div className={styles.container}>
@@ -171,7 +174,6 @@ const QuizSection: React.FC = () => {
       </div>
     );
   }
-
   if (status === "unauthenticated") {
     return (
       <div className={`${styles.container} ${styles.hasilContainer}`}>
@@ -185,7 +187,6 @@ const QuizSection: React.FC = () => {
       </div>
     );
   }
-
   if (isLoading) {
     return (
       <div className={styles.container}>
@@ -193,7 +194,6 @@ const QuizSection: React.FC = () => {
       </div>
     );
   }
-
   if (error) {
     return (
       <div className={styles.container}>
@@ -203,16 +203,32 @@ const QuizSection: React.FC = () => {
   }
 
   if (result) {
+    const mbtiTitle = result.description?.split(" - ")[0] || "";
+    const mbtiDesc =
+      result.description?.split(" - ")[1] ||
+      "Deskripsi untuk tipe kepribadian ini.";
     return (
       <div className={`${styles.container} ${styles.hasilContainer}`}>
         <div className={styles.hasilSection}>
-          <h3>
-            Hasil MBTI kamu: <strong>{result.mbtiType}</strong>
-          </h3>
-          <p>
-            Rekomendasi jurusan:{" "}
-            <strong>{result.recommendations || "Belum tersedia"}</strong>
+          <span className={styles.mbtiBadge}>{result.mbtiType}</span>
+          <h3 className={styles.mbtiTitle}>{mbtiTitle}</h3>
+          <p className={styles.mbtiDescription}>{mbtiDesc}</p>
+          <h4 className={styles.recommendationTitle}>
+            Rekomendasi Jurusan untuk Anda
+          </h4>
+          <p className={styles.recommendationSubtitle}>
+            Ini dia rekomendasi jurusan yang cocok buat anda! Disusun
+            berdasarkan karakter dan preferensi anda, semoga bisa jadi referensi
+            yang pas dan membantu anda menentukan arah ke depan.
           </p>
+          <div className={styles.majorList}>
+            {result.recommendations?.map((rec, index) => (
+              <div key={index} className={styles.majorItem}>
+                <strong>{rec.major}</strong>
+                <small>{rec.reasoning}</small>
+              </div>
+            ))}
+          </div>
           <button
             className={styles.submitButton}
             onClick={() => window.location.reload()}
@@ -241,7 +257,6 @@ const QuizSection: React.FC = () => {
           </button>
         )}
       </div>
-
       <Modal
         isOpen={isExitModalOpen}
         onClose={() => setIsExitModalOpen(false)}
@@ -251,7 +266,6 @@ const QuizSection: React.FC = () => {
         Keluar dari sesi tes akan mereset semua progress dan pertanyaan yang
         sudah di jawab, kamu perlu mengulang tes dari awal.
       </Modal>
-
       <progress
         className={styles.progressBar}
         value={Object.keys(answers).length}
