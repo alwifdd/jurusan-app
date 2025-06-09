@@ -26,3 +26,20 @@
 .imageContainer {
   flex-shrink: 0;
 }
+/* TAMBAHKAN INI DI AKHIR FILE AboutSection.module.css */
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+  .aboutContainer {
+    flex-direction: column; /* Ubah layout menjadi vertikal */
+    text-align: center; /* Pusatkan teks */
+  }
+  .sectionTitle {
+    font-size: 2.2rem;
+  }
+  .textContainer p {
+    font-size: 1rem;
+  }
+}

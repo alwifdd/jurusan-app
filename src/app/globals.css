@@ -11,25 +11,32 @@
   --font-family: "Poppins", sans-serif;
 }
 
-/* Tambahkan ini untuk box-sizing yang lebih baik secara global */
-html {
-  box-sizing: border-box;
+/* ========================================================= */
+/* ===== SOLUSI FINAL UNTUK MASALAH GESER KE SAMPING ===== */
+/* ========================================================= */
+html,
+body {
+  max-width: 100%;
   overflow-x: hidden;
 }
+
+#__next {
+  width: 100%;
+  overflow-x: hidden;
+}
+/* ========================================================= */
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
-/* ----------------------------------------------------------- */
 
 body {
   margin: 0;
   font-family: var(--font-family);
   background-color: var(--bg-main);
   color: var(--text-dark);
-  overflow-x: hidden; /* Mencegah scroll horizontal pada body */ /* <--- TAMBAHAN DI SINI */
 }
 
 .container {

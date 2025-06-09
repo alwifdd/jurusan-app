@@ -1,11 +1,20 @@
-// src/app/components/HeroSection/HeroSection.tsx
+// src/app/components/HeroSection/HeroSection.tsx (FINAL DENGAN ANIMASI ULANG SAAT SCROLL)
+
 "use client";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { TypeAnimation } from "react-type-animation";
-import { motion } from "framer-motion";
-import Link from "next/link"; // Pastikan Link diimpor
+import { motion, AnimatePresence, useInView } from "framer-motion"; // 1. Impor useInView
+import Link from "next/link";
 import styles from "@/components/styles/HeroSection.module.css";
+
+// Teks yang akan ditampilkan (tidak berubah)
+const DISPLAY_TEXTS = [
+  "minat & potensimu?",
+  "karir masa depanmu?",
+  "passion sejatimu?",
+  "kelebihan dirimu?",
+  "jurusan kuliahmu?",
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -23,13 +32,44 @@ const itemVariants = {
 };
 
 const HeroSection = () => {
+  const [index, setIndex] = useState(0);
+
+  // 2. Siapkan ref dan hook useInView
+  const ref = useRef(null);
+  // `once: false` berarti animasi akan berjalan setiap kali masuk viewport
+  // `amount: 0.5` berarti komponen harus terlihat 50% sebelum 'isInView' menjadi true
+  const isInView = useInView(ref, { once: false, amount: 0.5 });
+
+  useEffect(() => {
+    // 3. Hanya jalankan timer jika komponen terlihat di layar
+    if (isInView) {
+      // Reset indeks ke 0 setiap kali komponen terlihat lagi
+      setIndex(0);
+
+      const timer = setInterval(() => {
+        setIndex((prevIndex) => {
+          if (prevIndex >= DISPLAY_TEXTS.length - 1) {
+            clearInterval(timer); // Berhenti di teks terakhir
+            return DISPLAY_TEXTS.length - 1;
+          }
+          return prevIndex + 1;
+        });
+      }, 2500);
+
+      return () => clearInterval(timer);
+    }
+  }, [isInView]); // 4. Jadikan 'isInView' sebagai dependency
+
   return (
-    <div className="container">
+    // 5. Pasang 'ref' ke elemen yang ingin dideteksi
+    <div className="container" ref={ref}>
       <motion.div
         className={styles.heroWrapper}
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        // Animate saat masuk ke viewport
+        whileInView="visible"
+        viewport={{ once: true }}
       >
         <motion.div variants={itemVariants} className={styles.userCount}>
           <div className={styles.avatarStack}>
@@ -59,24 +99,21 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.h1 variants={itemVariants} className={styles.heroTitle}>
-          Bingung nentuin arah{" "}
-          <span className={styles.typeAnimationWrapper}>
-            <TypeAnimation
-              sequence={[
-                "minat dan potensimu?",
-                2000,
-                "karir masa depanmu?",
-                2000,
-                "jurusan kuliahmu?",
-                2000,
-              ]}
-              wrapper="span"
-              speed={50}
-              repeat={Infinity}
-              cursor={true}
-              className={styles.actualTypeAnimation}
-            />
-          </span>
+          <span className={styles.staticText}>Bingung nentuin arah</span>
+          <div className={styles.rollingContainer}>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={DISPLAY_TEXTS[index]}
+                initial={{ filter: "blur(8px)", opacity: 0 }}
+                animate={{ filter: "blur(0px)", opacity: 1 }}
+                exit={{ filter: "blur(8px)", opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className={styles.rollingText}
+              >
+                {DISPLAY_TEXTS[index]}
+              </motion.span>
+            </AnimatePresence>
+          </div>
         </motion.h1>
 
         <motion.p variants={itemVariants} className={styles.heroSubtitle}>
@@ -85,8 +122,6 @@ const HeroSection = () => {
         </motion.p>
 
         <motion.div variants={itemVariants}>
-          {/* --- PERUBAHAN DI SINI --- */}
-          {/* Mengganti <a> dengan <Link> untuk mengarah ke halaman kuis */}
           <Link href="/quiz" className={styles.heroButton}>
             Tes Sekarang!
           </Link>

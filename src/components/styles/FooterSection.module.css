@@ -4,6 +4,8 @@
   color: white;
   padding: 60px 0 0;
   margin-top: auto;
+  width: 100%; /* <-- TAMBAHKAN INI */
+  overflow-x: hidden; /* <-- DAN INI */
 }
 
 .container {
@@ -211,7 +213,7 @@
     grid-template-columns: 2fr 1fr 1fr;
     gap: 30px;
   }
-  
+
   .linksSection:last-child {
     grid-column: 1 / -1;
     display: grid;
@@ -223,41 +225,41 @@
   .footer {
     padding: 40px 0 0;
   }
-  
+
   .footerContent {
     grid-template-columns: 1fr;
     gap: 30px;
     text-align: center;
   }
-  
+
   .brandSection {
     max-width: none;
   }
-  
+
   .socialLinks {
     justify-content: center;
   }
-  
+
   .newsletterSection {
     text-align: left;
     padding: 24px;
   }
-  
+
   .newsletterForm {
     flex-direction: column;
     max-width: none;
   }
-  
+
   .emailInput {
     margin-bottom: 0;
   }
-  
+
   .bottomBar {
     flex-direction: column;
     gap: 16px;
     text-align: center;
   }
-  
+
   .bottomLinks {
     flex-wrap: wrap;
     justify-content: center;
@@ -268,24 +270,24 @@
   .container {
     padding: 0 16px;
   }
-  
+
   .brandTitle {
     font-size: 24px;
   }
-  
+
   .brandDescription {
     font-size: 15px;
   }
-  
+
   .newsletterSection {
     padding: 20px;
   }
-  
+
   .socialLink {
     width: 40px;
     height: 40px;
   }
-  
+
   .bottomLinks {
     font-size: 13px;
   }

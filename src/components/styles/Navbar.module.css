@@ -1,9 +1,17 @@
-/* File: src/components/styles/Navbar.module.css */
+/* File: src/components/styles/Navbar.module.css (FINAL CLEANED) */
 
-/* =============== BASE STYLES & NAVBAR CONTAINER =============== */
+.header {
+  position: sticky;
+  top: 0;
+  padding: 1rem 0;
+  width: 100%;
+  z-index: 50;
+  transition: top 0.3s;
+}
+
 .navbar {
   max-width: 900px;
-  margin: 2rem auto;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,47 +21,28 @@
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 50px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-  position: relative; /* Untuk positioning elemen child absolut seperti mobile menu */
 }
 
-/* =============== LOGO =============== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(29, 35, 42, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 40;
+}
+
 .navLogo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background-color: var(
-    --soft-yellow-bg
-  ); /* Pastikan variabel ini terdefinisi */
-  border: 1px solid var(--primary-yellow); /* Pastikan variabel ini terdefinisi */
-  padding: 4px 12px;
-  border-radius: 20px;
 }
-
-.logoLinkInternal {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: inherit;
-}
-
-.logoMbti {
-  font-weight: 700;
-  color: var(--text-dark); /* Pastikan variabel ini terdefinisi */
-}
-
-.logoText {
-  font-size: 0.6rem;
-  font-weight: 600;
-  color: var(--text-light); /* Pastikan variabel ini terdefinisi */
-  letter-spacing: 0.5px;
-}
-
-/* =============== NAVIGATION LINKS WRAPPER (Desktop) =============== */
 .navLinksWrapper {
   display: flex;
   align-items: center;
-  gap: 30px; /* Jarak antara .navLinks dan .authSection */
+  gap: 30px;
 }
 
 .navLinks {
@@ -63,22 +52,24 @@
 
 .navLinks a {
   text-decoration: none;
-  color: var(--text-dark); /* Pastikan variabel ini terdefinisi */
+  color: var(--text-dark, #1e293b);
   font-weight: 600;
   font-size: 0.9rem;
 }
 
-/* =============== AUTHENTICATION SECTION (Base for Desktop) =============== */
+/* STYLES UNTUK LOGO BARU */
+.logoDesktop {
+  display: block; /* Tampilkan di desktop */
+  object-fit: contain;
+}
+.logoMobile {
+  display: none; /* Sembunyikan di desktop */
+}
+
 .authSection {
   display: flex;
   align-items: center;
   gap: 15px;
-}
-
-.userName {
-  color: var(--text-dark); /* Pastikan variabel ini terdefinisi */
-  font-weight: 600;
-  font-size: 0.9rem;
 }
 
 .navButton {
@@ -91,20 +82,13 @@
   font-size: 0.9rem;
   border: none;
   cursor: pointer;
-  /* text-align tidak diatur di sini agar bisa fleksibel, defaultnya left */
-}
-
-.logoutButton {
-  /* Styling khusus untuk logout button di sini jika ingin lebih spesifik dari .navButton */
-  /* Namun, untuk dropdown, kita akan style .dropdownButton */
 }
 
 .loadingText {
   font-size: 0.9rem;
-  color: var(--text-light); /* Pastikan variabel ini terdefinisi */
+  color: var(--text-light, #64748b);
 }
 
-/* =============== PROFILE AREA & DROPDOWN (Styling Inti untuk Semua Ukuran Layar) =============== */
 .profileArea {
   position: relative;
   display: flex;
@@ -167,7 +151,6 @@
     visibility 0s linear 0s;
 }
 
-/* Konten di dalam Dropdown */
 .dropdownHeader {
   padding: 10px 12px;
   border-bottom: 1px solid #e9ecef;
@@ -190,7 +173,6 @@
   line-height: 1.3;
 }
 
-/* Style dasar untuk SEMUA item yang bisa diklik di dropdown */
 .dropdownLink,
 .dropdownButton {
   display: flex;
@@ -209,33 +191,24 @@
   text-align: left;
 }
 
-/* Styling spesifik untuk .dropdownLink (misal: "Akun saya") */
 .dropdownLink {
-  color: #495057; /* Warna teks standar untuk link biasa */
+  color: #495057;
 }
 
 .dropdownLink:hover {
-  background-color: var(--primary-blue, #3b82f6); /* Latar biru saat hover */
-  color: #ffffff; /* Teks putih saat hover */
+  background-color: var(--primary-blue, #3b82f6);
+  color: #ffffff;
 }
 
-/* Styling spesifik untuk .dropdownButton (tombol "Logout") */
 .dropdownButton {
-  color: var(--danger-red, #ef4444); /* WARNA TEKS MERAH untuk logout */
+  color: var(--danger-red, #ef4444);
 }
 
 .dropdownButton:hover {
-  background-color: var(
-    --danger-red-bg-hover,
-    #fee2e2
-  ); /* Latar merah muda saat hover */
-  color: var(
-    --danger-red-text-hover,
-    #b91c1c
-  ); /* Warna teks merah lebih tua saat hover */
+  background-color: var(--danger-red-bg-hover, #fee2e2);
+  color: var(--danger-red-text-hover, #b91c1c);
 }
 
-/* Ikon di dalam dropdown (jika menggunakan span) */
 .dropdownLink span[role="img"],
 .dropdownButton span[role="img"] {
   font-size: 1rem;
@@ -243,20 +216,16 @@
   text-align: center;
 }
 
-/* STYLES UNTUK OVERLAY SUDAH DIHAPUS */
-
-/* =============== HAMBURGER BUTTON & MOBILE MENU STYLES =============== */
 .hamburgerButton {
   display: none;
   background: none;
   border: none;
   font-size: 2rem;
-  color: var(--text-dark); /* Pastikan variabel ini terdefinisi */
+  color: var(--text-dark, #1e293b);
   cursor: pointer;
   z-index: 1001;
 }
 
-/* --- Media Query untuk Mobile (Lebar layar <= 768px) --- */
 @media (max-width: 768px) {
   .hamburgerButton {
     display: block;
@@ -272,11 +241,11 @@
     right: 0;
     width: calc(100% - 32px);
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: #ffffff;
     padding: 20px 0;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
+    border: 1px solid #e2e8f0;
     z-index: 1000;
     gap: 0;
   }
@@ -296,7 +265,7 @@
     padding: 15px 0;
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid var(--border-color, #eeeeee); /* Fallback untuk border-color */
+    border-bottom: 1px solid var(--border-color, #eeeeee);
   }
 
   .navLinks a:last-child {
@@ -308,29 +277,19 @@
     width: 100%;
     padding: 15px 20px 0 20px;
     box-sizing: border-box;
-    align-items: center; /* PENTING: Memusatkan .profileArea dan tombol Sign In jika tidak full-width */
+    align-items: center;
   }
 
-  .navLinksWrapper.mobileMenuOpen .authSection .userName {
-    margin-bottom: 15px;
+  .navLinksWrapper.mobileMenuOpen .authSection .navButton {
+    width: 100%;
+    margin-top: 0;
     text-align: center;
   }
 
-  /* Tombol di dalam mobile menu (Sign In / Logout) */
-  .navLinksWrapper.mobileMenuOpen .authSection .navButton,
-  .navLinksWrapper.mobileMenuOpen .authSection .logoutButton {
-    /* Menargetkan juga .logoutButton jika ada */
-    width: 100%;
-    margin-top: 0; /* Reset margin-top jika ada dari desktop .navButton */
-    text-align: center; /* BARIS INI DITAMBAHKAN untuk memusatkan teks tombol */
-  }
-
-  /* PENYESUAIAN POSISI PROFILE DROPDOWN DI MOBILE MENU */
   .navLinksWrapper.mobileMenuOpen .profileDropdown {
     left: 50%;
     right: auto;
     transform: translateX(-50%) translateY(10px) scale(0.98);
-    /* width: 240px; /* Opsional: sesuaikan lebar jika perlu */
   }
 
   .navLinksWrapper.mobileMenuOpen .profileDropdownOpen {
@@ -338,14 +297,13 @@
   }
 }
 
-/* --- Media Query untuk Mobile Sangat Kecil (Lebar layar <= 480px) --- */
 @media (max-width: 480px) {
-  .logoText {
-    display: none;
+  /* TAMBAHKAN INI */
+  .logoDesktop {
+    display: none; /* Sembunyikan logo desktop di mobile */
   }
-
-  .navLogo {
-    padding: 6px 10px;
+  .logoMobile {
+    display: block; /* Tampilkan logo mobile di mobile */
   }
 
   .hamburgerButton {
@@ -357,6 +315,6 @@
   }
 
   .navLinksWrapper.mobileMenuOpen .profileDropdown {
-    width: 240px; /* Contoh: buat lebih sempit untuk layar sangat kecil */
+    width: 240px;
   }
 }
