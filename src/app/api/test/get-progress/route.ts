@@ -1,4 +1,4 @@
-// File: src/app/api/test/get-progress/route.ts
+// File: src/app/api/test/get-progress/route.ts (SUDAH DIPERBAIKI)
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
@@ -8,12 +8,13 @@ import prisma from "@/lib/prisma";
 export async function GET() {
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user) {
+  if (!session?.user?.id) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const userId = Number((session.user as any).id);
+    // 1. Menghapus '(as any)' karena tipe sesi sudah benar
+    const userId = Number(session.user.id);
 
     const savedAnswers = await prisma.userAnswer.findMany({
       where: {
@@ -29,13 +30,11 @@ export async function GET() {
       return NextResponse.json({ answers: {} }, { status: 200 });
     }
 
-    // --- PERBAIKAN DI SINI ---
     const valueMap: { [key: number]: string } = {
       "1": "sangat_setuju",
       "0": "netral",
       "-1": "tidak_setuju",
     };
-    // -------------------------
 
     const progress = savedAnswers.reduce((acc, current) => {
       const answerString = valueMap[current.answerValue];
@@ -46,8 +45,9 @@ export async function GET() {
     }, {} as { [key: number]: string });
 
     return NextResponse.json({ answers: progress }, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching progress:", error);
+  } catch (_error) {
+    // 2. Menggunakan '_' untuk variabel yang tidak dipakai
+    console.error("Error fetching progress:", _error);
     return NextResponse.json(
       { message: "Failed to fetch progress" },
       { status: 500 }
