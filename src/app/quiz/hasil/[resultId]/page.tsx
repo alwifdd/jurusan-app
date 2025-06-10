@@ -1,4 +1,4 @@
-// src/app/quiz/hasil/[resultId]/page.tsx (FINAL TYPE FIX)
+// src/app/quiz/hasil/[resultId]/page.tsx (FINAL FIX UNTUK VERCEL)
 
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
@@ -6,7 +6,7 @@ import styles from "./hasil.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-// Objek deskripsi MBTI yang lengkap
+// Objek deskripsi MBTI kita letakkan di sini
 const mbtiDescriptions: { [key: string]: string } = {
   ESTJ: "The Executive - Pemimpin yang praktis dan tegas. Anda suka mengorganisir orang dan proyek, sangat bertanggung jawab, dan berorientasi pada hasil yang nyata.",
   ESTP: "The Entrepreneur - Spontan dan energik. Anda suka beraksi langsung, fleksibel dalam menghadapi situasi, dan pandai beradaptasi dengan perubahan.",
@@ -26,8 +26,27 @@ const mbtiDescriptions: { [key: string]: string } = {
   INFP: "The Mediator - Idealis dan adaptable. Anda memiliki nilai-nilai yang mendalam, sangat kreatif, dan selalu mencari makna dalam segala yang Anda lakukan.",
 };
 
-async function getResultData(id: number) {
-  const result = await prisma.quizResult.findUnique({ where: { id } });
+// Definisikan tipe untuk params langsung di sini
+type PageProps = {
+  params: {
+    resultId: string;
+  };
+};
+
+// Ini adalah cara penulisan yang paling aman
+export default async function ResultPage({ params }: PageProps) {
+  const resultId = Number(params.resultId);
+
+  // Validasi sederhana jika resultId bukan angka
+  if (isNaN(resultId)) {
+    notFound();
+  }
+
+  // Ambil data langsung di dalam komponen
+  const result = await prisma.quizResult.findUnique({
+    where: { id: resultId },
+  });
+
   if (!result) {
     notFound();
   }
@@ -35,26 +54,9 @@ async function getResultData(id: number) {
   const fullDescription =
     mbtiDescriptions[result.mbtiType] || "Tipe Kepribadian Unik";
   const descriptionParts = fullDescription.split(" - ");
-  const title = descriptionParts[0] || result.mbtiType;
-  const description = descriptionParts[1] || "Deskripsi tidak tersedia.";
-
-  return {
-    ...result,
-    recommendations: JSON.parse(result.recommendations as string),
-    mbtiTitle: title,
-    mbtiDescription: description,
-  };
-}
-
-// ========================================================
-// ===== PERBAIKAN UTAMA: Cara Menerima Props 'params' =====
-// ========================================================
-export default async function ResultPage({
-  params,
-}: {
-  params: { resultId: string };
-}) {
-  const result = await getResultData(Number(params.resultId));
+  const mbtiTitle = descriptionParts[0] || result.mbtiType;
+  const mbtiDescription = descriptionParts[1] || "Deskripsi tidak tersedia.";
+  const recommendations = JSON.parse(result.recommendations as string);
   const imageUrl = `/mbti/${result.mbtiType}.png`;
 
   return (
@@ -77,15 +79,15 @@ export default async function ResultPage({
       </div>
 
       <div className={styles.contentWrapper}>
-        <h2 className={styles.mbtiTitle}>{result.mbtiTitle}</h2>
-        <p className={styles.mbtiDescription}>{result.mbtiDescription}</p>
+        <h2 className={styles.mbtiTitle}>{mbtiTitle}</h2>
+        <p className={styles.mbtiDescription}>{mbtiDescription}</p>
 
         <h3 className={styles.recommendationHeading}>
           Rekomendasi Jurusan Untukmu!
         </h3>
 
         <div className={styles.recommendationGrid}>
-          {result.recommendations.map((rec: any, index: number) => (
+          {recommendations.map((rec: any, index: number) => (
             <div key={index} className={styles.majorCard}>
               <h4>{rec.major}</h4>
               <p>{rec.reasoning}</p>
