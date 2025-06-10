@@ -1,4 +1,4 @@
-// src/app/quiz/hasil/[resultId]/page.tsx (FINAL FIX UNTUK VERCEL)
+// src/app/quiz/hasil/[resultId]/page.tsx
 
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
@@ -6,7 +6,7 @@ import styles from "./hasil.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-// Objek deskripsi MBTI kita letakkan di sini
+// Deskripsi MBTI
 const mbtiDescriptions: { [key: string]: string } = {
   ESTJ: "The Executive - Pemimpin yang praktis dan tegas. Anda suka mengorganisir orang dan proyek, sangat bertanggung jawab, dan berorientasi pada hasil yang nyata.",
   ESTP: "The Entrepreneur - Spontan dan energik. Anda suka beraksi langsung, fleksibel dalam menghadapi situasi, dan pandai beradaptasi dengan perubahan.",
@@ -26,23 +26,20 @@ const mbtiDescriptions: { [key: string]: string } = {
   INFP: "The Mediator - Idealis dan adaptable. Anda memiliki nilai-nilai yang mendalam, sangat kreatif, dan selalu mencari makna dalam segala yang Anda lakukan.",
 };
 
-// Definisikan tipe untuk params langsung di sini
-type PageProps = {
-  params: {
-    resultId: string;
-  };
-};
-
-// Ini adalah cara penulisan yang paling aman
-export default async function ResultPage({ params }: PageProps) {
+// ✅ Perhatikan bahwa kita **tidak membuat type PageProps terpisah**
+export default async function ResultPage({
+  params,
+}: {
+  params: { resultId: string };
+}) {
   const resultId = Number(params.resultId);
 
-  // Validasi sederhana jika resultId bukan angka
+  // Validasi ID
   if (isNaN(resultId)) {
     notFound();
   }
 
-  // Ambil data langsung di dalam komponen
+  // Fetch data dari database
   const result = await prisma.quizResult.findUnique({
     where: { id: resultId },
   });
@@ -53,9 +50,8 @@ export default async function ResultPage({ params }: PageProps) {
 
   const fullDescription =
     mbtiDescriptions[result.mbtiType] || "Tipe Kepribadian Unik";
-  const descriptionParts = fullDescription.split(" - ");
-  const mbtiTitle = descriptionParts[0] || result.mbtiType;
-  const mbtiDescription = descriptionParts[1] || "Deskripsi tidak tersedia.";
+
+  const [mbtiTitle, mbtiDescription] = fullDescription.split(" - ");
   const recommendations = JSON.parse(result.recommendations as string);
   const imageUrl = `/mbti/${result.mbtiType}.png`;
 
@@ -79,20 +75,24 @@ export default async function ResultPage({ params }: PageProps) {
       </div>
 
       <div className={styles.contentWrapper}>
-        <h2 className={styles.mbtiTitle}>{mbtiTitle}</h2>
-        <p className={styles.mbtiDescription}>{mbtiDescription}</p>
+        <h2 className={styles.mbtiTitle}>{mbtiTitle || result.mbtiType}</h2>
+        <p className={styles.mbtiDescription}>
+          {mbtiDescription || "Deskripsi tidak tersedia."}
+        </p>
 
         <h3 className={styles.recommendationHeading}>
           Rekomendasi Jurusan Untukmu!
         </h3>
 
         <div className={styles.recommendationGrid}>
-          {recommendations.map((rec: any, index: number) => (
-            <div key={index} className={styles.majorCard}>
-              <h4>{rec.major}</h4>
-              <p>{rec.reasoning}</p>
-            </div>
-          ))}
+          {recommendations.map(
+            (rec: { major: string; reasoning: string }, index: number) => (
+              <div key={index} className={styles.majorCard}>
+                <h4>{rec.major}</h4>
+                <p>{rec.reasoning}</p>
+              </div>
+            )
+          )}
         </div>
 
         <Link href="/" className={styles.homeButton}>
