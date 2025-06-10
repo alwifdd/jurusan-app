@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 
     // 1. Buat pemetaan dari string ke angka
     const answerMap: { [key: string]: number } = {
-      sangat_setuju: 1,
+      setuju: 1,
       netral: 0,
       tidak_setuju: -1,
     };

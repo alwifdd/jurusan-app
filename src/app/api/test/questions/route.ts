@@ -1,4 +1,4 @@
-// File: src/app/api/test/questions/route.ts
+// File: src/app/api/test/questions/route.ts (FINAL TANPA ACAK)
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
@@ -12,10 +12,11 @@ export async function GET() {
       },
     });
 
-    // Acak urutan pertanyaan sebelum dikirim ke frontend
-    const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
+    // HAPUS BARIS YANG MENGACAK PERTANYAAN
+    // const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
 
-    return NextResponse.json({ questions: shuffledQuestions });
+    // Kirim pertanyaan yang sudah terurut, bukan yang diacak
+    return NextResponse.json({ questions: allQuestions });
   } catch (error) {
     console.error("Gagal mengambil pertanyaan dari DB:", error);
     return NextResponse.json(

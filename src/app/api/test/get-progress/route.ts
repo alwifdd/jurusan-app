@@ -31,7 +31,7 @@ export async function GET() {
     }
 
     const valueMap: { [key: number]: string } = {
-      "1": "sangat_setuju",
+      "1": "setuju",
       "0": "netral",
       "-1": "tidak_setuju",
     };

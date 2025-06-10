@@ -1,4 +1,4 @@
-// File: src/components/QuizSection/QuizSection.tsx (Versi Final dengan Perbaikan useRef)
+// File: src/components/QuizSection/QuizSection.tsx (FINAL LENGKAP)
 
 "use client";
 
@@ -38,11 +38,10 @@ const QuizSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isQuizComplete, setIsQuizComplete] = useState(false);
 
-  // --- PERBAIKAN FINAL DI SINI ---
   const prevAnswersRef = useRef<ProgressAnswers | undefined>(undefined);
 
+  // useEffect untuk memuat data awal
   useEffect(() => {
     if (status === "authenticated") {
       const loadInitialData = async () => {
@@ -64,13 +63,9 @@ const QuizSection: React.FC = () => {
             setAnswers(savedAnswers);
             prevAnswersRef.current = savedAnswers;
 
-            if (loadedQuestions.length > 0) {
-              const answeredCount = Object.keys(savedAnswers).length;
-              if (answeredCount < loadedQuestions.length) {
-                setCurrentQuestionIndex(answeredCount);
-              } else if (answeredCount === loadedQuestions.length) {
-                setIsQuizComplete(true);
-              }
+            const answeredCount = Object.keys(savedAnswers).length;
+            if (answeredCount < loadedQuestions.length) {
+              setCurrentQuestionIndex(answeredCount);
             }
           }
         } catch (err) {
@@ -86,6 +81,7 @@ const QuizSection: React.FC = () => {
     }
   }, [status]);
 
+  // useEffect untuk menyimpan progres
   useEffect(() => {
     if (
       isLoading ||
@@ -94,7 +90,6 @@ const QuizSection: React.FC = () => {
     ) {
       return;
     }
-
     const prevKeys = Object.keys(prevAnswersRef.current || {});
     const currentKeys = Object.keys(answers);
     const newKey = currentKeys.find(
@@ -102,11 +97,9 @@ const QuizSection: React.FC = () => {
         !prevKeys.includes(key) ||
         prevAnswersRef.current?.[parseInt(key)] !== answers[parseInt(key)]
     );
-
     if (newKey) {
       const questionId = Number(newKey);
       const answerValue = answers[questionId];
-
       fetch("/api/test/save-progress", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -115,22 +108,31 @@ const QuizSection: React.FC = () => {
         console.error("Gagal menyimpan progres ke DB:", error)
       );
     }
-
     prevAnswersRef.current = answers;
   }, [answers, status, isLoading]);
 
+  const restartQuiz = () => {
+    setAnswers({});
+    setCurrentQuestionIndex(0);
+    setResult(null);
+    setError(null);
+    prevAnswersRef.current = {};
+  };
+
   const handleAnswer = (questionId: number, value: string) => {
-    if (isQuizComplete) return;
-    setAnswers((prev) => {
-      const newAnswers = { ...prev, [questionId]: value };
-      const newAnsweredCount = Object.keys(newAnswers).length;
-      if (newAnsweredCount === questions.length && questions.length > 0) {
-        setIsQuizComplete(true);
-      } else {
-        setCurrentQuestionIndex(newAnsweredCount);
-      }
-      return newAnswers;
-    });
+    setAnswers((prev) => ({ ...prev, [questionId]: value }));
+  };
+
+  const handlePreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
   };
 
   const handleExitConfirm = async () => {
@@ -138,11 +140,19 @@ const QuizSection: React.FC = () => {
     if (status === "authenticated") {
       try {
         await fetch("/api/test/clear-progress", { method: "POST" });
+        restartQuiz();
       } catch (error) {
         console.error("Gagal menghapus progres:", error);
       }
     }
     router.push("/");
+  };
+
+  const handleRestartFromSummary = async () => {
+    if (status === "authenticated") {
+      await fetch("/api/test/clear-progress", { method: "POST" });
+    }
+    restartQuiz();
   };
 
   const handleSubmit = async () => {
@@ -158,8 +168,15 @@ const QuizSection: React.FC = () => {
         const errorData = await response.json();
         throw new Error(errorData.message || "Gagal mendapatkan hasil.");
       }
-      const resultData: QuizResult = await response.json();
-      setResult(resultData);
+      // Ambil data termasuk ID dari respons API
+      const resultData = await response.json();
+
+      // Alihkan pengguna ke halaman hasil yang baru
+      if (resultData.id) {
+        router.push(`/quiz/hasil/${resultData.id}`);
+      } else {
+        throw new Error("Gagal mendapatkan ID hasil tes.");
+      }
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -174,10 +191,11 @@ const QuizSection: React.FC = () => {
       </div>
     );
   }
+
   if (status === "unauthenticated") {
     return (
       <div className={`${styles.container} ${styles.hasilContainer}`}>
-        <div className={styles.hasilSection}>
+        <div className={styles.quizBox}>
           <h3>Akses Ditolak</h3>
           <p>Anda harus login terlebih dahulu untuk dapat mengerjakan kuis.</p>
           <Link href="/login?callbackUrl=/quiz" className={styles.submitButton}>
@@ -187,6 +205,7 @@ const QuizSection: React.FC = () => {
       </div>
     );
   }
+
   if (isLoading) {
     return (
       <div className={styles.container}>
@@ -194,6 +213,7 @@ const QuizSection: React.FC = () => {
       </div>
     );
   }
+
   if (error) {
     return (
       <div className={styles.container}>
@@ -201,61 +221,95 @@ const QuizSection: React.FC = () => {
       </div>
     );
   }
-
-  if (result) {
-    const mbtiTitle = result.description?.split(" - ")[0] || "";
-    const mbtiDesc =
-      result.description?.split(" - ")[1] ||
-      "Deskripsi untuk tipe kepribadian ini.";
-    return (
-      <div className={`${styles.container} ${styles.hasilContainer}`}>
-        <div className={styles.hasilSection}>
-          <span className={styles.mbtiBadge}>{result.mbtiType}</span>
-          <h3 className={styles.mbtiTitle}>{mbtiTitle}</h3>
-          <p className={styles.mbtiDescription}>{mbtiDesc}</p>
-          <h4 className={styles.recommendationTitle}>
-            Rekomendasi Jurusan untuk Anda
-          </h4>
-          <p className={styles.recommendationSubtitle}>
-            Ini dia rekomendasi jurusan yang cocok buat anda! Disusun
-            berdasarkan karakter dan preferensi anda, semoga bisa jadi referensi
-            yang pas dan membantu anda menentukan arah ke depan.
-          </p>
-          <div className={styles.majorList}>
-            {result.recommendations?.map((rec, index) => (
-              <div key={index} className={styles.majorItem}>
-                <strong>{rec.major}</strong>
-                <small>{rec.reasoning}</small>
-              </div>
-            ))}
-          </div>
-          <button
-            className={styles.submitButton}
-            onClick={() => window.location.reload()}
-          >
-            Ulangi Kuis
-          </button>
-        </div>
-      </div>
-    );
-  }
-
+  //if result di hps
   const currentQuestion = questions[currentQuestionIndex];
+  const isQuizComplete =
+    Object.keys(answers).length === questions.length && questions.length > 0;
 
   return (
     <div className={styles.container}>
-      <div className={styles.headerQuiz}>
-        <h2 className={styles.quizTitle}>
-          Kuis MBTI ({Object.keys(answers).length}/{questions.length})
-        </h2>
-        {!isQuizComplete && !result && (
+      <div className={styles.quizBox}>
+        <div className={styles.headerQuiz}>
+          <h2 className={styles.quizTitle}>
+            Kuis MBTI ({Object.keys(answers).length}/{questions.length})
+          </h2>
           <button
             onClick={() => setIsExitModalOpen(true)}
             className={styles.exitButton}
           >
             Keluar
           </button>
+        </div>
+
+        <progress
+          className={styles.progressBar}
+          value={Object.keys(answers).length}
+          max={questions.length}
+        ></progress>
+
+        {currentQuestion && (
+          <div key={currentQuestion.id} className={styles.pertanyaan}>
+            <p className={styles.questionText}>{currentQuestion.text}</p>
+            <div className={styles.opsiJawaban}>
+              <button
+                className={
+                  answers[currentQuestion.id] === "setuju" ? styles.dipilih : ""
+                }
+                onClick={() => handleAnswer(currentQuestion.id, "setuju")}
+              >
+                Setuju
+              </button>
+              <button
+                className={
+                  answers[currentQuestion.id] === "netral" ? styles.dipilih : ""
+                }
+                onClick={() => handleAnswer(currentQuestion.id, "netral")}
+              >
+                Netral
+              </button>
+              <button
+                className={
+                  answers[currentQuestion.id] === "tidak_setuju"
+                    ? styles.dipilih
+                    : ""
+                }
+                onClick={() => handleAnswer(currentQuestion.id, "tidak_setuju")}
+              >
+                Tidak Setuju
+              </button>
+            </div>
+          </div>
         )}
+
+        <div className={styles.navigationContainer}>
+          <button
+            onClick={handlePreviousQuestion}
+            disabled={currentQuestionIndex === 0}
+            className={styles.navButton}
+          >
+            Kembali
+          </button>
+          {isQuizComplete ? (
+            <button
+              className={styles.submitButton}
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Memproses..." : "Lihat Hasil"}
+            </button>
+          ) : (
+            <button
+              onClick={handleNextQuestion}
+              disabled={
+                !answers[currentQuestion?.id] ||
+                currentQuestionIndex === questions.length - 1
+              }
+              className={styles.navButton}
+            >
+              Selanjutnya
+            </button>
+          )}
+        </div>
       </div>
       <Modal
         isOpen={isExitModalOpen}
@@ -266,66 +320,6 @@ const QuizSection: React.FC = () => {
         Keluar dari sesi tes akan mereset semua progress dan pertanyaan yang
         sudah di jawab, kamu perlu mengulang tes dari awal.
       </Modal>
-      <progress
-        className={styles.progressBar}
-        value={Object.keys(answers).length}
-        max={questions.length}
-      ></progress>
-
-      {!isQuizComplete && currentQuestion && (
-        <div key={currentQuestion.id} className={styles.pertanyaan}>
-          <p className={styles.questionText}>{currentQuestion.text}</p>
-          <div className={styles.opsiJawaban}>
-            <button
-              className={
-                answers[currentQuestion.id] === "setuju" ? styles.dipilih : ""
-              }
-              onClick={() => handleAnswer(currentQuestion.id, "setuju")}
-            >
-              Setuju
-            </button>
-            <button
-              className={
-                answers[currentQuestion.id] === "netral" ? styles.dipilih : ""
-              }
-              onClick={() => handleAnswer(currentQuestion.id, "netral")}
-            >
-              Netral
-            </button>
-            <button
-              className={
-                answers[currentQuestion.id] === "tidak_setuju"
-                  ? styles.dipilih
-                  : ""
-              }
-              onClick={() => handleAnswer(currentQuestion.id, "tidak_setuju")}
-            >
-              Tidak Setuju
-            </button>
-          </div>
-        </div>
-      )}
-
-      {isQuizComplete && (
-        <div style={{ marginTop: "2rem", textAlign: "center" }}>
-          <p
-            style={{
-              fontSize: "1.2rem",
-              color: "#334155",
-              marginBottom: "1.5rem",
-            }}
-          >
-            Semua pertanyaan telah dijawab!
-          </p>
-          <button
-            className={styles.submitButton}
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Memproses..." : "Lihat Hasil"}
-          </button>
-        </div>
-      )}
     </div>
   );
 };

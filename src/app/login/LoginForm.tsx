@@ -65,7 +65,7 @@ export default function LoginForm() {
       <div className={styles.content}>
         <div className={styles.left}>
           {/* ... dan seterusnya, seluruh kode JSX Anda ... */}
-          <h1 className={styles.title}>Welcome back!</h1>
+          <h1 className={styles.title}>Selamat datang kembali</h1>
           <p className={styles.subtitle}>
             Enter your Credentials to access your account
           </p>

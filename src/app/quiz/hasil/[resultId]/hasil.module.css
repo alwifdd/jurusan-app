@@ -1,0 +1,266 @@
+/* src/app/quiz/hasil/[resultId]/hasil.module.css (FINAL LENGKAP) */
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; sengaja dihilangkan agar konten mulai dari atas */
+  padding: 2rem;
+  padding-top: 5rem; /* Beri ruang di atas */
+  background-color: #f0f7ff;
+  min-height: 100vh;
+  box-sizing: border-box;
+  text-align: center;
+  color: #1e293b;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Wadah untuk bagian atas (Tipe MBTI + Avatar) */
+.resultHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 20; /* Lapisan header di atas konten */
+}
+
+/* Wadah untuk semua elemen avatar + glow */
+.avatarContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Tarik avatar ke atas agar menimpa judul */
+  margin-top: -20px;
+}
+
+/* Lingkaran cahaya di belakang avatar */
+.avatarGlow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    #ffffff 0%,
+    #b1cfec 56%,
+    rgba(137, 196, 254, 0) 70%
+  );
+  filter: blur(30px);
+  opacity: 0.9;
+}
+
+/* Wadah untuk gambar avatar itu sendiri */
+.avatarWrapper {
+  width: 280px;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Agar bisa di atas glow */
+  z-index: 2;
+}
+
+/* Gambar avatar itu sendiri */
+.avatarImage {
+  /* Efek bayangan 3D yang mengikuti bentuk gambar transparan */
+  filter: drop-shadow(0px 15px 25px rgba(50, 70, 100, 0.2));
+}
+
+/* Seluruh konten di bawah avatar */
+.contentWrapper {
+  background-color: white;
+  border-radius: 24px;
+  padding: 3rem;
+  padding-top: 140px; /* Beri padding atas yang besar untuk ruang avatar */
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  /* Tarik konten ke atas di belakang avatar */
+  margin-top: -120px;
+  position: relative;
+  z-index: 10; /* Pastikan konten di bawah header/avatar */
+}
+
+.mbtiType {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.mbtiTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #3b82f6;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.mbtiDescription {
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+  line-height: 1.7;
+  color: #475569;
+  font-size: 1.1rem;
+}
+
+.recommendationHeading {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.recommendationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.majorCard {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 1.5rem;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(100, 116, 139, 0.05);
+}
+
+.majorCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(100, 116, 139, 0.1);
+}
+
+.majorCard h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.majorCard p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.homeButton {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.homeButton:hover {
+  background-color: #2563eb;
+}
+
+.avatarWrapper {
+  width: 280px;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  perspective: 1000px; /* Tambah perspektif untuk efek 3D */
+}
+
+.avatarImage {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+  border-radius: 50%; /* Biar lebih halus */
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); /* Glow */
+}
+
+.avatarWrapper:hover .avatarImage {
+  transform: rotateX(8deg) rotateY(-8deg) scale(1.05);
+  box-shadow: 0 0 45px rgba(59, 130, 246, 0.7); /* Glow saat hover */
+}
+@keyframes floatRotate {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) translateY(0px);
+  }
+  50% {
+    transform: rotateX(6deg) rotateY(-6deg) translateY(-10px);
+  }
+  100% {
+    transform: rotateX(0deg) rotateY(0deg) translateY(0px);
+  }
+}
+
+.avatarWrapper {
+  width: 280px;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  perspective: 1000px;
+  animation: floatRotate 5s ease-in-out infinite;
+}
+
+.avatarImage {
+  filter: drop-shadow(0px 15px 25px rgba(50, 70, 100, 0.2));
+  transition: box-shadow 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); /* Soft glow */
+}
+@keyframes floatRotate {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) translateY(0px);
+  }
+  50% {
+    transform: rotateX(6deg) rotateY(-6deg) translateY(-10px);
+  }
+  100% {
+    transform: rotateX(0deg) rotateY(0deg) translateY(0px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5) translateY(-3px);
+  }
+}
+
+.avatarWrapper {
+  animation: floatRotate 5s ease-in-out infinite;
+  perspective: 1000px;
+}
+
+.avatarImage {
+  filter: drop-shadow(0px 15px 25px rgba(50, 70, 100, 0.2));
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+.star {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #facc15 0%, #fef08a 40%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle 3s infinite ease-in-out;
+  pointer-events: none;
+}

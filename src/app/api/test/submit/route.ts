@@ -162,10 +162,9 @@ export async function POST(request: Request) {
     // =================================================================
     // ===== PERBAIKAN 2: MENGATASI ERROR 'no-explicit-any' =====
     // =================================================================
-    await prisma.quizResult.create({
+    // 3. Simpan data dan DAPATKAN hasilnya (termasuk ID)
+    const newResult = await prisma.quizResult.create({
       data: {
-        // 'session.user.id' sekarang aman digunakan tanpa 'as any'
-        // berkat file `types/next-auth.d.ts` yang kita buat.
         userId: Number(session.user.id),
         mbtiType: mbtiType,
         recommendations: JSON.stringify(recommendations),
@@ -173,6 +172,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
+      id: newResult.id,
       mbtiType,
       description,
       recommendations,

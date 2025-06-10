@@ -1,19 +1,193 @@
-/* File: src/components/styles/QuizSection.module.css */
+/* File: src/components/styles/QuizSection.module.css (DESAIN BARU DARI FIGMA) */
 
-/* Wadah utama halaman kuis */
+/* Wadah utama halaman kuis dengan background radial */
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 150px);
-  background-color: #f0f4f8;
+  min-height: 100vh;
   padding: 2rem;
   font-family: "Poppins", sans-serif;
+  /* Background Radial dari Figma */
+  background: radial-gradient(circle at 18% 41%, #b1cfec 0%, #f2f9fd 100%);
 }
 
-/* Kotak utama tempat kuis berada */
-.quizBox,
+/* Kontainer putih yang membungkus elemen kuis */
+.quizBox {
+  background-color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  padding: 2rem 2.5rem;
+  width: 100%;
+  max-width: 650px;
+  border: 1px solid #e7eaf3;
+  box-sizing: border-box;
+}
+
+/* Header di dalam kontainer putih (Judul + Tombol Keluar) */
+.headerQuiz {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.quizTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #475569;
+  margin: 0;
+}
+
+.exitButton {
+  background-color: #fbbf24;
+  color: #3a2e00;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+}
+
+.exitButton:hover {
+  background-color: #f59e0b;
+}
+
+/* Progress Bar baru */
+.progressBar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px; /* Lebih tipis */
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #eaf0f6;
+  margin-bottom: 1.5rem;
+}
+
+.progressBar::-webkit-progress-bar {
+  background-color: #eaf0f6;
+  border-radius: 4px;
+}
+
+.progressBar::-webkit-progress-value {
+  background-color: #f59e0b; /* Warna oranye/kuning */
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* Area Pertanyaan */
+.pertanyaan {
+  text-align: center;
+}
+
+.questionText {
+  font-size: 1.5rem; /* Sedikit lebih kecil */
+  color: #1e293b; /* Lebih gelap */
+  margin: 1rem 0 2rem 0;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+/* Tombol Jawaban "Setuju", "Netral", "Tidak Setuju" */
+.opsiJawaban {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Jarak antar tombol sedikit dikurangi */
+  flex-wrap: wrap; /* Tetap wrap untuk layar sangat kecil */
+  margin-top: 2rem;
+}
+
+.opsiJawaban button {
+  padding: 0.8rem 2.5rem; /* Padding disesuaikan */
+  border: 2px solid transparent; /* Border awal transparan */
+  border-radius: 12px;
+  font-size: 1rem; /* Ukuran font disesuaikan */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  min-width: 120px; /* Lebar minimal disesuaikan */
+}
+
+.opsiJawaban button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Tombol ke-1: Setuju (Hijau) */
+.opsiJawaban button:nth-of-type(1) {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+/* Tombol ke-2: Netral (Abu-abu) */
+.opsiJawaban button:nth-of-type(2) {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border-color: #e5e7eb;
+}
+
+/* Tombol ke-3: Tidak Setuju (Merah) */
+.opsiJawaban button:nth-of-type(3) {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+/* CSS BARU UNTUK TOMBOL KEMBALI & LAYOUT */
+.actionContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.backButton {
+  background-color: transparent;
+  border: 2px solid #e2e8f0;
+  color: #64748b;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  border-color: #94a3b8;
+  color: #334155;
+  background-color: #f8fafc;
+}
+
+.opsiJawaban {
+  /* Hapus margin-top karena sudah diatur oleh .actionContainer */
+  margin-top: 0;
+}
+/* Style untuk tombol yang DIPILIH */
+.dipilih {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  /* Beri border biru tebal untuk menandakan pilihan */
+  border-color: #3b82f6 !important;
+}
+
+/* Halaman Hasil (untuk konsistensi) */
+.hasilContainer {
+  justify-content: center;
+}
 .hasilSection {
   background-color: #ffffff;
   border-radius: 24px;
@@ -25,89 +199,7 @@
   border: 1px solid #e7eaf3;
 }
 
-/* Judul Kuis - PERUBAHAN DI SINI */
-.quizTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 1rem;
-}
-
-/* Progress Bar */
-.progressBar {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 12px;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-bottom: 2.5rem;
-  background-color: #eaf0f6;
-}
-.progressBar::-webkit-progress-bar {
-  background-color: #eaf0f6;
-  border-radius: 6px;
-}
-.progressBar::-webkit-progress-value {
-  background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
-  border-radius: 6px;
-  transition: width 0.4s ease;
-}
-
-/* Teks Pertanyaan */
-.questionText {
-  font-size: 1.6rem;
-  color: #334155;
-  margin: 2rem 0;
-  min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1.4;
-  font-weight: 500;
-}
-
-/* Wadah untuk tombol-tombol jawaban */
-.opsiJawaban {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-.opsiJawaban button {
-  padding: 0.8rem 3rem;
-  border: 2px solid transparent;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  min-width: 150px;
-}
-.opsiJawaban button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-.opsiJawaban button:first-of-type {
-  background-color: #2ecc71;
-  color: white;
-}
-.opsiJawaban button:last-of-type {
-  background-color: #e74c3c;
-  color: white;
-}
-.opsiJawaban button:nth-of-type(2) {
-  background-color: #f1f5f9;
-  color: #475569;
-  border: 2px solid #e2e8f0;
-}
-.dipilih {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  border-color: #3b82f6 !important;
-}
-
-/* Tombol Submit dan Ulangi Kuis */
+/* Tombol Submit dan lainnya */
 .submitButton {
   margin-top: 2rem;
   padding: 1rem 3rem;
@@ -120,76 +212,170 @@
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
 .submitButton:hover {
   background-color: #2563eb;
   transform: translateY(-3px);
   box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
 }
-
-/* Tampilan Hasil */
-.hasilContainer {
-  justify-content: center;
-}
-.hasilSection h3 {
-  font-size: 2.2rem;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
-}
-.hasilSection h3 strong {
-  color: #3b82f6;
-}
-.hasilSection p {
-  font-size: 1.25rem;
-  color: #475569;
-  margin-bottom: 2.5rem;
-}
-
-/* Tampilan jika ada error */
-.errorMessage {
-  color: #e74c3c;
-  font-weight: 500;
-  background-color: #fee2e2;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  border: 1px solid #fca5a5;
-}
-
-/* Responsif untuk Mobile */
-@media (max-width: 768px) {
-  .quizBox,
-  .hasilSection {
-    padding: 2rem;
-  }
-  .questionText {
-    font-size: 1.3rem;
-    min-height: 100px;
-  }
-  .opsiJawaban {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .opsiJawaban button {
-    width: 100%;
-  }
-}
-/* Tambahan untuk Header Kuis dan Tombol Keluar */
-.headerQuiz {
+/* CSS BARU UNTUK NAVIGASI NEXT/BACK */
+.navigationContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-top: 3rem;
+  border-top: 1px solid #eaf0f6;
+  padding-top: 1.5rem;
 }
-.exitButton {
-  background-color: #fbbf24;
-  color: #333;
-  border: none;
-  padding: 8px 20px;
+
+.navButton {
+  background-color: transparent;
+  border: 2px solid #cbd5e1;
+  color: #475569;
+  padding: 0.6rem 1.5rem;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
-.exitButton:hover {
-  background-color: #f59e0b;
+
+.navButton:hover:not(:disabled) {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.navButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+/* GANTI BLOK INI DI QuizSection.module.css */
+.majorList {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 kolom di mobile */
+  gap: 1rem;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.majorItem {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.majorItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-color: #d1d5db;
+  /* ===== STYLES BARU UNTUK HALAMAN HASIL ===== */
+
+  .hasilSection {
+    text-align: center;
+  }
+
+  .mbtiBadge {
+    display: inline-block;
+    background-color: var(--soft-yellow-bg, #fef9c3);
+    color: #a16207;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .mbtiTitle {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .mbtiDescription {
+    font-size: 1rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto 2.5rem auto;
+    line-height: 1.6;
+  }
+
+  .recommendationTitle {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .recommendationSubtitle {
+    font-size: 1rem;
+    color: var(--text-light);
+    max-width: 550px;
+    margin: 0 auto;
+  }
+
+  .majorList {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 kolom di mobile */
+    gap: 1rem;
+    margin-top: 2rem;
+    text-align: left;
+  }
+
+  .majorItem {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .majorItem:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-color: #d1d5db;
+  }
+
+  .majorIcon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background-color: #e0e7ff;
+    color: #4f46e5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .majorContent strong {
+    /* <-- INI PERBAIKANNYA */
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin: 0;
+    display: block; /* Pastikan strong adalah block agar <br> berfungsi baik */
+    margin-bottom: 4px;
+  }
+
+  .majorContent small {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  /* Untuk tampilan desktop, buat jadi 2 kolom jika muat */
+  @media (min-width: 768px) {
+    .majorList {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 }

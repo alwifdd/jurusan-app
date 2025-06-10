@@ -1,4 +1,4 @@
-// File: src/lib/auth.ts
+// File: src/lib/auth.ts (FINAL DENGAN PERBAIKAN JWT)
 
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -6,7 +6,6 @@ import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 
-// EXPORT authOptions DARI FILE INI
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
@@ -83,15 +82,30 @@ export const authOptions: NextAuthOptions = {
       }
       return true;
     },
+
     async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
+      // Jika 'user' ada (saat login), cari data lengkapnya di database
+      if (user?.email) {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email },
+        });
+
+        // Jika ditemukan, perbarui token dengan ID dari database
+        if (dbUser) {
+          token.id = dbUser.id.toString();
+          token.name = dbUser.name;
+          token.picture = dbUser.image;
+        }
       }
       return token;
     },
+
     async session({ session, token }) {
+      // Ambil data dari token yang sudah diperbarui
       if (session.user && token.id) {
-        session.user.id = token.id;
+        session.user.id = token.id as string;
+        session.user.name = token.name;
+        session.user.image = token.picture;
       }
       return session;
     },
