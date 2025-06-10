@@ -1,4 +1,4 @@
-// src/app/quiz/hasil/[resultId]/page.tsx (FINAL STRUCTURE FIX)
+// src/app/quiz/hasil/[resultId]/page.tsx (FINAL TYPE FIX)
 
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
@@ -6,6 +6,7 @@ import styles from "./hasil.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
+// Objek deskripsi MBTI yang lengkap
 const mbtiDescriptions: { [key: string]: string } = {
   ESTJ: "The Executive - Pemimpin yang praktis dan tegas. Anda suka mengorganisir orang dan proyek, sangat bertanggung jawab, dan berorientasi pada hasil yang nyata.",
   ESTP: "The Entrepreneur - Spontan dan energik. Anda suka beraksi langsung, fleksibel dalam menghadapi situasi, dan pandai beradaptasi dengan perubahan.",
@@ -24,10 +25,6 @@ const mbtiDescriptions: { [key: string]: string } = {
   INFJ: "The Advocate - Idealis dan organized. Anda memiliki visi yang kuat tentang bagaimana membantu orang lain dan membuat dunia menjadi tempat yang lebih baik.",
   INFP: "The Mediator - Idealis dan adaptable. Anda memiliki nilai-nilai yang mendalam, sangat kreatif, dan selalu mencari makna dalam segala yang Anda lakukan.",
 };
-
-interface ResultPageProps {
-  params: { resultId: string };
-}
 
 async function getResultData(id: number) {
   const result = await prisma.quizResult.findUnique({ where: { id } });
@@ -49,7 +46,14 @@ async function getResultData(id: number) {
   };
 }
 
-export default async function ResultPage({ params }: ResultPageProps) {
+// ==========================================================
+// ===== PERBAIKAN UTAMA: CARA MENERIMA PROPS 'params' =====
+// ==========================================================
+export default async function ResultPage({
+  params,
+}: {
+  params: { resultId: string };
+}) {
   const result = await getResultData(Number(params.resultId));
   const imageUrl = `/mbti/${result.mbtiType}.png`;
 
@@ -57,10 +61,8 @@ export default async function ResultPage({ params }: ResultPageProps) {
     <div className={styles.pageContainer}>
       <div className={styles.resultHeader}>
         <h1 className={styles.mbtiType}>{result.mbtiType}</h1>
-        {/* ===== DIV PEMBUNGKUS YANG SEBELUMNYA HILANG ===== */}
         <div className={styles.avatarContainer}>
           <div className={styles.avatarGlow}></div>
-
           <div className={styles.avatarWrapper}>
             <Image
               src={imageUrl}
@@ -71,11 +73,6 @@ export default async function ResultPage({ params }: ResultPageProps) {
               className={styles.avatarImage}
             />
           </div>
-          {/* Bintang-bintang glowing */}
-          <span className="star" style={{ top: "10%", left: "15%" }}></span>
-          <span className="star" style={{ top: "30%", left: "80%" }}></span>
-          <span className="star" style={{ top: "60%", left: "10%" }}></span>
-          <span className="star" style={{ top: "80%", left: "70%" }}></span>
         </div>
       </div>
 
