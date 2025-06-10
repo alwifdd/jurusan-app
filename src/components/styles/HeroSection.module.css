@@ -1,10 +1,10 @@
-/* src/components/styles/HeroSection.module.css (FINAL FIX Z-INDEX) */
+/* src/components/styles/HeroSection.module.css */
 
 .heroWrapper {
   text-align: center;
   padding: 40px 20px 60px;
-  position: relative; /* Menetapkan stacking context untuk hero section */
-  z-index: 1; /* Memastikan seluruh hero section berada di lapisan bawah */
+  position: relative;
+  z-index: 1;
 }
 
 .userCount {
@@ -54,6 +54,7 @@
   line-height: 1.6;
 }
 
+/* --- Button with Hover Effect & Shine Animation --- */
 .heroButton {
   background-color: var(--primary-yellow);
   color: var(--text-dark);
@@ -63,12 +64,47 @@
   font-weight: 700;
   font-size: 1.1rem;
   display: inline-block;
-  box-shadow: 0 4px 14px 0 rgba(251, 191, 36, 0.3);
-  transition: transform 0.2s ease;
+  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .heroButton:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
+  background-color: #fbbf24;
+}
+
+/* Shine effect */
+.heroButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.heroButton:hover::before {
+  left: 130%;
+}
+
+/* Disable hover on touch devices */
+@media (hover: none) {
+  .heroButton:hover {
+    transform: none;
+    box-shadow: 0 4px 14px rgba(251, 191, 36, 0.3);
+    background-color: var(--primary-yellow);
+  }
+
+  .heroButton:hover::before {
+    left: -75%;
+  }
 }
 
 .staticText {
@@ -86,6 +122,8 @@
   width: 100%;
   white-space: nowrap;
 }
+
+/* RESPONSIVE BREAKPOINTS */
 
 @media (max-width: 768px) {
   .userCount {
@@ -115,6 +153,7 @@
     margin-top: 16px;
     margin-bottom: 36px;
   }
+
   .heroButton {
     padding: 14px 30px;
     font-size: 1rem;
@@ -125,6 +164,7 @@
   .heroWrapper {
     padding: 30px 15px 40px;
   }
+
   .userCount {
     font-size: 0.7rem;
     padding: 5px 10px;
@@ -151,6 +191,7 @@
     margin-top: 12px;
     margin-bottom: 30px;
   }
+
   .heroButton {
     width: 80%;
     max-width: 280px;

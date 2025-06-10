@@ -52,7 +52,7 @@ const GrowSection = () => {
         {" "}
         {/* .sliderAreaWrapper punya position: relative */}
         <div className={styles.header}>
-          <h2 className={styles.sectionTitle}>Grow with your type</h2>
+          <h2 className={styles.sectionTitle}>Tumbuh dan kembangkan dirimu</h2>
         </div>
         <div className={styles.sliderViewport}>
           <div

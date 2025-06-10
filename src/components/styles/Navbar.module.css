@@ -1,4 +1,4 @@
-/* File: src/components/styles/Navbar.module.css (FINAL CLEANED) */
+/* File: src/components/styles/Navbar.module.css (ANIMATION ONLY VERSION) */
 
 .header {
   position: sticky;
@@ -6,7 +6,7 @@
   padding: 1rem 0;
   width: 100%;
   z-index: 50;
-  transition: top 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar {
@@ -21,6 +21,12 @@
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 50px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
 }
 
 .overlay {
@@ -33,12 +39,49 @@
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   z-index: 40;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .navLogo {
   display: flex;
   align-items: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.navLogo:hover {
+  transform: scale(1.02);
+}
+
+.logoLinkInternal {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.logoLinkInternal:hover {
+  opacity: 0.8;
+}
+
+.logoDesktop {
+  display: block;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.logoMobile {
+  display: none;
+  transition: all 0.3s ease;
+}
+
 .navLinksWrapper {
   display: flex;
   align-items: center;
@@ -55,15 +98,54 @@
   color: var(--text-dark, #1e293b);
   font-weight: 600;
   font-size: 0.9rem;
+  position: relative;
+  padding: 6px 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 
-/* STYLES UNTUK LOGO BARU */
-.logoDesktop {
-  display: block; /* Tampilkan di desktop */
-  object-fit: contain;
+/* Enhanced underline animation */
+.navLinks a::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: var(--primary-blue, #3b82f6);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+  border-radius: 1px;
 }
-.logoMobile {
-  display: none; /* Sembunyikan di desktop */
+
+/* Shimmer effect */
+.navLinks a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.navLinks a:hover {
+  color: var(--primary-blue, #3b82f6);
+  transform: translateY(-2px);
+}
+
+.navLinks a:hover::before {
+  width: 100%;
+}
+
+.navLinks a:hover::after {
+  left: 100%;
 }
 
 .authSection {
@@ -82,11 +164,55 @@
   font-size: 0.9rem;
   border: none;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.navButton:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.navButton:hover::before {
+  left: 100%;
+}
+
+.navButton:active {
+  transform: translateY(-1px) scale(1.01);
+  transition: all 0.1s ease;
 }
 
 .loadingText {
   font-size: 0.9rem;
   color: var(--text-light, #64748b);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .profileArea {
@@ -104,11 +230,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profileButton:hover {
+  transform: scale(1.1);
 }
 
 .profileImage {
   border-radius: 50%;
   display: block;
+  transition: all 0.3s ease;
 }
 
 .profilePlaceholder {
@@ -124,6 +256,11 @@
   font-size: 0.9rem;
   text-transform: uppercase;
   line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.profileButton:hover .profilePlaceholder {
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 .profileDropdown {
@@ -139,16 +276,13 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px) scale(0.98);
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out,
-    visibility 0s linear 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .profileDropdownOpen {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out,
-    visibility 0s linear 0s;
 }
 
 .dropdownHeader {
@@ -182,13 +316,32 @@
   text-decoration: none;
   font-size: 0.9rem;
   border-radius: 8px;
-  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   margin: 4px 0;
   background-color: transparent;
   border: none;
   width: 100%;
   text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.dropdownLink::before,
+.dropdownButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
 }
 
 .dropdownLink {
@@ -198,6 +351,11 @@
 .dropdownLink:hover {
   background-color: var(--primary-blue, #3b82f6);
   color: #ffffff;
+  transform: translateX(4px);
+}
+
+.dropdownLink:hover::before {
+  left: 100%;
 }
 
 .dropdownButton {
@@ -207,6 +365,11 @@
 .dropdownButton:hover {
   background-color: var(--danger-red-bg-hover, #fee2e2);
   color: var(--danger-red-text-hover, #b91c1c);
+  transform: translateX(4px);
+}
+
+.dropdownButton:hover::before {
+  left: 100%;
 }
 
 .dropdownLink span[role="img"],
@@ -214,6 +377,12 @@
   font-size: 1rem;
   min-width: 16px;
   text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.dropdownLink:hover span[role="img"],
+.dropdownButton:hover span[role="img"] {
+  transform: scale(1.2);
 }
 
 .hamburgerButton {
@@ -224,6 +393,34 @@
   color: var(--text-dark, #1e293b);
   cursor: pointer;
   z-index: 1001;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+  padding: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hamburgerButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hamburgerButton:hover::before {
+  opacity: 1;
+}
+
+.hamburgerButton:hover {
+  color: var(--primary-blue, #3b82f6);
+  transform: scale(1.1);
+}
+
+.hamburgerButton:active {
+  transform: scale(0.95);
 }
 
 @media (max-width: 768px) {
@@ -248,6 +445,18 @@
     border: 1px solid #e2e8f0;
     z-index: 1000;
     gap: 0;
+    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   .navLinksWrapper.mobileMenuOpen {
@@ -266,6 +475,12 @@
     width: 100%;
     text-align: center;
     border-bottom: 1px solid var(--border-color, #eeeeee);
+    transition: all 0.3s ease;
+  }
+
+  .navLinks a:hover {
+    background: rgba(59, 130, 246, 0.05);
+    transform: none;
   }
 
   .navLinks a:last-child {
@@ -298,12 +513,12 @@
 }
 
 @media (max-width: 480px) {
-  /* TAMBAHKAN INI */
   .logoDesktop {
-    display: none; /* Sembunyikan logo desktop di mobile */
+    display: none;
   }
+
   .logoMobile {
-    display: block; /* Tampilkan logo mobile di mobile */
+    display: block;
   }
 
   .hamburgerButton {

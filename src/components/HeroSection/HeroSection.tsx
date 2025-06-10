@@ -95,7 +95,7 @@ const HeroSection = () => {
               className={styles.avatarImage}
             />
           </div>
-          <span>8000+ orang menggunakan produk kami</span>
+          <span>Kami berkembang bersama para pengguna yang luar biasa.</span>
         </motion.div>
 
         <motion.h1 variants={itemVariants} className={styles.heroTitle}>

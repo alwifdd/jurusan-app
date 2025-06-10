@@ -1,4 +1,4 @@
-// src/app/components/Navbar/Navbar.tsx (FINAL BERSIH)
+// src/app/components/Navbar/Navbar.tsx (COMBINED VERSION)
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -24,6 +24,7 @@ const Navbar = () => {
     setIsProfileDropdownOpen((prevState) => !prevState);
   };
 
+  // Handle click outside dropdown
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -41,6 +42,7 @@ const Navbar = () => {
     };
   }, [isProfileDropdownOpen]);
 
+  // Handle body overflow when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -51,6 +53,13 @@ const Navbar = () => {
       document.body.style.overflow = "auto";
     };
   }, [isMobileMenuOpen]);
+
+  // Close mobile menu when clicking on navigation links
+  const handleNavLinkClick = () => {
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   return (
     <>
@@ -95,9 +104,15 @@ const Navbar = () => {
               }`}
             >
               <div className={styles.navLinks}>
-                <Link href="/">Home</Link>
-                <Link href="/about">About</Link>
-                <Link href="/contact">Contact Us</Link>
+                <Link href="#/" onClick={handleNavLinkClick}>
+                  Beranda
+                </Link>
+                <Link href="#about" onClick={handleNavLinkClick}>
+                  Tentang
+                </Link>
+                <Link href="#contact" onClick={handleNavLinkClick}>
+                  Hubungi kami
+                </Link>
               </div>
 
               <div className={styles.authSection}>
@@ -148,7 +163,11 @@ const Navbar = () => {
                       <Link
                         href="/profile"
                         className={styles.dropdownLink}
-                        onClick={() => setIsProfileDropdownOpen(false)}
+                        onClick={() => {
+                          setIsProfileDropdownOpen(false);
+                          // Close mobile menu if open
+                          if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+                        }}
                       >
                         <span role="img" aria-label="profile icon">
                           👤
@@ -159,6 +178,8 @@ const Navbar = () => {
                         onClick={() => {
                           signOut();
                           setIsProfileDropdownOpen(false);
+                          // Close mobile menu if open
+                          if (isMobileMenuOpen) setIsMobileMenuOpen(false);
                         }}
                         className={styles.dropdownButton}
                       >
@@ -175,6 +196,7 @@ const Navbar = () => {
                   <Link href="/login" legacyBehavior passHref>
                     <a
                       className={`${styles.navButton} ${styles.navButtonMobile}`}
+                      onClick={handleNavLinkClick}
                     >
                       Sign In
                     </a>

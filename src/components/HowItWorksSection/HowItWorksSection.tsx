@@ -24,7 +24,7 @@ const steps = [
 
 const HowItWorksSection = () => {
   return (
-    <section className={styles.section}>
+    <section id="CaraKerja" className={styles.section}>
       <div className="container">
         <h2 className={styles.sectionTitle}>Bagaimana Cara Kerjanya?</h2>
         <div className={styles.stepsContainer}>
