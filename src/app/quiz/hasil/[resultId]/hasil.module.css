@@ -1,12 +1,11 @@
-/* src/app/quiz/hasil/[resultId]/hasil.module.css (FINAL LENGKAP) */
+/* src/app/quiz/hasil/[resultId]/hasil.module.css (VERSI FINAL & BERSIH) */
 
 .pageContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; sengaja dihilangkan agar konten mulai dari atas */
-  padding: 2rem;
-  padding-top: 5rem; /* Beri ruang di atas */
+  justify-content: center;
+  padding: 4rem 2rem;
   background-color: #f0f7ff;
   min-height: 100vh;
   box-sizing: border-box;
@@ -16,27 +15,23 @@
   overflow: hidden;
 }
 
-/* Wadah untuk bagian atas (Tipe MBTI + Avatar) */
 .resultHeader {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  z-index: 20; /* Lapisan header di atas konten */
+  z-index: 20;
 }
 
-/* Wadah untuk semua elemen avatar + glow */
 .avatarContainer {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Tarik avatar ke atas agar menimpa judul */
   margin-top: -20px;
 }
 
-/* Lingkaran cahaya di belakang avatar */
 .avatarGlow {
   position: absolute;
   width: 300px;
@@ -51,45 +46,41 @@
   opacity: 0.9;
 }
 
-/* Wadah untuk gambar avatar itu sendiri */
 .avatarWrapper {
+  position: relative;
+  z-index: 2;
   width: 280px;
   height: 280px;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; /* Agar bisa di atas glow */
-  z-index: 2;
 }
 
-/* Gambar avatar itu sendiri */
 .avatarImage {
-  /* Efek bayangan 3D yang mengikuti bentuk gambar transparan */
   filter: drop-shadow(0px 15px 25px rgba(50, 70, 100, 0.2));
 }
 
-/* Seluruh konten di bawah avatar */
 .contentWrapper {
   background-color: white;
   border-radius: 24px;
   padding: 3rem;
-  padding-top: 140px; /* Beri padding atas yang besar untuk ruang avatar */
+  padding-top: 160px;
   width: 100%;
   max-width: 800px;
   text-align: center;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
-  /* Tarik konten ke atas di belakang avatar */
-  margin-top: -120px;
+  margin-top: -140px;
   position: relative;
-  z-index: 10; /* Pastikan konten di bawah header/avatar */
+  z-index: 10;
 }
 
 .mbtiType {
   font-size: 3.5rem;
   font-weight: 800;
-  color: #1e293b;
   margin: 0;
   margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 25;
 }
 
 .mbtiTitle {
@@ -164,103 +155,4 @@
 
 .homeButton:hover {
   background-color: #2563eb;
-}
-
-.avatarWrapper {
-  width: 280px;
-  height: 280px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  perspective: 1000px; /* Tambah perspektif untuk efek 3D */
-}
-
-.avatarImage {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform;
-  border-radius: 50%; /* Biar lebih halus */
-  box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); /* Glow */
-}
-
-.avatarWrapper:hover .avatarImage {
-  transform: rotateX(8deg) rotateY(-8deg) scale(1.05);
-  box-shadow: 0 0 45px rgba(59, 130, 246, 0.7); /* Glow saat hover */
-}
-@keyframes floatRotate {
-  0% {
-    transform: rotateX(0deg) rotateY(0deg) translateY(0px);
-  }
-  50% {
-    transform: rotateX(6deg) rotateY(-6deg) translateY(-10px);
-  }
-  100% {
-    transform: rotateX(0deg) rotateY(0deg) translateY(0px);
-  }
-}
-
-.avatarWrapper {
-  width: 280px;
-  height: 280px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  perspective: 1000px;
-  animation: floatRotate 5s ease-in-out infinite;
-}
-
-.avatarImage {
-  filter: drop-shadow(0px 15px 25px rgba(50, 70, 100, 0.2));
-  transition: box-shadow 0.3s ease;
-  border-radius: 50%;
-  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); /* Soft glow */
-}
-@keyframes floatRotate {
-  0% {
-    transform: rotateX(0deg) rotateY(0deg) translateY(0px);
-  }
-  50% {
-    transform: rotateX(6deg) rotateY(-6deg) translateY(-10px);
-  }
-  100% {
-    transform: rotateX(0deg) rotateY(0deg) translateY(0px);
-  }
-}
-
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.2;
-    transform: scale(1) translateY(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.5) translateY(-3px);
-  }
-}
-
-.avatarWrapper {
-  animation: floatRotate 5s ease-in-out infinite;
-  perspective: 1000px;
-}
-
-.avatarImage {
-  filter: drop-shadow(0px 15px 25px rgba(50, 70, 100, 0.2));
-  border-radius: 50%;
-  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
-  transition: box-shadow 0.3s ease;
-}
-
-.star {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: radial-gradient(circle, #facc15 0%, #fef08a 40%, transparent 70%);
-  border-radius: 50%;
-  opacity: 0;
-  animation: twinkle 3s infinite ease-in-out;
-  pointer-events: none;
 }
