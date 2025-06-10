@@ -46,9 +46,9 @@ async function getResultData(id: number) {
   };
 }
 
-// ==========================================================
-// ===== PERBAIKAN UTAMA: CARA MENERIMA PROPS 'params' =====
-// ==========================================================
+// ========================================================
+// ===== PERBAIKAN UTAMA: Cara Menerima Props 'params' =====
+// ========================================================
 export default async function ResultPage({
   params,
 }: {
