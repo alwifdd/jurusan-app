@@ -1,4 +1,4 @@
-// src/app/quiz/hasil/[resultId]/page.tsx (VERSI FINAL & LENGKAP)
+// src/app/quiz/hasil/[resultId]/page.tsx (VERSI NEXT.JS 15 - FIXED)
 
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
@@ -26,15 +26,17 @@ const mbtiDescriptions: { [key: string]: string } = {
   INFP: "The Mediator - Idealis dan adaptable. Anda memiliki nilai-nilai yang mendalam, sangat kreatif, dan selalu mencari makna dalam segala yang Anda lakukan.",
 };
 
-// Definisikan tipe untuk props halaman ini
+// Definisikan tipe untuk props halaman ini - Next.js 15 format
 type PageProps = {
-  params: {
+  params: Promise<{
     resultId: string;
-  };
+  }>;
 };
 
 export default async function ResultPage({ params }: PageProps) {
-  const resultId = Number(params.resultId);
+  // Await params karena sekarang berbentuk Promise di Next.js 15
+  const { resultId: resultIdString } = await params;
+  const resultId = Number(resultIdString);
 
   if (isNaN(resultId)) {
     notFound();
