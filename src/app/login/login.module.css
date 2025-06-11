@@ -1,4 +1,49 @@
-/* src/app/login/login.module.css */
+/* Clean 3D Login Module CSS - Modern & Minimalist */
+
+/* ===== GLOBAL ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Removed problematic float animation */
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 
 /* ===== PAGE CONTAINER ===== */
 .pageContainer {
@@ -7,139 +52,305 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background-color: #f9f9f9;
+  background: #ffffff;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scroll only */
+}
+
+/* Subtle background pattern */
+.pageContainer::before {
+  content: "";
+  position: fixed; /* Changed from absolute to prevent movement */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+      circle at 25% 25%,
+      #f8fafc 1px,
+      transparent 1px
+    ),
+    radial-gradient(circle at 75% 75%, #f1f5f9 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 30px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* ===== CONTENT WRAPPER ===== */
 .content {
   display: flex;
-  max-width: 1200px;
+  max-width: 1100px;
   width: 100%;
-  background-color: #ffffff;
-  border-radius: 8px;
+  background: #ffffff;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* Reduced shadow for less distraction */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.8s ease-out;
+  /* Removed 3D hover effect that causes movement */
+  transition: box-shadow 0.3s ease;
+}
+
+.content:hover {
+  /* Subtle hover effect without movement */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12), 0 3px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* ===== LEFT (FORM) ===== */
 .left {
   flex: 1;
-  padding: 3rem 2rem;
+  padding: 3.5rem 3rem;
+  background: #ffffff;
+  position: relative;
 }
 
-/* Judul Halaman */
+/* Changed accent color to more subtle blue */
+.left::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb, #1d4ed8);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ===== TYPOGRAPHY ===== */
 .title {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.75rem;
+  font-weight: 800;
   margin-bottom: 0.5rem;
-  color: #222222;
+  color: #111827;
+  line-height: 1.1;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Subtitle (di bawah judul) */
 .subtitle {
-  font-size: 1rem;
-  color: #4b5563;
-  margin-bottom: 2rem;
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+  line-height: 1.6;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
 }
 
-/* FORM WRAPPER */
+/* ===== FORM STYLING ===== */
 .form {
   width: 100%;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
-/* Setiap Grup Form (Label + Input) */
 .formGroup {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
+  position: relative;
 }
 
-/* Wrapper Password + Link “forgot password” */
 .passwordLabelWrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
-/* Label */
 .label {
   display: block;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #333333;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
 }
 
-/* Link forgot password */
+/* Fixed forgot link color */
 .forgotLink {
-  font-size: 0.9rem;
-  color: #2563eb;
+  font-size: 0.875rem;
+  color: #3b82f6;
   text-decoration: none;
-  transition: color 0.2s;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.forgotLink::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: #3b82f6;
+  transition: width 0.3s ease;
 }
 
 .forgotLink:hover {
-  color: #1e40af;
+  color: #2563eb;
+  /* Removed translateY to prevent movement */
 }
 
-/* Input Text/Email/Password */
+.forgotLink:hover::after {
+  width: 100%;
+}
+
+/* ===== INPUT STYLING - Simplified to match design ===== */
 .input {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 1.125rem 1.5rem;
   font-size: 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px; /* Reduced border radius */
   outline: none;
-  margin-top: 0.5rem;
-  transition: border-color 0.2s;
+  transition: all 0.3s ease;
+  background: #ffffff;
+  color: #0f172a;
+  position: relative;
+  /* Simplified shadow */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Removed complex water effect animations */
+
+.input::placeholder {
+  color: #9ca3af;
+  transition: all 0.3s ease;
+  opacity: 1;
 }
 
 .input:focus {
-  border-color: #2563eb;
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
+  /* Removed translateY to prevent movement */
 }
 
-/* Checkbox Group */
+.input:focus::placeholder {
+  opacity: 0.5;
+}
+
+/* ===== PASSWORD INPUT CONTAINER ===== */
+.passwordInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordInputContainer .input {
+  padding-right: 3.5rem;
+}
+
+.togglePasswordButton {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #6b7280;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.togglePasswordButton:hover {
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  /* Removed scale transform to prevent movement */
+}
+
+/* ===== CHECKBOX STYLING ===== */
 .checkboxGroup {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .checkbox {
-  width: 1rem;
-  height: 1rem;
-  accent-color: #2563eb;
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: #3b82f6; /* Changed from yellow to blue */
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .checkboxLabel {
-  margin-left: 0.5rem;
-  font-size: 0.94rem;
+  margin-left: 0.75rem;
+  font-size: 0.95rem;
   color: #4b5563;
+  cursor: pointer;
+  user-select: none;
 }
 
-/* Tombol Primary (Login) */
+/* ===== BUTTON STYLING - Fixed colors and reduced movement ===== */
 .primaryButton {
   width: 100%;
-  padding: 0.75rem 1rem;
-  background-color: #fbcc04; /* kuning */
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
   color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 700;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 12px; /* Reduced border radius */
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  /* Simplified shadow */
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.primaryButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
 }
 
 .primaryButton:hover {
-  background-color: #e6b003;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+  /* Removed translateY to prevent movement */
 }
 
-/* Separator “or” */
+.primaryButton:hover::before {
+  left: 100%;
+}
+
+.primaryButton:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* ===== SEPARATOR ===== */
 .separator {
   display: flex;
   align-items: center;
   text-align: center;
-  margin: 1.75rem 0;
+  margin: 2.5rem 0;
   color: #9ca3af;
   font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .separator::before,
@@ -147,174 +358,263 @@
   content: "";
   flex: 1;
   height: 1px;
-  background-color: #e5e7eb;
+  background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
 }
 
 .separator span {
-  padding: 0 0.75rem;
+  padding: 0 1.5rem;
+  background: #ffffff;
+  position: relative;
 }
 
-/* Tombol Google Sign-in */
+/* ===== GOOGLE BUTTON - Fixed icon and styling ===== */
 .googleButton {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 1.125rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px; /* Reduced border radius */
   cursor: pointer;
   font-size: 1rem;
-  font-weight: 500;
-  color: #1f2937;
-  transition: background-color 0.2s, border-color 0.2s;
+  font-weight: 600;
+  color: #374151;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .googleButton:hover {
-  background-color: #f3f4f6;
-  border-color: #cbd5e1;
+  background: #f8fafc;
+  border-color: #d1d5db;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  /* Removed translateY to prevent movement */
 }
 
-/* Placeholder untuk ikon Google */
+/* Fixed Google Icon - Single clean icon */
 .googleIcon {
-  display: inline-block;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: 0.5rem;
-  background-color: #4285f4;
-  color: #ffffff;
-  border-radius: 50%;
-  font-size: 0.9rem;
-  font-weight: bold;
-  line-height: 1.25rem;
-  text-align: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.75rem;
+  background-image: url("data:image/svg+xml,%3csvg width='18' height='18' xmlns='http://www.w3.org/2000/svg'%3e%3cg fill='%23000' fill-rule='evenodd'%3e%3cpath d='M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z' fill='%23EA4335'/%3e%3cpath d='M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z' fill='%234285F4'/%3e%3cpath d='M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9.008 9.008 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z' fill='%23FBBC05'/%3e%3cpath d='M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z' fill='%2334A853'/%3e%3c/g%3e%3c/svg%3e");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
 }
 
-/* Teks “Don’t have an account? Sign Up” */
+/* Remove the ::after pseudo-element that was causing double icon */
+.googleIcon::after {
+  display: none;
+}
+
+/* ===== BOTTOM TEXT ===== */
 .bottomText {
-  margin-top: 1.5rem;
-  font-size: 0.94rem;
+  margin-top: 2.5rem;
+  font-size: 0.95rem;
   color: #6b7280;
+  text-align: center;
 }
 
 .bottomText .link {
-  color: #2563eb;
+  color: #3b82f6; /* Changed from yellow to blue */
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.bottomText .link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: #3b82f6;
+  transition: width 0.3s ease;
 }
 
 .bottomText .link:hover {
-  color: #1e40af;
+  color: #2563eb;
+  /* Removed translateY to prevent movement */
 }
 
-/* ===== RIGHT (ILUSTRASI) ===== */
-/* .right {
-  flex: 1;
-  position: relative;
-  background-color: #f3f4f6;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.illustration {
+.bottomText .link:hover::after {
   width: 100%;
-  height: auto;
-  object-fit: cover;
-} */
-/* … kode CSS sebelumnya … */
+}
 
+/* ===== RIGHT (ILLUSTRATION) ===== */
 .right {
   flex: 1;
-  background-color: #fffffffb;
-  display: flex;
-  align-items: center; /* ubah dari flex-end ke center */
-  justify-content: center; /* tetap center */
-  overflow: hidden;
-  padding: 1rem; /* jarak di sekeliling */
-}
-
-.illustration {
-  max-width: 80%; /* skala 80% dari wadah */
-  height: auto;
-  object-fit: contain;
-  margin-top: -5rem;
-}
-
-/* login.module.css (tambahan/penyesuaian contoh) */
-.errorMessage {
-  color: red;
-  margin-bottom: 1rem;
-  text-align: center; /* atau left, sesuai desain */
-}
-
-.input:disabled,
-.primaryButton:disabled,
-.googleButton:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-/* login.module.css (tambahan) */
-
-/* ... (style Anda yang sudah ada untuk .formGroup, .input, dll.) ... */
-
-.passwordInputContainer {
-  position: relative; /* Agar tombol bisa diposisikan absolut di dalamnya */
-  display: flex; /* Bisa juga pakai flex jika ingin tombol di samping input */
-  align-items: center; /* Untuk alignment vertikal tombol jika di samping */
-}
-
-/* Sesuaikan style .input jika sekarang ada tombol di sampingnya */
-.passwordInputContainer .input {
-  /* Jika tombol ada di dalam, mungkin perlu padding-right agar teks tidak tertutup tombol */
-  padding-right: 40px; /* Sesuaikan dengan lebar tombol Anda */
-  width: 100%; /* Pastikan input tetap mengambil lebar penuh */
-  box-sizing: border-box; /* Agar padding tidak menambah lebar total */
-}
-
-.togglePasswordButton {
-  position: absolute; /* Posisikan tombol di dalam input field */
-  right: 10px; /* Jarak dari kanan */
-  top: 50%;
-  transform: translateY(-50%); /* Memusatkan tombol secara vertikal */
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px; /* Area klik tombol */
-  color: #888; /* Warna ikon/teks tombol */
-  font-size: 1.2rem; /* Ukuran ikon mata jika pakai emoji/font-icon */
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  padding: 3rem;
+  position: relative;
 }
 
-.togglePasswordButton:hover {
-  color: #333;
+/* Removed problematic floating elements that caused movement */
+.right::before,
+.right::after {
+  display: none;
 }
 
-.togglePasswordButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
+.illustration {
+  max-width: 80%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+  animation: slideInRight 1s ease-out 0.5s both;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
 }
 
-/* Pastikan errorMessage dan successMessage punya style yang sesuai */
+.illustration:hover {
+  /* Minimal hover effect */
+  transform: scale(1.02);
+}
+
+/* ===== ERROR MESSAGE ===== */
 .errorMessage {
-  color: red;
-  margin-bottom: 1rem;
-  text-align: center;
-  background-color: #ffebee;
-  border: 1px solid red;
-  padding: 10px;
-  border-radius: 4px;
+  color: #dc2626;
+  background: linear-gradient(135deg, #fef2f2 0%, #fde8e8 100%);
+  border: 1px solid #fca5a5;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
   font-size: 0.9rem;
+  text-align: center;
+  animation: fadeInUp 0.3s ease-out;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
 }
 
+/* ===== RESPONSIVE DESIGN ===== */
+@media screen and (max-width: 768px) {
+  .pageContainer {
+    padding: 1rem;
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+
+  .content {
+    flex-direction: column;
+    max-width: 100%;
+    border-radius: 20px;
+  }
+
+  .left {
+    padding: 2.5rem 2rem;
+  }
+
+  .title {
+    font-size: 2.25rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .right {
+    min-height: 200px;
+    padding: 2rem;
+  }
+
+  .illustration {
+    max-width: 70%;
+  }
+
+  .formGroup {
+    margin-bottom: 1.5rem;
+  }
+
+  .input {
+    padding: 1rem 1.25rem;
+  }
+
+  .primaryButton,
+  .googleButton {
+    padding: 1rem 1.25rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .pageContainer {
+    padding: 0.75rem;
+    padding-top: 1rem;
+  }
+
+  .left {
+    padding: 2rem 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .right {
+    min-height: 150px;
+    padding: 1.5rem;
+  }
+
+  .passwordLabelWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .forgotLink {
+    align-self: flex-end;
+  }
+}
+
+/* ===== LOADING STATES ===== */
 .input:disabled,
 .primaryButton:disabled,
 .googleButton:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
   cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.primaryButton:disabled {
+  background: #d1d5db;
+}
+
+/* ===== FOCUS STYLES FOR ACCESSIBILITY ===== */
+.primaryButton:focus,
+.googleButton:focus,
+.input:focus,
+.togglePasswordButton:focus,
+.checkbox:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+  .content {
+    border: 3px solid #000000;
+  }
+
+  .input {
+    border-width: 3px;
+  }
+
+  .primaryButton {
+    background: #000000;
+    border: 2px solid #ffffff;
+  }
 }

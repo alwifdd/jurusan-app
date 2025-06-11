@@ -1,4 +1,4 @@
-// File: src/app/login/LoginForm.tsx (BARU)
+// File: src/app/login/LoginForm.tsx
 
 "use client";
 
@@ -9,7 +9,6 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./login.module.css";
 
-// Ganti nama komponen menjadi LoginForm
 export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -25,6 +24,7 @@ export default function LoginForm() {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
+
     try {
       const result = await signIn("credentials", {
         redirect: false,
@@ -37,7 +37,7 @@ export default function LoginForm() {
       if (result?.error) {
         setError(
           result.error === "CredentialsSignin"
-            ? "Email atau password salah."
+            ? "Email atau kata sandi salah."
             : result.error
         );
       } else if (result?.ok) {
@@ -60,26 +60,24 @@ export default function LoginForm() {
   };
 
   return (
-    // Seluruh JSX dari halaman login dipindahkan ke sini
     <div className={styles.pageContainer}>
       <div className={styles.content}>
         <div className={styles.left}>
-          {/* ... dan seterusnya, seluruh kode JSX Anda ... */}
           <h1 className={styles.title}>Selamat datang kembali</h1>
           <p className={styles.subtitle}>
-            Enter your Credentials to access your account
+            Masukkan kredensial Anda untuk mengakses akun
           </p>
 
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formGroup}>
               <label htmlFor="email" className={styles.label}>
-                Email address
+                Alamat email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Enter your email"
+                placeholder="Masukkan email Anda"
                 className={styles.input}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -87,13 +85,14 @@ export default function LoginForm() {
                 disabled={isLoading}
               />
             </div>
+
             <div className={styles.formGroup}>
               <div className={styles.passwordLabelWrapper}>
                 <label htmlFor="password" className={styles.label}>
-                  Password
+                  Kata sandi
                 </label>
-                <Link href="/forgot-password" className={styles.forgotLink}>
-                  forgot password
+                <Link href="/lupa-kata-sandi" className={styles.forgotLink}>
+                  lupa kata sandi?
                 </Link>
               </div>
               <div className={styles.passwordInputContainer}>
@@ -101,7 +100,7 @@ export default function LoginForm() {
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Masukkan kata sandi"
                   className={styles.input}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -115,8 +114,8 @@ export default function LoginForm() {
                     className={styles.togglePasswordButton}
                     aria-label={
                       showPassword
-                        ? "Sembunyikan password"
-                        : "Tampilkan password"
+                        ? "Sembunyikan kata sandi"
+                        : "Tampilkan kata sandi"
                     }
                     disabled={isLoading}
                   >
@@ -125,38 +124,44 @@ export default function LoginForm() {
                 )}
               </div>
             </div>
+
             {error && <p className={styles.errorMessage}>{error}</p>}
+
             <button
               type="submit"
               className={styles.primaryButton}
               disabled={isLoading}
             >
-              {isLoading ? "Memproses..." : "Login"}
+              {isLoading ? "Memproses..." : "Masuk"}
             </button>
+
             <div className={styles.separator}>
-              <span>or</span>
+              <span>atau</span>
             </div>
+
             <button
               type="button"
               className={styles.googleButton}
               onClick={handleGoogleSignIn}
               disabled={isLoading}
             >
-              <span className={styles.googleIcon}>G</span>
-              <span>Sign in with Google</span>
+              <span className={styles.googleIcon}></span>
+              <span>Masuk dengan Google</span>
             </button>
           </form>
+
           <p className={styles.bottomText}>
-            Don&apos;t have an account?{" "}
+            Belum punya akun?{" "}
             <Link href="/register" className={styles.link}>
-              Sign Up
+              Daftar sekarang
             </Link>
           </p>
         </div>
+
         <div className={styles.right}>
           <Image
             src="/illustration.png"
-            alt="Illustration"
+            alt="Ilustrasi masuk"
             className={styles.illustration}
             width={500}
             height={500}

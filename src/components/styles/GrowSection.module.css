@@ -1,94 +1,40 @@
-/* GrowSection.module.css */
-.growSection {
-  padding: 100px 0;
-  background-color: var(--light-blue);
-}
+/* GrowSection.module.css - FINAL DENGAN PERBAIKAN JARAK GAMBAR MOBILE */
 
-.sliderAreaWrapper {
-  position: relative;
+.growSection {
+  padding: 80px 0;
+  background-color: var(--light-blue);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  padding: 0 24px;
 }
 
 .sectionTitle {
   font-size: 2.8rem;
   font-weight: 800;
   color: var(--text-dark);
-  margin: 0;
   text-align: center;
   line-height: 1.2;
 }
 
-.controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.navButton {
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-dark);
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.navButton:hover {
-  background-color: var(--text-dark);
-  color: #fff;
-}
-
-.navButton:active {
-  transform: scale(0.9);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-.counter {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-light);
-}
-
-.sliderViewport {
-  overflow: hidden;
-  border-radius: 30px;
-}
-
-.sliderContainer {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.slide {
-  flex: 0 0 100%;
-  box-sizing: border-box;
+/* --- Area Slider --- */
+.mySwiper {
+  width: 100%;
+  padding-bottom: 50px !important;
 }
 
 .growCard {
   width: 100%;
-  min-height: 600px;
-  padding: 40px;
+  min-height: 520px;
+  padding: 30px;
   color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Changed from center to space-between */
+  justify-content: center;
   text-align: center;
   box-sizing: border-box;
   border-radius: 20px;
@@ -106,308 +52,129 @@
 
 .imageContainer {
   width: 100%;
-  max-width: 450px;
-  height: 250px;
+  height: 180px;
   position: relative;
-  margin-bottom: 20px;
-  flex-shrink: 0; /* Prevent image from shrinking */
-}
-
-.textContainer {
-  max-width: 550px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  flex-grow: 1;
-  justify-content: center; /* Center the text content */
+  margin-bottom: 24px;
 }
 
 .textContainer h3 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0 0 16px 0;
+  font-size: 1.8rem;
+  line-height: 1.3;
+  margin-bottom: 12px;
 }
 
 .textContainer p {
-  font-size: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
   opacity: 0.9;
-  margin: 0 0 30px 0; /* Increased bottom margin */
-  line-height: 1.6;
 }
 
 .cardButton {
+  margin-top: 24px;
   background-color: #fff;
   color: var(--text-dark);
-  padding: 14px 32px;
+  padding: 12px 28px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 1rem;
-  display: inline-block;
-  transition: all 0.2s ease;
-  margin-top: auto; /* Push button to bottom */
-  flex-shrink: 0; /* Prevent button from shrinking */
+  font-size: 0.9rem;
 }
 
-.cardButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+/* --- Area Kontrol Navigasi --- */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 40px;
+  position: relative;
+  z-index: 10;
 }
 
-/* Tablet styles */
-@media (max-width: 1024px) {
-  .growSection {
-    padding: 80px 0;
-  }
+.navButton {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-  .sectionTitle {
-    font-size: 2.4rem;
+.swiperPagination {
+  position: static !important;
+  width: auto !important;
+  display: flex;
+  gap: 8px;
+}
+
+.swiperBullet {
+  width: 10px;
+  height: 10px;
+  background-color: #d0d0d0;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.swiperPagination :global(.swiper-pagination-bullet-active) {
+  background-color: #0052ff !important;
+}
+
+/* ======================================================= */
+/* ===== PERBAIKAN UNTUK TAMPILAN DESKTOP ===== */
+/* ======================================================= */
+
+@media (min-width: 1024px) {
+  .mySwiper {
+    max-width: 900px;
   }
 
   .growCard {
     min-height: 550px;
-    padding: 35px;
+    padding: 40px;
   }
 
   .imageContainer {
-    max-width: 400px;
-    height: 220px;
+    height: 250px;
   }
 
   .textContainer h3 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
 
   .textContainer p {
-    font-size: 0.95rem;
-  }
-}
-
-/* Mobile Large */
-@media (max-width: 768px) {
-  .growSection {
-    padding: 70px 0;
-  }
-
-  .header {
-    margin-bottom: 25px;
-  }
-
-  .sectionTitle {
-    font-size: 2.2rem;
-  }
-
-  .controls {
-    margin-top: 20px;
-    gap: 10px;
-  }
-
-  .navButton {
-    width: 40px;
-    height: 40px;
-    font-size: 1.3rem;
-  }
-
-  .counter {
     font-size: 1rem;
   }
-
-  .sliderViewport {
-    border-radius: 24px;
-  }
-
-  .growCard {
-    min-height: 520px;
-    padding: 30px 25px;
-    border-radius: 16px;
-  }
-
-  .imageContainer {
-    max-width: 350px;
-    height: 200px;
-    margin-bottom: 16px;
-  }
-
-  .textContainer h3 {
-    font-size: 1.9rem;
-    margin-bottom: 12px;
-  }
-
-  .textContainer p {
-    font-size: 0.9rem;
-    margin-bottom: 24px;
-    line-height: 1.5;
-  }
-
-  .cardButton {
-    padding: 12px 28px;
-    font-size: 0.9rem;
-  }
 }
 
-/* Mobile Medium */
-@media (max-width: 600px) {
-  .growSection {
-    padding: 60px 0;
-  }
-
-  .header {
-    margin-bottom: 20px;
-  }
-
+/* ======================================================= */
+/* ===== PENYESUAIAN UNTUK MOBILE KECIL ===== */
+/* ======================================================= */
+@media (max-width: 430px) {
   .sectionTitle {
-    font-size: 1.8rem;
-  }
-
-  .growCard {
-    min-height: 480px;
-    padding: 25px 20px;
-  }
-
-  .imageContainer {
-    max-width: 280px;
-    height: 170px;
-    margin-bottom: 14px;
-  }
-
-  .textContainer h3 {
     font-size: 1.6rem;
-    margin-bottom: 10px;
   }
-
-  .textContainer p {
-    font-size: 0.85rem;
-    margin-bottom: 20px;
-  }
-
-  .cardButton {
-    padding: 11px 24px;
-    font-size: 0.85rem;
-  }
-}
-
-/* Mobile Small */
-@media (max-width: 480px) {
-  .growSection {
-    padding: 50px 0 60px;
-  }
-
-  .header {
-    margin-bottom: 16px;
-  }
-
-  .sectionTitle {
-    font-size: 1.5rem;
-  }
-
-  .controls {
-    gap: 8px;
-    margin-top: 16px;
-  }
-
-  .navButton {
-    width: 36px;
-    height: 36px;
-    font-size: 1.1rem;
-  }
-
-  .counter {
-    font-size: 0.9rem;
-  }
-
-  .sliderViewport {
-    border-radius: 16px;
-  }
-
-  .growCard {
-    min-height: 450px;
-    padding: 20px 16px;
-    border-radius: 12px;
-  }
-
-  .imageContainer {
-    max-width: 250px;
-    height: 150px;
-    margin-bottom: 12px;
-  }
-
-  .textContainer h3 {
-    font-size: 1.4rem;
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .textContainer p {
-    font-size: 0.8rem;
-    margin-bottom: 18px;
-    line-height: 1.5;
-  }
-
-  .cardButton {
-    padding: 10px 20px;
-    font-size: 0.8rem;
-  }
-}
-
-/* Extra Small Mobile */
-@media (max-width: 360px) {
-  .growSection {
-    padding: 40px 0 50px;
-  }
-
-  .sectionTitle {
-    font-size: 1.3rem;
-  }
-
-  .growCard {
-    min-height: 420px;
-    padding: 16px 12px;
-  }
-
-  .imageContainer {
-    max-width: 220px;
-    height: 130px;
-    margin-bottom: 10px;
-  }
-
-  .textContainer h3 {
-    font-size: 1.2rem;
-    margin-bottom: 6px;
-  }
-
-  .textContainer p {
-    font-size: 0.75rem;
-    margin-bottom: 16px;
-  }
-
-  .cardButton {
-    padding: 9px 16px;
-    font-size: 0.75rem;
-  }
-}
-
-/* Landscape orientation for mobile */
-@media (max-height: 500px) and (orientation: landscape) {
   .growCard {
     min-height: auto;
-    padding: 20px;
+    padding: 24px 20px;
   }
 
+  /* PERBAIKAN JARAK DI SINI */
   .imageContainer {
-    height: 120px;
-    margin-bottom: 10px;
+    height: 170px;
+    margin-bottom: 60px; /* Diberi jarak lebih besar */
   }
 
   .textContainer h3 {
-    font-size: 1.4rem;
-    margin-bottom: 6px;
+    font-size: 1.5rem;
   }
-
   .textContainer p {
-    font-size: 0.8rem;
-    margin-bottom: 12px;
+    font-size: 0.85rem;
   }
 }

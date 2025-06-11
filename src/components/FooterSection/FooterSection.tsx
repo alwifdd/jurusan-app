@@ -17,7 +17,7 @@ const FooterSection: React.FC = () => {
         <div className={styles.footerContent}>
           {/* Brand Section */}
           <div className={styles.brandSection}>
-            <h3 className={styles.brandTitle}>MBTI Explorer</h3>
+            <h3 className={styles.brandTitle}>Jurusanku</h3>
             <p className={styles.brandDescription}>
               Temukan kepribadian sejati Anda melalui tes MBTI yang komprehensif
               dan dapatkan wawasan mendalam tentang tipe kepribadian Anda.
@@ -116,10 +116,10 @@ const FooterSection: React.FC = () => {
                 <div>
                   <p className={styles.contactLabel}>Email</p>
                   <a
-                    href="mailto:Apasih@gmail.com"
+                    href="mailto:jurusanku@gmail.com"
                     className={styles.contactLink}
                   >
-                    Apasih@gmail.com
+                    jurusanku@gmail.com
                   </a>
                 </div>
               </div>
@@ -142,33 +142,6 @@ const FooterSection: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Newsletter Section */}
-        <div className={styles.newsletterSection}>
-          <h4 className={styles.sectionTitle}>Dapatkan Update Terbaru</h4>
-          <p className={styles.newsletterText}>
-            Berlangganan newsletter kami untuk mendapatkan tips pengembangan
-            diri dan update terbaru tentang MBTI.
-          </p>
-          <div className={styles.newsletterForm}>
-            <input
-              type="email"
-              placeholder="Masukkan email Anda"
-              className={styles.emailInput}
-            />
-            <button type="submit" className={styles.subscribeBtn}>
-              <span>Berlangganan</span>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-              </svg>
-            </button>
           </div>
         </div>
 

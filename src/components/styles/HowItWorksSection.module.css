@@ -55,3 +55,54 @@
   display: inline-block;
   box-shadow: 0 4px 14px 0 rgba(251, 191, 36, 0.3);
 }
+
+/* ======================================= */
+/* ===== STYLE UNTUK TAMPILAN MOBILE ===== */
+/* ======================================= */
+@media (max-width: 768px) {
+  .section {
+    /* Kurangi padding section di mobile */
+    padding: 60px 0;
+  }
+
+  .sectionTitle {
+    /* Kecilkan font judul utama */
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+
+  .stepsContainer {
+    /* Ubah alignment agar lebih rapi saat di mobile */
+    justify-content: flex-start;
+    gap: 40px; /* Beri jarak vertikal lebih besar antar step */
+  }
+
+  .stepCard {
+    /* Izinkan step card memenuhi lebar */
+    max-width: 100%;
+    gap: 16px;
+  }
+
+  .stepNumber {
+    /* Kecilkan lingkaran nomor */
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+  }
+
+  .stepText h4 {
+    /* Kecilkan font judul step */
+    font-size: 1.1rem;
+  }
+
+  .stepText p {
+    /* Kecilkan font deskripsi step */
+    font-size: 0.9rem;
+  }
+
+  .sectionButton {
+    /* Kecilkan tombol */
+    font-size: 1rem;
+    padding: 14px 28px;
+  }
+}

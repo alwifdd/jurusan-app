@@ -10,15 +10,12 @@ const AboutSection = () => {
         <div className={styles.textContainer}>
           <h2 className={styles.sectionTitle}>Tentang JurusanKu</h2>
           <p>
-            JurusanKu lahir dari keprihatinan melihat banyaknya pelajar
-            Indonesia yang bingung memilih jurusan kuliah. Kami percaya bahwa
-            setiap individu memiliki keunikan dan potensi yang berbeda-beda.
-          </p>
-          <p>
-            Dengan menggunakan tes kepribadian MBTI yang telah terbukti akurat,
-            kami membantu setiap individu memahami diri mereka sendiri dan
-            menemukan jalur pendidikan yang sesuai dengan karakteristik, minat,
-            dan bakat mereka.
+            JurusanKu hadir sebagai solusi untuk membantu pelajar Indonesia yang
+            masih bingung menentukan jurusan kuliah. Kami percaya bahwa setiap
+            orang memiliki karakter dan potensi unik yang layak dikembangkan.
+            Melalui tes kepribadian MBTI, JurusanKu membantu kamu mengenal diri
+            lebih dalam, sehingga dapat memilih jurusan dan jalur pendidikan
+            yang paling sesuai dengan kepribadian, minat, dan bakatmu.
           </p>
         </div>
         <div className={styles.imageContainer}>

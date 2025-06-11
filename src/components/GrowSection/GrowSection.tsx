@@ -1,16 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import styles from "@/components/styles/GrowSection.module.css";
 
-interface GrowCardProps {
-  title: string;
-  description: string;
-  imageSrc: string;
-  cardClass: string;
-}
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
 
-const growData: GrowCardProps[] = [
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// PERBAIKAN UTAMA DI SINI: Teks deskripsi sudah dilengkapi
+const growData = [
   {
     imageSrc: "/sesi1.png",
     title: "Jangan Salah Pilih Jurusan.",
@@ -35,73 +38,63 @@ const growData: GrowCardProps[] = [
 ];
 
 const GrowSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const totalSlides = growData.length;
-
-  const handleNavClick = (direction: "prev" | "next") => {
-    if (direction === "next") {
-      setCurrentIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
-    } else {
-      setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
-    }
-  };
-
   return (
     <section className={styles.growSection}>
-      <div className={`container ${styles.sliderAreaWrapper}`}>
-        {" "}
-        {/* .sliderAreaWrapper punya position: relative */}
-        <div className={styles.header}>
-          <h2 className={styles.sectionTitle}>Tumbuh dan kembangkan dirimu</h2>
-        </div>
-        <div className={styles.sliderViewport}>
-          <div
-            className={styles.sliderContainer}
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {growData.map((card, index) => (
-              <div key={index} className={styles.slide}>
-                <div className={`${styles.growCard} ${card.cardClass}`}>
-                  <div className={styles.imageContainer}>
-                    <Image
-                      src={card.imageSrc}
-                      alt={card.title}
-                      width={400}
-                      height={250}
-                      style={{ objectFit: "contain" }}
-                    />
-                  </div>
-                  <div className={styles.textContainer}>
-                    <h3>{card.title}</h3>
-                    <p>{card.description}</p>
-                    <a href="#" className={styles.cardButton}>
-                      Mulai
-                    </a>
-                  </div>
-                </div>
+      <div className={styles.header}>
+        <h2 className={styles.sectionTitle}>Tumbuh dan kembangkan dirimu</h2>
+      </div>
+
+      <Swiper
+        modules={[Navigation, Pagination]}
+        slidesPerView={1}
+        spaceBetween={30}
+        centeredSlides={true}
+        loop={true}
+        pagination={{
+          el: `.${styles.swiperPagination}`,
+          clickable: true,
+          renderBullet: (index, className) => {
+            return `<span class="${className} ${styles.swiperBullet}"></span>`;
+          },
+        }}
+        navigation={{
+          nextEl: `.${styles.swiperButtonNext}`,
+          prevEl: `.${styles.swiperButtonPrev}`,
+        }}
+        className={styles.mySwiper}
+      >
+        {growData.map((card, index) => (
+          <SwiperSlide key={index}>
+            <div className={`${styles.growCard} ${card.cardClass}`}>
+              <div className={styles.imageContainer}>
+                <Image
+                  src={card.imageSrc}
+                  alt={card.title}
+                  width={400}
+                  height={250}
+                  style={{ objectFit: "contain" }}
+                />
               </div>
-            ))}
-          </div>
+              <div className={styles.textContainer}>
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+              </div>
+              <a href="#" className={styles.cardButton}>
+                Mulai
+              </a>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Navigasi & Pagination Custom */}
+      <div className={styles.controls}>
+        <div className={`${styles.navButton} ${styles.swiperButtonPrev}`}>
+          &lt;
         </div>
-        {/* Tombol navigasi sekarang di sini, sebagai anak langsung dari .sliderAreaWrapper */}
-        <div className={styles.controls}>
-          <button
-            onClick={() => handleNavClick("prev")}
-            className={styles.navButton}
-          >
-            {" "}
-            &lt;{" "}
-          </button>
-          <span className={styles.counter}>
-            {currentIndex + 1} / {totalSlides}
-          </span>
-          <button
-            onClick={() => handleNavClick("next")}
-            className={styles.navButton}
-          >
-            {" "}
-            &gt;{" "}
-          </button>
+        <div className={styles.swiperPagination}></div>
+        <div className={`${styles.navButton} ${styles.swiperButtonNext}`}>
+          &gt;
         </div>
       </div>
     </section>
