@@ -1,4 +1,4 @@
-//baru // File: src/components/QuizSection/tsx (FINAL LENGKAP)
+// File: src/components/QuizSection/QuizSection.tsx (VERSI FINAL & BENAR)
 
 "use client";
 
@@ -14,15 +14,7 @@ interface Question {
   id: number;
   text: string;
 }
-interface QuizResult {
-  id: number; // Tambahkan id untuk redirect
-  mbtiType: string;
-  description: string;
-  recommendations: {
-    major: string;
-    reasoning: string;
-  }[];
-}
+
 interface ProgressAnswers {
   [questionId: string]: string;
 }
@@ -61,19 +53,25 @@ const QuizSection: React.FC = () => {
       setIsLoading(true);
       setError(null);
 
+      // --- PERBAIKAN SINTAKS PADA BLOK INI ---
       if (isNewStart) {
         try {
           await fetch("/api/test/clear-progress", { method: "POST" });
           restartQuiz();
+          // Ganti URL menjadi /quiz tanpa me-reload halaman
+          router.replace("/quiz", { scroll: false });
         } catch (e) {
           console.error("Failed to clear progress for new test", e);
         }
       }
+      // --- AKHIR PERBAIKAN SINTAKS ---
 
       try {
         const [questionsRes, progressRes] = await Promise.all([
           fetch("/api/test/questions"),
-          !isNewStart ? fetch("/api/test/get-progress") : Promise.resolve(null),
+          !isNewStart
+            ? fetch("/api/test/get-progress", { cache: "no-store" })
+            : Promise.resolve(null),
         ]);
 
         if (!questionsRes.ok) throw new Error("Gagal memuat pertanyaan.");
@@ -90,6 +88,7 @@ const QuizSection: React.FC = () => {
 
           const answeredCount = Object.keys(savedAnswers).length;
           if (
+            answeredCount > 0 &&
             answeredCount < loadedQuestions.length &&
             loadedQuestions.length > 0
           ) {
@@ -103,8 +102,10 @@ const QuizSection: React.FC = () => {
       }
     };
 
-    loadInitialData();
-  }, [status, searchParams]);
+    if (status !== "loading") {
+      loadInitialData();
+    }
+  }, [status, searchParams, router]); // Tambahkan router ke dependency array
 
   useEffect(() => {
     if (
@@ -136,14 +137,7 @@ const QuizSection: React.FC = () => {
   }, [answers, status, isLoading]);
 
   const handleAnswer = (questionId: number, value: string) => {
-    const isAlreadyAnswered = !!answers[questionId.toString()];
     setAnswers((prev) => ({ ...prev, [questionId.toString()]: value }));
-
-    if (!isAlreadyAnswered && currentQuestionIndex < questions.length - 1) {
-      setTimeout(() => {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-      }, 300);
-    }
   };
 
   const handlePreviousQuestion = () => {
@@ -158,14 +152,13 @@ const QuizSection: React.FC = () => {
     }
   };
 
+  // --- PERBAIKAN LOGIKA KELUAR ---
+  // Sekarang hanya menutup modal dan kembali ke home, progress tetap aman tersimpan.
   const handleExitConfirm = () => {
     setIsExitModalOpen(false);
     router.push("/");
   };
-
-  const handleRestartFromSummary = () => {
-    restartQuiz();
-  };
+  // --- AKHIR PERBAIKAN ---
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -182,7 +175,6 @@ const QuizSection: React.FC = () => {
       }
       const resultData = await response.json();
       if (resultData.id) {
-        // Panggil clear progress HANYA setelah submit berhasil
         if (status === "authenticated") {
           await fetch("/api/test/clear-progress", { method: "POST" });
         }
@@ -235,7 +227,9 @@ const QuizSection: React.FC = () => {
       <div className={styles.quizBox}>
         <div className={styles.headerQuiz}>
           <h2 className={styles.quizTitle}>
-            Kuis MBTI ({currentQuestionIndex + 1}/{questions.length})
+            Kuis MBTI (
+            {isQuizComplete ? questions.length : currentQuestionIndex + 1}/
+            {questions.length})
           </h2>
           <button
             onClick={() => setIsExitModalOpen(true)}
@@ -322,10 +316,7 @@ const QuizSection: React.FC = () => {
         onConfirm={handleExitConfirm}
         title="Peringatan"
       >
-        <p>
-          Apakah Anda yakin ingin keluar? Progres sementara Anda pada tes ini
-          akan dihapus.
-        </p>
+        <p>Apakah Anda yakin ingin keluar? Progres Anda akan tersimpan.</p>
       </Modal>
     </div>
   );

@@ -13,16 +13,23 @@
   background: radial-gradient(circle at 18% 41%, #b1cfec 0%, #f2f9fd 100%);
 }
 
-/* Kontainer putih yang membungkus elemen kuis */
+/* src/components/styles/QuizSection.module.css */
 .quizBox {
   background-color: #ffffff;
   border-radius: 24px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-  padding: 2rem 2.5rem;
+  padding: 2.5rem; /* Sesuaikan padding agar lebih seimbang */
   width: 100%;
-  max-width: 650px;
+  max-width: 500px; /* Sedikit lebih kecil agar fokus */
   border: 1px solid #e7eaf3;
   box-sizing: border-box;
+
+  /* === TAMBAHKAN BARIS DI BAWAH INI === */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem; /* Memberi jarak antar elemen */
 }
 
 /* Header di dalam kontainer putih (Judul + Tombol Keluar) */
@@ -211,6 +218,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 .submitButton:hover {
