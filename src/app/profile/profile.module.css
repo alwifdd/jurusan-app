@@ -1,0 +1,189 @@
+/* src/app/profile/profile.module.css */
+
+.pageContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.profileHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1.5rem;
+}
+
+.profileHeader h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.profileHeader p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+}
+
+.profileCard,
+.historyCard {
+  background-color: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 2rem;
+}
+
+.profileCard h2,
+.historyCard h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 0.75rem;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+}
+
+.infoRow:not(:last-child) {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.infoRow strong {
+  color: var(--text-light);
+}
+
+.infoRow span {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.historyList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.historyItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.historyItem:not(:last-child) {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.historyItem:hover {
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+
+.historyInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.historyMbti {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+
+.historyDate {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.viewResultButton {
+  background-color: var(--primary-yellow);
+  color: var(--text-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+}
+
+.viewResultButton:hover {
+  transform: scale(1.05);
+}
+
+.noHistory {
+  color: var(--text-light);
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+/* Tambahkan ini di akhir file profile.module.css */
+.infoValue {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.editButton {
+  background: none;
+  border: none;
+  color: var(--primary-blue);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.editForm {
+  display: flex;
+  gap: 0.5rem;
+}
+.editInput {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.saveButton,
+.cancelButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.saveButton {
+  background-color: var(--primary-blue);
+  color: white;
+}
+.cancelButton {
+  background-color: #e2e8f0;
+  color: #475569;
+}
+.historyActions {
+  display: flex;
+  gap: 0.75rem;
+}
+.deleteButton {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+.deleteButton:hover {
+  text-decoration: underline;
+}

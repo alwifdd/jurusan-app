@@ -113,7 +113,7 @@ export function HeroAnimations({ userCount }: { userCount: number }) {
         </motion.p>
 
         <motion.div variants={itemVariants}>
-          <Link href="/quiz" className={styles.heroButton}>
+          <Link href="/quiz?start=new" className={styles.heroButton}>
             Tes Sekarang!
           </Link>
         </motion.div>

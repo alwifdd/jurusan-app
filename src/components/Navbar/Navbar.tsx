@@ -164,15 +164,15 @@ const Navbar = () => {
                         href="/profile"
                         className={styles.dropdownLink}
                         onClick={() => {
+                          // Tutup semua menu saat link di-klik
                           setIsProfileDropdownOpen(false);
-                          // Close mobile menu if open
-                          if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+                          setIsMobileMenuOpen(false);
                         }}
                       >
                         <span role="img" aria-label="profile icon">
                           👤
-                        </span>{" "}
-                        Akun saya
+                        </span>
+                        <span>Akun saya</span>
                       </Link>
                       <button
                         onClick={() => {

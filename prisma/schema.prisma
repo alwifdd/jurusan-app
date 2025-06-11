@@ -1,13 +1,13 @@
-// prisma/schema.prisma
+// prisma/schema.prisma (VERSI LENGKAP & TERBARU)
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  directUrl         = env("DIRECT_URL") // <-- TAMBAHKAN BARIS INI
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -17,19 +17,19 @@ model User {
   password_hash String?
   provider      String   @default("credentials")
   provider_id   String?  @unique
-  image         String?  // <-- @db.Text sudah dihapus
+  image         String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  answers       UserAnswer[]
-  results       QuizResult[]
+  answers     UserAnswer[]
+  // PERUBAHAN: Menjadi 'quizResults' untuk menandakan bisa lebih dari satu
+  quizResults QuizResult[] 
 }
 
 model Question {
   id        Int      @id @default(autoincrement())
-  text      String   // <-- @db.Text sudah dihapus
+  text      String
   dimension String
-
   answers   UserAnswer[]
 }
 
@@ -48,10 +48,15 @@ model UserAnswer {
 
 model QuizResult {
   id              Int      @id @default(autoincrement())
-  userId          Int
+  userId          Int      // <-- @unique dihapus dari sini
   mbtiType        String
   recommendations Json
   createdAt       DateTime @default(now())
 
+  // PERUBAHAN: Menambahkan kolom baru untuk fitur riwayat
+  name            String?  // Opsional, agar pengguna bisa menamai hasil tesnya
+  isArchived      Boolean  @default(false) // Untuk fitur arsip di masa depan
+
+  // Relasi ke User
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

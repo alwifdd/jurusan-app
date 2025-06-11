@@ -1,33 +1,33 @@
-// File: next.config.ts (atau .js/.mjs)
+// next.config.ts (VERSI FINAL & PALING AMAN)
 
-import type { NextConfig } from "next";
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+});
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https" as const, // Tambahkan 'as const' untuk type safety
+        protocol: "https" as const,
         hostname: "placehold.co",
       },
       {
-        protocol: "https" as const, // Tambahkan 'as const' untuk type safety
+        protocol: "https" as const,
         hostname: "i.pravatar.cc",
       },
       {
-        protocol: "https" as const, // Tambahkan 'as const' untuk type safety
+        protocol: "https" as const,
         hostname: "lh3.googleusercontent.com",
       },
     ],
   },
-
-  // =======================================================
-  // ===== TAMBAHKAN BLOK INI UNTUK SOLUSI DARURAT =====
-  // =======================================================
   eslint: {
-    // Ini akan memberitahu Vercel untuk mengabaikan error ESLint saat build
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true, // Biarkan ini aktif untuk sementara
   },
-  // =======================================================
 };
 
-export default nextConfig;
+module.exports = withPWA(nextConfig);

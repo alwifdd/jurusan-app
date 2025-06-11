@@ -1,0 +1,47 @@
+{
+  "name": "JurusanKu - Temukan Jurusanmu",
+  "short_name": "JurusanKu",
+  "description": "Tes minat bakat MBTI untuk menemukan jurusan kuliah yang paling cocok dengan kepribadianmu.",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "264x176",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#f0f7ff",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+
+  "shortcuts": [
+    {
+      "name": "Mulai Tes Sekarang",
+      "short_name": "Mulai Tes",
+      "description": "Mulai tes MBTI untuk menemukan jurusan impianmu.",
+      "url": "/quiz?start=new",
+      "icons": [{ "src": "/icons/icon-shortcut-96x96.png", "sizes": "96x96" }]
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot-mobile.png",
+      "type": "image/png",
+      "sizes": "658x1434",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshots/screenshot-desktop.png",
+      "type": "image/png",
+      "sizes": "2854x1616",
+      "form_factor": "wide"
+    }
+  ]
+}

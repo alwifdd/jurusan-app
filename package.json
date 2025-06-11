@@ -7,8 +7,8 @@
     "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:migrate": "dotenv -e .env.local -- npx prisma migrate dev",
-    "db:seed": "dotenv -e .env.local -- ts-node --project prisma/tsconfig.seed.json prisma/seed.ts"
+    "prisma:migrate": "npx prisma migrate dev",
+    "db:seed": "ts-node --project prisma/tsconfig.seed.json prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.9.0",
@@ -17,6 +17,7 @@
     "framer-motion": "^12.12.2",
     "next": "15.1.8",
     "next-auth": "^4.24.11",
+    "next-pwa": "^5.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-type-animation": "^3.2.0",
